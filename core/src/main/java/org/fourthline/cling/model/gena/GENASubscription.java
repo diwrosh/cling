@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.gena;
+package org.teleal.cling.model.gena;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.state.StateVariableValue;
-import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.state.StateVariableValue;
+import org.teleal.cling.model.types.UnsignedIntegerFourBytes;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Map;
  * <p>
  * For every subscription, no matter if it's an incoming subscription to a local service,
  * or a local control point subscribing to a remote servce, an instance is maintained by
- * the {@link org.fourthline.cling.registry.Registry}.
+ * the {@link org.teleal.cling.registry.Registry}.
  * </p>
  *
  * @author Christian Bauer
@@ -45,7 +45,7 @@ public abstract class GENASubscription<S extends Service> {
     protected Map<String, StateVariableValue<S>> currentValues = new LinkedHashMap();
 
     /**
-     * Defaults to {@link org.fourthline.cling.model.Constants#DEFAULT_SUBSCRIPTION_DURATION_SECONDS}.
+     * Defaults to {@link org.teleal.cling.model.Constants#DEFAULT_SUBSCRIPTION_DURATION_SECONDS}.
      */
     protected GENASubscription(S  service) {
         this.service = service;

@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
-import org.fourthline.cling.transport.Router;
+import org.teleal.cling.transport.Router;
 
 import java.net.InetAddress;
 
@@ -33,8 +33,8 @@ import java.net.InetAddress;
  * freeing up the receiving thread immediately.
  * </p>
  * <p>
- * The {@link UpnpStream} then creates a {@link org.fourthline.cling.model.message.StreamRequestMessage}
- * and calls the {@link UpnpStream#process(org.fourthline.cling.model.message.StreamRequestMessage)}
+ * The {@link UpnpStream} then creates a {@link org.teleal.cling.model.message.StreamRequestMessage}
+ * and calls the {@link UpnpStream#process(org.teleal.cling.model.message.StreamRequestMessage)}
  * method. The {@link UpnpStream} then returns the response to the network client.
  * </p>
  * <p>
@@ -77,7 +77,7 @@ public interface StreamServer<C extends StreamServerConfiguration> extends Runna
      * Configures the service and starts any listening sockets.
      *
      * @param bindAddress The address to bind any sockets on.
-     * @param router The router which handles the incoming {@link org.fourthline.cling.transport.spi.UpnpStream}.
+     * @param router The router which handles the incoming {@link org.teleal.cling.transport.spi.UpnpStream}.
      * @throws InitializationException If the service could not be initialized or started.
      */
     public void init(InetAddress bindAddress, Router router) throws InitializationException;

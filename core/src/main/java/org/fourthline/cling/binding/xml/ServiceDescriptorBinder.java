@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.xml;
+package org.teleal.cling.binding.xml;
 
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.meta.Service;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.meta.Service;
 import org.w3c.dom.Document;
 
 /**

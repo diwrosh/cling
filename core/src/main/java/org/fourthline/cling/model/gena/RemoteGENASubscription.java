@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.gena;
+package org.teleal.cling.model.gena;
 
-import org.fourthline.cling.model.Location;
-import org.fourthline.cling.model.Namespace;
-import org.fourthline.cling.model.NetworkAddress;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.meta.RemoteService;
-import org.fourthline.cling.model.state.StateVariableValue;
-import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
+import org.teleal.cling.model.Location;
+import org.teleal.cling.model.Namespace;
+import org.teleal.cling.model.NetworkAddress;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.meta.RemoteService;
+import org.teleal.cling.model.state.StateVariableValue;
+import org.teleal.cling.model.types.UnsignedIntegerFourBytes;
 
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
@@ -118,6 +118,8 @@ public abstract class RemoteGENASubscription extends GENASubscription<RemoteServ
 
         eventReceived();
     }
+    
+    public abstract void invalidXMLException(String xml, Exception e);
 
     public abstract void failed(UpnpResponse responseStatus);
 

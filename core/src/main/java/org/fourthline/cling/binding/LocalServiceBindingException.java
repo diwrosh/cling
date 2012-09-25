@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding;
+package org.teleal.cling.binding;
 
 /**
- * Thrown when reading/writing {@link org.fourthline.cling.model.meta.LocalService} metadata failed.
+ * Thrown when reading/writing {@link org.teleal.cling.model.meta.LocalService} metadata failed.
  *
  * @author Christian Bauer
  */

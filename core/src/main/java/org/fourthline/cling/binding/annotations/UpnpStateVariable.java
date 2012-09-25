@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.annotations;
+package org.teleal.cling.binding.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

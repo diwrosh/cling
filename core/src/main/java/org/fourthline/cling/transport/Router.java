@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport;
+package org.teleal.cling.transport;
 
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.model.NetworkAddress;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.transport.spi.NetworkAddressFactory;
-import org.fourthline.cling.transport.spi.UpnpStream;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.model.NetworkAddress;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.transport.spi.NetworkAddressFactory;
+import org.teleal.cling.transport.spi.UpnpStream;
 
 import java.net.InetAddress;
 import java.util.List;
@@ -34,18 +34,18 @@ import java.util.List;
  * Interface of the network transport layer.
  * <p>
  * Encapsulates the transport layer and provides methods to the upper layers for
- * sending UPnP stream (HTTP) {@link org.fourthline.cling.model.message.StreamRequestMessage}s,
- * sending (UDP) datagram {@link org.fourthline.cling.model.message.OutgoingDatagramMessage}s,
+ * sending UPnP stream (HTTP) {@link org.teleal.cling.model.message.StreamRequestMessage}s,
+ * sending (UDP) datagram {@link org.teleal.cling.model.message.OutgoingDatagramMessage}s,
  * as well as broadcasting bytes to all LAN participants.
  * </p>
  * <p>
  * A router also maintains listening sockets and services, for incoming UDP unicast/multicast
- * {@link org.fourthline.cling.model.message.IncomingDatagramMessage} and TCP
- * {@link org.fourthline.cling.transport.spi.UpnpStream}s. An implementation of this interface
+ * {@link org.teleal.cling.model.message.IncomingDatagramMessage} and TCP
+ * {@link org.teleal.cling.transport.spi.UpnpStream}s. An implementation of this interface
  * handles these messages, e.g. by selecting and executing the right protocol.
  * </p>
  *
- * @see org.fourthline.cling.protocol.ProtocolFactory
+ * @see org.teleal.cling.protocol.ProtocolFactory
  *
  * @author Christian Bauer
  */

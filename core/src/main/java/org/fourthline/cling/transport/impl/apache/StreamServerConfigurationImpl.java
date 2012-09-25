@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl.apache;
+package org.teleal.cling.transport.impl.apache;
 
-import org.fourthline.cling.transport.spi.StreamServerConfiguration;
+import org.teleal.cling.transport.spi.StreamServerConfiguration;
 
 /**
  * Settings for the Apache HTTP Components implementation.

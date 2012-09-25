@@ -15,23 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
-import org.fourthline.cling.model.Namespace;
-import org.fourthline.cling.model.profile.ControlPointInfo;
-import org.fourthline.cling.model.profile.DeviceDetailsProvider;
-import org.fourthline.cling.model.resource.DeviceDescriptorResource;
-import org.fourthline.cling.model.resource.IconResource;
-import org.fourthline.cling.model.resource.ServiceControlResource;
-import org.fourthline.cling.model.resource.ServiceDescriptorResource;
-import org.fourthline.cling.model.resource.ServiceEventSubscriptionResource;
-import org.fourthline.cling.model.resource.Resource;
-import org.fourthline.cling.model.ValidationError;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.Namespace;
+import org.teleal.cling.model.profile.ControlPointInfo;
+import org.teleal.cling.model.profile.DeviceDetailsProvider;
+import org.teleal.cling.model.resource.DeviceDescriptorResource;
+import org.teleal.cling.model.resource.IconResource;
+import org.teleal.cling.model.resource.ServiceControlResource;
+import org.teleal.cling.model.resource.ServiceDescriptorResource;
+import org.teleal.cling.model.resource.ServiceEventSubscriptionResource;
+import org.teleal.cling.model.resource.Resource;
+import org.teleal.cling.model.ValidationError;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -47,6 +47,8 @@ import java.util.List;
 public class LocalDevice extends Device<DeviceIdentity, LocalDevice, LocalService> {
 
     final private DeviceDetailsProvider deviceDetailsProvider;
+    
+    private boolean isAdvertising = false;
 
     public LocalDevice(DeviceIdentity identity) throws ValidationException {
         super(identity);
@@ -310,6 +312,14 @@ public class LocalDevice extends Device<DeviceIdentity, LocalDevice, LocalServic
     @Override
     public LocalDevice findDevice(UDN udn) {
         return find(udn, this);
+    }
+    
+    public void setAdvertising(boolean b) {
+    	isAdvertising = b;
+    }
+    
+    public boolean isAdvertising() {
+    	return isAdvertising;
     }
 
 }

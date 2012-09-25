@@ -15,25 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.sync;
+package org.teleal.cling.protocol.sync;
 
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.gena.IncomingSubscribeResponseMessage;
-import org.fourthline.cling.model.message.gena.OutgoingSubscribeRequestMessage;
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.protocol.SendingSync;
-
+import java.net.URL;
+import java.util.List;
 import java.util.logging.Logger;
+
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.gena.IncomingSubscribeResponseMessage;
+import org.teleal.cling.model.message.gena.OutgoingSubscribeRequestMessage;
+import org.teleal.cling.protocol.SendingSync;
 
 /**
  * Establishing a GENA event subscription with a remote host.
  * <p>
- * Calls the {@link org.fourthline.cling.model.gena.RemoteGENASubscription#establish()} method
+ * Calls the {@link org.teleal.cling.model.gena.RemoteGENASubscription#establish()} method
  * if the subscription request was responded to correctly.
  * </p>
  * <p>
- * The {@link org.fourthline.cling.model.gena.RemoteGENASubscription#fail(org.fourthline.cling.model.message.UpnpResponse)}
+ * The {@link org.teleal.cling.model.gena.RemoteGENASubscription#fail(org.teleal.cling.model.message.UpnpResponse)}
  * method will be called if the request failed. No response from the remote host is indicated with
  * a <code>null</code> argument value. Note that this is also the response if the subscription has
  * to be aborted early, when no local stream server for callback URL creation is available. This is
@@ -61,6 +63,19 @@ public class SendingSubscribe extends SendingSync<OutgoingSubscribeRequestMessag
                       )
               )
         );
+        
+        List<URL> urls = subscription.getEventCallbackURLs(
+                upnpService.getRouter().getActiveStreamServers(
+                        subscription.getService().getDevice().getIdentity().getDiscoveredOnLocalAddress()
+                ),
+                upnpService.getConfiguration().getNamespace()
+        );
+        
+        /*
+        for(URL url : urls) {
+        	log.info("callback URL: " + url);
+        }
+        */
 
         this.subscription = subscription;
     }

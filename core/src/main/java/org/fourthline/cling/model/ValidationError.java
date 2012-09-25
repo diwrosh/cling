@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
 /**
  * Representing an integrity rule validation failure.

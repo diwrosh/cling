@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.controlpoint.event;
+package org.teleal.cling.controlpoint.event;
 
-import org.fourthline.cling.model.message.header.MXHeader;
-import org.fourthline.cling.model.message.header.STAllHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.message.header.MXHeader;
+import org.teleal.cling.model.message.header.STAllHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
 
 /**
  * @author Christian Bauer

@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
 
-import org.fourthline.cling.model.Namespace;
-import org.fourthline.cling.model.resource.ServiceEventCallbackResource;
-import org.fourthline.cling.model.resource.Resource;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
-import org.seamless.util.URIUtil;
+import org.teleal.cling.model.Namespace;
+import org.teleal.cling.model.resource.ServiceEventCallbackResource;
+import org.teleal.cling.model.resource.Resource;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.common.util.URIUtil;
 
 import java.net.URI;
 import java.net.URL;

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.discovery;
+package org.teleal.cling.model.message.discovery;
 
-import org.fourthline.cling.model.Location;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.types.NotificationSubtype;
-import org.fourthline.cling.model.message.header.DeviceTypeHeader;
-import org.fourthline.cling.model.message.header.DeviceUSNHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.Location;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.types.NotificationSubtype;
+import org.teleal.cling.model.message.header.DeviceTypeHeader;
+import org.teleal.cling.model.message.header.DeviceUSNHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
 
 /**
  * @author Christian Bauer

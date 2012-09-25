@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message;
+package org.teleal.cling.model.message;
 
 /**
  * A response message, with a status code and message (OK, NOT FOUND, etc).

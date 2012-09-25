@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.async;
+package org.teleal.cling.protocol.async;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.types.NotificationSubtype;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.types.NotificationSubtype;
 
 import java.util.logging.Logger;
 

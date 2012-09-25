@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.resource;
+package org.teleal.cling.model.resource;
 
-import org.fourthline.cling.model.meta.Icon;
+import org.teleal.cling.model.meta.Icon;
 
 import java.net.URI;
 

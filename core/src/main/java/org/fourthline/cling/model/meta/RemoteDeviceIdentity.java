@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
-import org.fourthline.cling.model.ModelUtil;
-import org.fourthline.cling.model.message.discovery.IncomingNotificationRequest;
-import org.fourthline.cling.model.message.discovery.IncomingSearchResponse;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.cling.model.message.discovery.IncomingNotificationRequest;
+import org.teleal.cling.model.message.discovery.IncomingSearchResponse;
+import org.teleal.cling.model.types.UDN;
 
 import java.net.InetAddress;
 import java.net.URL;

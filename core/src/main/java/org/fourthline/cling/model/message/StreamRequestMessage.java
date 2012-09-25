@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message;
+package org.teleal.cling.model.message;
 
 import java.net.URI;
 import java.net.URL;
@@ -26,6 +26,8 @@ import java.net.URL;
  * @author Christian Bauer
  */
 public class StreamRequestMessage extends UpnpMessage<UpnpRequest> {
+	
+	private String localAddress;
 
     public StreamRequestMessage(StreamRequestMessage source) {
         super(source);
@@ -72,5 +74,17 @@ public class StreamRequestMessage extends UpnpMessage<UpnpRequest> {
     public URI getUri() {
         return getOperation().getURI();
     }
+    
+    public void setUri(URI uri) {
+        getOperation().setUri(uri);
+    }
+
+	public void setLocalAddress(String localAddress) {
+		this.localAddress = localAddress;
+	}
+	
+	public String getLocalAddress() {
+		return localAddress;
+	}
     
 }

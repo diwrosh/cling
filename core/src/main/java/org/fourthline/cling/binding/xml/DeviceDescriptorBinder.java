@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.xml;
+package org.teleal.cling.binding.xml;
 
-import org.fourthline.cling.model.Namespace;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.profile.ControlPointInfo;
+import org.teleal.cling.model.Namespace;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.profile.ControlPointInfo;
 import org.w3c.dom.Document;
 
 /**

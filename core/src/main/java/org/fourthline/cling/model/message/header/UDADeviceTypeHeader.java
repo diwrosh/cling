@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.header;
+package org.teleal.cling.model.message.header;
 
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.UDADeviceType;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.UDADeviceType;
 
 import java.net.URI;
 

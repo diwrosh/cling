@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.control;
+package org.teleal.cling.model.message.control;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.QueryStateVariableAction;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.header.ContentTypeHeader;
-import org.fourthline.cling.model.message.header.EXTHeader;
-import org.fourthline.cling.model.message.header.ServerHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.QueryStateVariableAction;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.header.ContentTypeHeader;
+import org.teleal.cling.model.message.header.EXTHeader;
+import org.teleal.cling.model.message.header.ServerHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
 
 /**
  * @author Christian Bauer

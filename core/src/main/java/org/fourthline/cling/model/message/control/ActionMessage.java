@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.control;
+package org.teleal.cling.model.message.control;
 
-import org.fourthline.cling.model.message.UpnpMessage;
+import org.teleal.cling.model.message.UpnpMessage;
 
 /**
  * A narrowing interface for action request/response messages.

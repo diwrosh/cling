@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.action;
+package org.teleal.cling.model.action;
 
-import org.fourthline.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.LocalService;
 
 /**
- * Executes an {@link org.fourthline.cling.model.action.ActionInvocation}.
+ * Executes an {@link org.teleal.cling.model.action.ActionInvocation}.
  *
  * @author Christian Bauer
  */

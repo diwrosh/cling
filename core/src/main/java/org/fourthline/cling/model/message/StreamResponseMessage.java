@@ -15,11 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message;
+package org.teleal.cling.model.message;
 
-import org.fourthline.cling.model.message.header.ContentTypeHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.seamless.util.MimeType;
+import java.io.InputStream;
+
+import org.teleal.cling.model.message.header.ContentTypeHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.common.util.MimeType;
 
 /**
  * A TCP (HTTP) stream response message.
@@ -76,5 +78,13 @@ public class StreamResponseMessage extends UpnpMessage<UpnpResponse> {
     public StreamResponseMessage(byte[] body, MimeType mimeType) {
         this(body, new ContentTypeHeader(mimeType));
     }
+    
+    public StreamResponseMessage(InputStream body, MimeType mimeType, long contentLength) {
+    	 super(new UpnpResponse(UpnpResponse.Status.OK),BodyType.STREAM, body);
+    	 getHeaders().add(UpnpHeader.Type.CONTENT_TYPE, new ContentTypeHeader(mimeType));
+    	 this.contentLength = contentLength;
+    }
+
+	
 
 }

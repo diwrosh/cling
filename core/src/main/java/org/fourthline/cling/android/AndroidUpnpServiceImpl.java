@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.android;
+package org.teleal.cling.android;
 
 import android.app.Service;
 import android.content.Context;
@@ -24,23 +24,23 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.UpnpServiceImpl;
-import org.fourthline.cling.controlpoint.ControlPoint;
-import org.fourthline.cling.model.ModelUtil;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.registry.Registry;
-import org.fourthline.cling.transport.Router;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.UpnpServiceImpl;
+import org.teleal.cling.controlpoint.ControlPoint;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.registry.Registry;
+import org.teleal.cling.transport.Router;
 
 /**
  * Provides a UPnP stack with Android configuration (WiFi network only) as an application service component.
  * <p>
- * Sends a search for all UPnP devices on instantiation. See the {@link org.fourthline.cling.android.AndroidUpnpService}
+ * Sends a search for all UPnP devices on instantiation. See the {@link org.teleal.cling.android.AndroidUpnpService}
  * interface for a usage example.
  * </p>
  * <p/>
- * Override the {@link #createRouter(org.fourthline.cling.UpnpServiceConfiguration, org.fourthline.cling.protocol.ProtocolFactory, android.net.wifi.WifiManager, android.net.ConnectivityManager)}
+ * Override the {@link #createRouter(org.teleal.cling.UpnpServiceConfiguration, org.teleal.cling.protocol.ProtocolFactory, android.net.wifi.WifiManager, android.net.ConnectivityManager)}
  * and {@link #createConfiguration(android.net.wifi.WifiManager)} methods to customize the service.
  *
  * @author Christian Bauer

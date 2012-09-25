@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.gena;
+package org.teleal.cling.model.message.gena;
 
-import org.fourthline.cling.model.meta.RemoteService;
-import org.fourthline.cling.model.state.StateVariableValue;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.message.header.SubscriptionIdHeader;
-import org.fourthline.cling.model.message.header.NTEventHeader;
-import org.fourthline.cling.model.message.header.NTSHeader;
-import org.fourthline.cling.model.message.header.EventSequenceHeader;
-import org.fourthline.cling.model.types.NotificationSubtype;
-import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
+import org.teleal.cling.model.meta.RemoteService;
+import org.teleal.cling.model.state.StateVariableValue;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.message.header.SubscriptionIdHeader;
+import org.teleal.cling.model.message.header.NTEventHeader;
+import org.teleal.cling.model.message.header.NTSHeader;
+import org.teleal.cling.model.message.header.EventSequenceHeader;
+import org.teleal.cling.model.types.NotificationSubtype;
+import org.teleal.cling.model.types.UnsignedIntegerFourBytes;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class IncomingEventRequestMessage extends StreamRequestMessage {
 
     /**
      * @return <code>true</code> if this message has an NT header, and NTS header
-     *         with value {@link org.fourthline.cling.model.types.NotificationSubtype#PROPCHANGE}.
+     *         with value {@link org.teleal.cling.model.types.NotificationSubtype#PROPCHANGE}.
      */
     public boolean hasValidNotificationHeaders() {
         NTEventHeader ntHeader = getHeaders().getFirstHeader(UpnpHeader.Type.NT, NTEventHeader.class);

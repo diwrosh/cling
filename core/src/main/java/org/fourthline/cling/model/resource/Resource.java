@@ -15,16 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.resource;
+package org.teleal.cling.model.resource;
 
-import org.fourthline.cling.model.ExpirationDetails;
+import org.teleal.cling.model.ExpirationDetails;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 /**
- * An addressable object, stored, managed, and accessible through the {@link org.fourthline.cling.registry.Registry}.
+ * An addressable object, stored, managed, and accessible through the {@link org.teleal.cling.registry.Registry}.
  *
  * @param <M> The type of the model object.
  *

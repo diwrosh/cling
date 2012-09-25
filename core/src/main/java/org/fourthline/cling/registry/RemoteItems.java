@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
-import org.fourthline.cling.model.resource.Resource;
-import org.fourthline.cling.model.gena.CancelReason;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.model.meta.RemoteDeviceIdentity;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.resource.Resource;
+import org.teleal.cling.model.gena.CancelReason;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.RemoteDeviceIdentity;
+import org.teleal.cling.model.types.UDN;
 
 import java.util.ArrayList;
 import java.util.HashMap;

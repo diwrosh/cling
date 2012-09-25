@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry.event;
+package org.teleal.cling.registry.event;
 
-import org.fourthline.cling.model.meta.Device;
+import org.teleal.cling.model.meta.Device;
 
 /**
  * An observable event for CDI containers.

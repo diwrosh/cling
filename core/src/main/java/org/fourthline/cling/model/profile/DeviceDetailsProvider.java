@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.profile;
+package org.teleal.cling.model.profile;
 
-import org.fourthline.cling.model.meta.DeviceDetails;
+import org.teleal.cling.model.meta.DeviceDetails;
 
 /**
  * Provides custom device details metadata based on control point profile.
  * <p>
  * Use this instead of {@link DeviceDetails} when you create a
- * {@link org.fourthline.cling.model.meta.LocalDevice} if dynamic metadata is
+ * {@link org.teleal.cling.model.meta.LocalDevice} if dynamic metadata is
  * required - e.g. when your control points expect different DLNA capabilities
  * or if they are otherwise incompatible with the standard metadata of the
  * service you provide. You can then provide custom metadata for each

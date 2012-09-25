@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpHeaders;
-import org.fourthline.cling.model.message.UpnpMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.transport.spi.InitializationException;
-import org.fourthline.cling.transport.spi.StreamClient;
-import org.seamless.http.Headers;
-import org.seamless.util.io.IO;
-import org.seamless.util.URIUtil;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpHeaders;
+import org.teleal.cling.model.message.UpnpMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.transport.spi.InitializationException;
+import org.teleal.cling.transport.spi.StreamClient;
+import org.teleal.common.http.Headers;
+import org.teleal.common.io.IO;
+import org.teleal.common.util.URIUtil;
 import sun.net.www.protocol.http.Handler;
 
 import java.io.IOException;
@@ -96,7 +96,7 @@ public class StreamClientImpl implements StreamClient {
                 throw new InitializationException(
                         "URLStreamHandlerFactory already set for this JVM." +
                                 " Can't use bundled default client based on JDK's HTTPURLConnection." +
-                                " Switch to org.fourthline.cling.transport.impl.apache.StreamClientImpl, see manual."
+                                " Switch to org.teleal.cling.transport.impl.apache.StreamClientImpl, see manual."
                 );
             }
             System.setProperty(HACK_STREAM_HANDLER_SYSTEM_PROPERTY, "alreadyWorkedAroundTheEvilJDK");

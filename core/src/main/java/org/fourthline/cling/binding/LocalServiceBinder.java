@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding;
+package org.teleal.cling.binding;
 
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
 
 /**
- * Reads {@link org.fourthline.cling.model.meta.LocalService} metadata given a Java class.
+ * Reads {@link org.teleal.cling.model.meta.LocalService} metadata given a Java class.
  *
  * @author Christian Bauer
  */

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
-import org.fourthline.cling.transport.Router;
-import org.fourthline.cling.transport.spi.DatagramIO;
-import org.fourthline.cling.transport.spi.DatagramProcessor;
-import org.fourthline.cling.transport.spi.InitializationException;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.transport.Router;
+import org.teleal.cling.transport.spi.DatagramIO;
+import org.teleal.cling.transport.spi.DatagramProcessor;
+import org.teleal.cling.transport.spi.InitializationException;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -84,6 +84,7 @@ public class DatagramIOImpl implements DatagramIO<DatagramIOConfigurationImpl> {
             // back via UDP unicast to port 1900... so we use an ephemeral port
             log.info("Creating bound socket (for datagram input/output) on: " + bindAddress);
             localAddress = new InetSocketAddress(bindAddress, 0);
+
             socket = new MulticastSocket(localAddress);
             socket.setTimeToLive(configuration.getTimeToLive());
             socket.setReceiveBufferSize(262144); // Keep a backlog of incoming datagrams if we are not fast enough
@@ -155,7 +156,8 @@ public class DatagramIOImpl implements DatagramIO<DatagramIOConfigurationImpl> {
         } catch (RuntimeException ex) {
             throw ex;
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
+        	log.severe("Exception sending datagram to: " + datagram.getAddress() + ": " + ex);
+        	//throw new RuntimeException(ex);
         }
     }
 }

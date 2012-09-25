@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.sync;
+package org.teleal.cling.protocol.sync;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.gena.CancelReason;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.gena.IncomingSubscribeResponseMessage;
-import org.fourthline.cling.model.message.gena.OutgoingRenewalRequestMessage;
-import org.fourthline.cling.protocol.SendingSync;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.gena.CancelReason;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.gena.IncomingSubscribeResponseMessage;
+import org.teleal.cling.model.message.gena.OutgoingRenewalRequestMessage;
+import org.teleal.cling.protocol.SendingSync;
 
 import java.util.logging.Logger;
 
@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  * This protocol is executed periodically by the local registry, for any established GENA
  * subscription to a remote service. If renewal failed, the subscription will be removed
  * from the registry and the
- * {@link org.fourthline.cling.model.gena.RemoteGENASubscription#end(org.fourthline.cling.model.gena.CancelReason, org.fourthline.cling.model.message.UpnpResponse)}
+ * {@link org.teleal.cling.model.gena.RemoteGENASubscription#end(org.teleal.cling.model.gena.CancelReason, org.teleal.cling.model.message.UpnpResponse)}
  * method will be called. The <code>RENEWAL_FAILED</code> reason will be used, however,
  * the response might be <code>null</code> if no response was received from the remote host.
  * </p>

@@ -15,23 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol;
+package org.teleal.cling.protocol;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.binding.xml.DescriptorBindingException;
-import org.fourthline.cling.binding.xml.DeviceDescriptorBinder;
-import org.fourthline.cling.binding.xml.ServiceDescriptorBinder;
-import org.fourthline.cling.model.ValidationError;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.meta.Icon;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.model.meta.RemoteService;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.registry.RegistrationException;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.binding.xml.DescriptorBindingException;
+import org.teleal.cling.binding.xml.DeviceDescriptorBinder;
+import org.teleal.cling.binding.xml.ServiceDescriptorBinder;
+import org.teleal.cling.model.ValidationError;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.meta.Icon;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.RemoteService;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.registry.RegistrationException;
+import org.teleal.common.util.Exceptions;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,13 +46,13 @@ import java.util.logging.Logger;
  * <p>
  * This implementation encapsulates all steps which are necessary to create a fully usable and populated
  * device metadata graph of a particular UPnP device. It starts with an unhydrated and typically just
- * discovered {@link org.fourthline.cling.model.meta.RemoteDevice}, the only property that has to be available is
- * its {@link org.fourthline.cling.model.meta.RemoteDeviceIdentity}.
+ * discovered {@link org.teleal.cling.model.meta.RemoteDevice}, the only property that has to be available is
+ * its {@link org.teleal.cling.model.meta.RemoteDeviceIdentity}.
  * </p>
  * <p>
  * This protocol implementation will then retrieve the device's XML descriptor, parse it, and retrieve and
  * parse all service descriptors until all device and service metadata has been retrieved. The fully
- * hydrated device is then added to the {@link org.fourthline.cling.registry.Registry}.
+ * hydrated device is then added to the {@link org.teleal.cling.registry.Registry}.
  * </p>
  * <p>
  * Any descriptor retrieval, parsing, or validation error of the metadata will abort this protocol
@@ -120,20 +120,17 @@ public class RetrieveRemoteDescriptors implements Runnable {
     	
     	StreamRequestMessage deviceDescRetrievalMsg;
     	StreamResponseMessage deviceDescMsg;
-
     	try {
-    		
     		deviceDescRetrievalMsg =
-                new StreamRequestMessage(UpnpRequest.Method.GET, rd.getIdentity().getDescriptorURL());
+    				new StreamRequestMessage(UpnpRequest.Method.GET, rd.getIdentity().getDescriptorURL());
 
     		log.fine("Sending device descriptor retrieval message: " + deviceDescRetrievalMsg);
-            deviceDescMsg = getUpnpService().getRouter().send(deviceDescRetrievalMsg);
-            
+    		deviceDescMsg = getUpnpService().getRouter().send(deviceDescRetrievalMsg);
     	} catch(IllegalArgumentException e) {
-    		// UpnpRequest constructor can throw IllegalArgumentException on invalid URI
-    		// IllegalArgumentException can also be thrown by Appache HttpClient on blank URI in send()
-            log.warning("Device descriptor retrieval failed: " + e.getMessage());
-            return ;
+    		// UpnpRequest constructor can throw IllegalArgumentException on invalid URI in StreamRequestMessage constructor
+    		// can also be thrown by send() by apache http client on blank URI.
+    		log.warning("Device descriptor retrieval failed: " + e.getMessage() + ", descriptor URL: " + rd.getIdentity().getDescriptorURL());
+    		return ;
     	}
 
 
@@ -271,7 +268,7 @@ public class RetrieveRemoteDescriptors implements Runnable {
     	try {
     		descriptorURL = service.getDevice().normalizeURI(service.getDescriptorURI());
     	}  catch(IllegalArgumentException e) {
-    		log.warning("Could not normalize service descriptor URL: " + service.getDescriptorURI());
+            log.warning("Could not normalize service descriptor URL: " + service.getDescriptorURI());
     		return null;
     	}
     	

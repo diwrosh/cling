@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling;
+package org.teleal.cling;
 
-import org.fourthline.cling.binding.xml.DeviceDescriptorBinder;
-import org.fourthline.cling.binding.xml.ServiceDescriptorBinder;
-import org.fourthline.cling.model.Namespace;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.transport.spi.DatagramIO;
-import org.fourthline.cling.transport.spi.DatagramProcessor;
-import org.fourthline.cling.transport.spi.GENAEventProcessor;
-import org.fourthline.cling.transport.spi.MulticastReceiver;
-import org.fourthline.cling.transport.spi.NetworkAddressFactory;
-import org.fourthline.cling.transport.spi.SOAPActionProcessor;
-import org.fourthline.cling.transport.spi.StreamClient;
-import org.fourthline.cling.transport.spi.StreamServer;
+import org.teleal.cling.binding.xml.DeviceDescriptorBinder;
+import org.teleal.cling.binding.xml.ServiceDescriptorBinder;
+import org.teleal.cling.model.Namespace;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.transport.spi.DatagramIO;
+import org.teleal.cling.transport.spi.DatagramProcessor;
+import org.teleal.cling.transport.spi.GENAEventProcessor;
+import org.teleal.cling.transport.spi.MulticastReceiver;
+import org.teleal.cling.transport.spi.NetworkAddressFactory;
+import org.teleal.cling.transport.spi.SOAPActionProcessor;
+import org.teleal.cling.transport.spi.StreamClient;
+import org.teleal.cling.transport.spi.StreamServer;
 
 import java.util.concurrent.Executor;
 
@@ -36,7 +36,7 @@ import java.util.concurrent.Executor;
  * Shared configuration data of the UPnP stack..
  * <p>
  * This interface offers methods for retrieval of configuration data by the
- * {@link org.fourthline.cling.transport.Router} and the {@link org.fourthline.cling.registry.Registry},
+ * {@link org.teleal.cling.transport.Router} and the {@link org.teleal.cling.registry.Registry},
  * as well as other parts of the UPnP stack.
  * </p>
  * <p>
@@ -49,45 +49,45 @@ import java.util.concurrent.Executor;
 public interface UpnpServiceConfiguration {
 
     /**
-     * @return A new instance of the {@link org.fourthline.cling.transport.spi.NetworkAddressFactory} interface.
+     * @return A new instance of the {@link org.teleal.cling.transport.spi.NetworkAddressFactory} interface.
      */
     public NetworkAddressFactory createNetworkAddressFactory();
 
     /**
-     * @return The shared implementation of {@link org.fourthline.cling.transport.spi.DatagramProcessor}.
+     * @return The shared implementation of {@link org.teleal.cling.transport.spi.DatagramProcessor}.
      */
     public DatagramProcessor getDatagramProcessor();
 
     /**
-     * @return The shared implementation of {@link org.fourthline.cling.transport.spi.SOAPActionProcessor}.
+     * @return The shared implementation of {@link org.teleal.cling.transport.spi.SOAPActionProcessor}.
      */
     public SOAPActionProcessor getSoapActionProcessor();
 
     /**
-     * @return The shared implementation of {@link org.fourthline.cling.transport.spi.GENAEventProcessor}.
+     * @return The shared implementation of {@link org.teleal.cling.transport.spi.GENAEventProcessor}.
      */
     public GENAEventProcessor getGenaEventProcessor();
 
     /**
-     * @return A new instance of the {@link org.fourthline.cling.transport.spi.StreamClient} interface.
+     * @return A new instance of the {@link org.teleal.cling.transport.spi.StreamClient} interface.
      */
     public StreamClient createStreamClient();
 
     /**
-     * @param networkAddressFactory The configured {@link org.fourthline.cling.transport.spi.NetworkAddressFactory}.
-     * @return A new instance of the {@link org.fourthline.cling.transport.spi.MulticastReceiver} interface.
+     * @param networkAddressFactory The configured {@link org.teleal.cling.transport.spi.NetworkAddressFactory}.
+     * @return A new instance of the {@link org.teleal.cling.transport.spi.MulticastReceiver} interface.
      */
     public MulticastReceiver createMulticastReceiver(NetworkAddressFactory networkAddressFactory);
 
     /**
-     * @param networkAddressFactory The configured {@link org.fourthline.cling.transport.spi.NetworkAddressFactory}.
-     * @return A new instance of the {@link org.fourthline.cling.transport.spi.DatagramIO} interface.
+     * @param networkAddressFactory The configured {@link org.teleal.cling.transport.spi.NetworkAddressFactory}.
+     * @return A new instance of the {@link org.teleal.cling.transport.spi.DatagramIO} interface.
      */
     public DatagramIO createDatagramIO(NetworkAddressFactory networkAddressFactory);
 
     /**
-     * @param networkAddressFactory The configured {@link org.fourthline.cling.transport.spi.NetworkAddressFactory}.
-     * @return A new instance of the {@link org.fourthline.cling.transport.spi.StreamServer} interface.
+     * @param networkAddressFactory The configured {@link org.teleal.cling.transport.spi.NetworkAddressFactory}.
+     * @return A new instance of the {@link org.teleal.cling.transport.spi.StreamServer} interface.
      */
     public StreamServer createStreamServer(NetworkAddressFactory networkAddressFactory);
 
@@ -107,12 +107,12 @@ public interface UpnpServiceConfiguration {
     public Executor getStreamServerExecutor();
 
     /**
-     * @return The shared implementation of {@link org.fourthline.cling.binding.xml.DeviceDescriptorBinder} for the UPnP 1.0 Device Architecture..
+     * @return The shared implementation of {@link org.teleal.cling.binding.xml.DeviceDescriptorBinder} for the UPnP 1.0 Device Architecture..
      */
     public DeviceDescriptorBinder getDeviceDescriptorBinderUDA10();
 
     /**
-     * @return The shared implementation of {@link org.fourthline.cling.binding.xml.ServiceDescriptorBinder} for the UPnP 1.0 Device Architecture..
+     * @return The shared implementation of {@link org.teleal.cling.binding.xml.ServiceDescriptorBinder} for the UPnP 1.0 Device Architecture..
      */
     public ServiceDescriptorBinder getServiceDescriptorBinderUDA10();
 
@@ -153,7 +153,7 @@ public interface UpnpServiceConfiguration {
      * device, you can override its maxium age with this configuration setting, ignoring the
      * initial maximum age sent by the device. You most likely want to return
      * <code>0</code> in this case, so that the remote device is never expired unless you
-     * manually remove it from the {@link org.fourthline.cling.registry.Registry}. You typically remove
+     * manually remove it from the {@link org.teleal.cling.registry.Registry}. You typically remove
      * the device when an action or GENA subscription request to the remote device failed.
      * </p>
      *
@@ -173,7 +173,7 @@ public interface UpnpServiceConfiguration {
     public Executor getSyncProtocolExecutor();
 
     /**
-     * @return An instance of {@link org.fourthline.cling.model.Namespace} for this UPnP stack.
+     * @return An instance of {@link org.teleal.cling.model.Namespace} for this UPnP stack.
      */
     public Namespace getNamespace();
 
@@ -188,7 +188,7 @@ public interface UpnpServiceConfiguration {
     public Executor getRegistryListenerExecutor();
 
     /**
-     * Called by the {@link org.fourthline.cling.UpnpService} on shutdown, useful to e.g. shutdown thread pools.
+     * Called by the {@link org.teleal.cling.UpnpService} on shutdown, useful to e.g. shutdown thread pools.
      */
     public void shutdown();
 

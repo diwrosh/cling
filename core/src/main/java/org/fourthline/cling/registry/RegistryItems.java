@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
-import org.fourthline.cling.model.resource.Resource;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.gena.GENASubscription;
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.resource.Resource;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.gena.GENASubscription;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
 
 import java.util.Arrays;
 import java.util.Collection;

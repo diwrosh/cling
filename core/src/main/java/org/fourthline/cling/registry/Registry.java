@@ -15,23 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.model.resource.Resource;
-import org.fourthline.cling.model.ServiceReference;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.meta.RemoteDeviceIdentity;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
-import org.fourthline.cling.protocol.ProtocolFactory;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.model.resource.Resource;
+import org.teleal.cling.model.resource.ResourceProcessor;
+import org.teleal.cling.model.ServiceReference;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.meta.RemoteDeviceIdentity;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.cling.protocol.ProtocolFactory;
 
 import java.net.URI;
 import java.util.Collection;
@@ -121,7 +122,7 @@ public interface Registry {
      * service can drop subscriptions when you don't renew them. On resume, the registry
      * will attempt to send renewals for all outbound GENA subscriptions that require
      * renewal, on devices that still haven't expired. If renewal fails, your subscription will
-     * end with {@link org.fourthline.cling.model.gena.CancelReason#RENEWAL_FAILED}. Although
+     * end with {@link org.teleal.cling.model.gena.CancelReason#RENEWAL_FAILED}. Although
      * you then might conclude that the remote device is no longer available, a GENA renewal
      * can also fail for other reasons. The remote device will be kept and maintained in the
      * registry until it announces itself or it expires, even after a failed GENA renewal.
@@ -324,12 +325,13 @@ public interface Registry {
      * @throws IllegalArgumentException If the given URI was absolute, only path and query are allowed.
      */
     public Resource getResource(URI pathQuery) throws IllegalArgumentException;
-
+    
+    
     /**
-     * @param <T> The required subtype of the {@link org.fourthline.cling.model.resource.Resource}.
+     * @param <T> The required subtype of the {@link org.teleal.cling.model.resource.Resource}.
      * @param pathQuery The path and optional query string of the resource's
      *                  registration URI (e.g. <code>/dev/somefile.xml?param=value</code>)
-     * @param resourceType The required subtype of the {@link org.fourthline.cling.model.resource.Resource}.
+     * @param resourceType The required subtype of the {@link org.teleal.cling.model.resource.Resource}.
      * @return Any registered resource that matches the given URI path and subtype.
      * @throws IllegalArgumentException If the given URI was absolute, only path and query are allowed.
      */
@@ -341,11 +343,20 @@ public interface Registry {
     public Collection<Resource> getResources();
 
     /**
-     * @param <T> The required subtype of the {@link org.fourthline.cling.model.resource.Resource}.
-     * @param resourceType The required subtype of the {@link org.fourthline.cling.model.resource.Resource}.
+     * @param <T> The required subtype of the {@link org.teleal.cling.model.resource.Resource}.
+     * @param resourceType The required subtype of the {@link org.teleal.cling.model.resource.Resource}.
      * @return Any registered resource that matches the given subtype.
      */
     public <T extends Resource> Collection<T> getResources(Class<T> resourceType);
+
+    /**
+     * Enable/Disable advertising of a local device on the LAN
+     * 
+     * @param localDevice The local device to operate
+     * @param isAdvertising true to enable advertising, false otherwise
+	 */
+    public void setLocalDeviceAdvertising(LocalDevice localDevice, boolean isAdvertising);
+
 
     // #################################################################################################
 
@@ -405,6 +416,12 @@ public interface Registry {
      * Called internally by the UPnP stack, during GENA protocol execution.
      */
     public void unlockRemoteSubscriptions();
+    
+   
+    
+	public void setResourceMissingProcessor(ResourceProcessor resourceProcessor);
+	
+	public ResourceProcessor getResourceMissingProcessor();
 
     // #################################################################################################
 

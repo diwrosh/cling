@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
-import org.fourthline.cling.transport.Router;
-import org.fourthline.cling.transport.spi.DatagramProcessor;
-import org.fourthline.cling.transport.spi.InitializationException;
-import org.fourthline.cling.transport.spi.MulticastReceiver;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
+import org.teleal.cling.transport.Router;
+import org.teleal.cling.transport.spi.DatagramProcessor;
+import org.teleal.cling.transport.spi.InitializationException;
+import org.teleal.cling.transport.spi.MulticastReceiver;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
 
 import java.net.DatagramPacket;
 import java.net.Inet6Address;

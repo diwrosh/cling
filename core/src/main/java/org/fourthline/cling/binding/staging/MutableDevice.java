@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.staging;
+package org.teleal.cling.binding.staging;
 
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.DeviceDetails;
-import org.fourthline.cling.model.meta.Icon;
-import org.fourthline.cling.model.meta.ManufacturerDetails;
-import org.fourthline.cling.model.meta.ModelDetails;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.meta.UDAVersion;
-import org.fourthline.cling.model.types.DLNACaps;
-import org.fourthline.cling.model.types.DLNADoc;
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.DeviceDetails;
+import org.teleal.cling.model.meta.Icon;
+import org.teleal.cling.model.meta.ManufacturerDetails;
+import org.teleal.cling.model.meta.ModelDetails;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.meta.UDAVersion;
+import org.teleal.cling.model.types.DLNACaps;
+import org.teleal.cling.model.types.DLNADoc;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.UDN;
 
 import java.net.URI;
 import java.net.URL;

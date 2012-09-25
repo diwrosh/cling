@@ -15,24 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
-
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.state.StateVariableValue;
-import org.seamless.util.Exceptions;
-import org.seamless.util.Reflections;
+package org.teleal.cling.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
+
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.state.StateVariableValue;
+import org.teleal.common.util.Exceptions;
+import org.teleal.common.util.Reflections;
 
 /**
  * Default implementation, creates and manages a single instance of a plain Java bean.
@@ -74,7 +76,7 @@ public class DefaultServiceManager<T> implements ServiceManager<T> {
     protected void lock() {
         try {
             if (lock.tryLock(getLockTimeoutMillis(), TimeUnit.MILLISECONDS)) {
-                log.fine("Acquired lock");
+                //log.fine("Acquired lock");
             } else {
                 throw new RuntimeException("Failed to acquire lock in milliseconds: " + getLockTimeoutMillis());
             }
@@ -84,7 +86,7 @@ public class DefaultServiceManager<T> implements ServiceManager<T> {
     }
 
     protected void unlock() {
-        log.fine("Releasing lock");
+        //log.fine("Releasing lock");
         lock.unlock();
     }
 
@@ -128,6 +130,40 @@ public class DefaultServiceManager<T> implements ServiceManager<T> {
             unlock();
         }
     }
+    
+    
+    private Collection<StateVariableValue> readEventedStateVariableValues(List<String> variableNames) throws Exception {
+    	lock();
+        try {
+        	
+        	 Collection<StateVariableValue> values = new ArrayList<StateVariableValue>();
+        	
+        	 for(String variableName : variableNames) {
+        		 
+        		 StateVariable stateVariable =  getService().getStateVariable(variableName);
+        		 if (stateVariable == null || !stateVariable.getEventDetails().isSendEvents()) {
+        			 log.warning("ignoring unknown or non-eventing variable: " + variableName);
+                     continue;
+                 }
+        		 
+
+        		 StateVariableAccessor accessor = getService().getAccessor(stateVariable);
+        		 if (accessor == null) {
+        			 log.warning("ignoring eventing variable without accessor: " + variableName);
+        			 continue;
+        		 }
+
+        		 values.add(accessor.read(stateVariable, getImplementation()));
+
+        	 }
+        	 
+        	 return values;
+
+        } finally {
+            unlock();
+        }
+    }
+    
 
     @Override
     public Collection<StateVariableValue> readEventedStateVariableValues(boolean isNewSubscription) throws Exception {
@@ -220,25 +256,24 @@ public class DefaultServiceManager<T> implements ServiceManager<T> {
             // Prevent recursion
             if (e.getPropertyName().equals(EVENTED_STATE_VARIABLES)) return;
 
-            // Is it an evented state variable?
-            final StateVariable sv = getService().getStateVariable(e.getPropertyName());
-            if (sv == null || !sv.getEventDetails().isSendEvents()) {
-                return;
-            }
+            List<String> variableNames = Arrays.asList(e.getPropertyName().split(","));
 
             try {
-                log.fine("Evented state variable value changed, reading state of service: " + sv);
-                Collection<StateVariableValue> currentValues = readEventedStateVariableValues(false);
+                log.fine("Evented state variable value changed, reading state of service: " + variableNames);
+                Collection<StateVariableValue> currentValues = readEventedStateVariableValues(variableNames);
 
-                getPropertyChangeSupport().firePropertyChange(
-                        EVENTED_STATE_VARIABLES,
-                        null,
-                        currentValues
-                );
+                if(!currentValues.isEmpty()) {
+                	getPropertyChangeSupport().firePropertyChange(
+                			EVENTED_STATE_VARIABLES,
+                			null,
+                			currentValues
+                	);
+                }
 
             } catch (Exception ex) {
                 // TODO: Is it OK to only log this error? It means we keep running although we couldn't send events?
                 log.severe("Error reading state of service after state variable update event: " + Exceptions.unwrap(ex));
+                ex.printStackTrace();
             }
         }
     }

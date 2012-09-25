@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl.apache;
+package org.teleal.cling.transport.impl.apache;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.MethodNotSupportedException;

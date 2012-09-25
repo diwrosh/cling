@@ -15,23 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.discovery;
+package org.teleal.cling.model.message.discovery;
 
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.header.DeviceUSNHeader;
-import org.fourthline.cling.model.message.header.InterfaceMacHeader;
-import org.fourthline.cling.model.message.header.LocationHeader;
-import org.fourthline.cling.model.message.header.MaxAgeHeader;
-import org.fourthline.cling.model.message.header.NTSHeader;
-import org.fourthline.cling.model.message.header.ServiceUSNHeader;
-import org.fourthline.cling.model.message.header.UDNHeader;
-import org.fourthline.cling.model.message.header.USNRootDeviceHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.types.NamedDeviceType;
-import org.fourthline.cling.model.types.NamedServiceType;
-import org.fourthline.cling.model.types.NotificationSubtype;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.header.DeviceUSNHeader;
+import org.teleal.cling.model.message.header.InterfaceMacHeader;
+import org.teleal.cling.model.message.header.LocationHeader;
+import org.teleal.cling.model.message.header.MaxAgeHeader;
+import org.teleal.cling.model.message.header.NTSHeader;
+import org.teleal.cling.model.message.header.ServiceUSNHeader;
+import org.teleal.cling.model.message.header.UDNHeader;
+import org.teleal.cling.model.message.header.USNRootDeviceHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.types.NamedDeviceType;
+import org.teleal.cling.model.types.NamedServiceType;
+import org.teleal.cling.model.types.NotificationSubtype;
+import org.teleal.cling.model.types.UDN;
 
 import java.net.URL;
 

@@ -15,24 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.xml;
+package org.teleal.cling.binding.xml;
 
-import org.fourthline.cling.binding.staging.MutableAction;
-import org.fourthline.cling.binding.staging.MutableActionArgument;
-import org.fourthline.cling.binding.staging.MutableAllowedValueRange;
-import org.fourthline.cling.binding.staging.MutableService;
-import org.fourthline.cling.binding.staging.MutableStateVariable;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.XMLUtil;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.ActionArgument;
-import org.fourthline.cling.model.meta.QueryStateVariableAction;
-import org.fourthline.cling.model.meta.RemoteService;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.meta.StateVariableEventDetails;
-import org.fourthline.cling.model.types.CustomDatatype;
-import org.fourthline.cling.model.types.Datatype;
+import org.teleal.cling.binding.staging.MutableAction;
+import org.teleal.cling.binding.staging.MutableActionArgument;
+import org.teleal.cling.binding.staging.MutableAllowedValueRange;
+import org.teleal.cling.binding.staging.MutableService;
+import org.teleal.cling.binding.staging.MutableStateVariable;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.XMLUtil;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.ActionArgument;
+import org.teleal.cling.model.meta.QueryStateVariableAction;
+import org.teleal.cling.model.meta.RemoteService;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.meta.StateVariableEventDetails;
+import org.teleal.cling.model.types.CustomDatatype;
+import org.teleal.cling.model.types.Datatype;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -45,10 +45,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.fourthline.cling.binding.xml.Descriptor.Service.ATTRIBUTE;
-import static org.fourthline.cling.binding.xml.Descriptor.Service.ELEMENT;
-import static org.fourthline.cling.model.XMLUtil.appendNewElement;
-import static org.fourthline.cling.model.XMLUtil.appendNewElementIfNotNull;
+import static org.teleal.cling.binding.xml.Descriptor.Service.ATTRIBUTE;
+import static org.teleal.cling.binding.xml.Descriptor.Service.ELEMENT;
+import static org.teleal.cling.model.XMLUtil.appendNewElement;
+import static org.teleal.cling.model.XMLUtil.appendNewElementIfNotNull;
 
 /**
  * Implementation based on JAXP DOM.
@@ -412,10 +412,15 @@ public class UDA10ServiceDescriptorBinderImpl implements ServiceDescriptorBinder
 
         appendNewElementIfNotNull(descriptor, actionArgumentElement, ELEMENT.name, actionArgument.getName());
         appendNewElementIfNotNull(descriptor, actionArgumentElement, ELEMENT.direction, actionArgument.getDirection().toString().toLowerCase());
+        appendNewElementIfNotNull(descriptor, actionArgumentElement, ELEMENT.relatedStateVariable, actionArgument.getRelatedStateVariableName());
+        
+        /*
+		// WMP12 will discard RenderingControl service if it contains <retval> tags
         if (actionArgument.isReturnValue()) {
             appendNewElement(descriptor, actionArgumentElement, ELEMENT.retval);
         }
-        appendNewElementIfNotNull(descriptor, actionArgumentElement, ELEMENT.relatedStateVariable, actionArgument.getRelatedStateVariableName());
+        */
+        
     }
 
     private void generateServiceStateTable(Service serviceModel, Document descriptor, Element scpdElement) {
@@ -466,7 +471,7 @@ public class UDA10ServiceDescriptorBinderImpl implements ServiceDescriptorBinder
             appendNewElementIfNotNull(
                     descriptor, allowedValueRangeElement, ELEMENT.maximum, stateVariable.getTypeDetails().getAllowedValueRange().getMaximum()
             );
-            if (stateVariable.getTypeDetails().getAllowedValueRange().getStep() > 1l) {
+            if (stateVariable.getTypeDetails().getAllowedValueRange().getStep() >= 1l) {
                 appendNewElementIfNotNull(
                         descriptor, allowedValueRangeElement, ELEMENT.step, stateVariable.getTypeDetails().getAllowedValueRange().getStep()
                 );

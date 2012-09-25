@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.profile;
+package org.teleal.cling.model.profile;
 
-import org.fourthline.cling.model.message.UpnpHeaders;
+import org.teleal.cling.model.message.UpnpHeaders;
 
 /**
  * Encapsulates all known/detected information about a control point

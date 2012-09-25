@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
-import org.fourthline.cling.model.message.gena.IncomingEventRequestMessage;
-import org.fourthline.cling.model.message.gena.OutgoingEventRequestMessage;
+import org.teleal.cling.model.message.gena.IncomingEventRequestMessage;
+import org.teleal.cling.model.message.gena.OutgoingEventRequestMessage;
 
 /**
  * Reads and writes GENA XML content.
@@ -28,7 +28,7 @@ import org.fourthline.cling.model.message.gena.OutgoingEventRequestMessage;
 public interface GENAEventProcessor {
 
     /**
-     * Transforms a collection of {@link org.fourthline.cling.model.state.StateVariableValue}s into an XML message body.
+     * Transforms a collection of {@link org.teleal.cling.model.state.StateVariableValue}s into an XML message body.
      *
      * @param requestMessage The message to transform.
      * @throws UnsupportedDataException
@@ -36,7 +36,7 @@ public interface GENAEventProcessor {
     public void writeBody(OutgoingEventRequestMessage requestMessage) throws UnsupportedDataException;
 
     /**
-     * Transforms an XML message body and adds to a collection of {@link org.fourthline.cling.model.state.StateVariableValue}s..
+     * Transforms an XML message body and adds to a collection of {@link org.teleal.cling.model.state.StateVariableValue}s..
      *
      * @param requestMessage The message to transform.
      * @throws UnsupportedDataException

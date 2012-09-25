@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -80,7 +80,7 @@ public class ModelUtil {
     /**
      * @param name A UPnP device architecture "name" string.
      * @return <code>true</code> if the name is not empty, doesn't start with "xml", and
-     *         matches {@link org.fourthline.cling.model.Constants#REGEX_UDA_NAME}.
+     *         matches {@link org.teleal.cling.model.Constants#REGEX_UDA_NAME}.
      */
     public static boolean isValidUDAName(String name) {
         if (ANDROID_RUNTIME) {

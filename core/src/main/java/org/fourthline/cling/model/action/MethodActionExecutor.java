@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.action;
+package org.teleal.cling.model.action;
 
-import org.fourthline.cling.model.meta.ActionArgument;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.types.ErrorCode;
-import org.seamless.util.Reflections;
+import org.teleal.cling.model.meta.ActionArgument;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.types.ErrorCode;
+import org.teleal.common.util.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

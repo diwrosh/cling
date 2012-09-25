@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling;
+package org.teleal.cling;
 
-import org.fourthline.cling.model.message.header.STAllHeader;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.registry.Registry;
-import org.fourthline.cling.registry.RegistryListener;
+import org.teleal.cling.model.message.header.STAllHeader;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.registry.Registry;
+import org.teleal.cling.registry.RegistryListener;
 
 /**
  * Runs a simple UPnP discovery procedure.

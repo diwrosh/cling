@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.types;
+package org.teleal.cling.model.types;
 
 /**
  * Although the UDA 1.0 spec doesn't say it, we assume that "int" is a 4 byte regular Java integer.
@@ -45,7 +45,13 @@ public class IntegerDatatype extends AbstractDatatype<Integer> {
             }
             return value;
         } catch (NumberFormatException ex) {
-            throw new InvalidValueException("Can't convert string to number: " + s, ex);
+        	// Some renderers (like PacketVideo TMM Player) send RelCount an AbsCount equal to NOT_IMPLEMENTED in GetPositionInfoResponse 
+        	// while it is not allowed. The holy spec says: if not implemented the value shall be Max Integer value
+        	if(s.equals("NOT_IMPLEMENTED")) {
+        		return getMaxValue();
+        	} else {
+            	throw new InvalidValueException("Can't convert string to number: " + s, ex);
+        	}
         }
     }
 

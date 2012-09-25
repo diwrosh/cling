@@ -15,22 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.sync;
+package org.teleal.cling.protocol.sync;
 
 import java.util.logging.Logger;
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.gena.OutgoingEventRequestMessage;
-import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
-import org.fourthline.cling.protocol.SendingSync;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.gena.OutgoingEventRequestMessage;
+import org.teleal.cling.model.types.UnsignedIntegerFourBytes;
+import org.teleal.cling.protocol.SendingSync;
 
 import java.net.URL;
 
 /**
  * Sending GENA event messages to remote subscribers.
  * <p>
- * Any {@link org.fourthline.cling.model.gena.LocalGENASubscription} instantiates and executes this protocol
+ * Any {@link org.teleal.cling.model.gena.LocalGENASubscription} instantiates and executes this protocol
  * when the state of a local service changes. However, a remote subscriber might require event
  * notification messages on more than one callback URL, so this protocol potentially sends
  * many messages. What is returned is always the last response, that is, the response for the

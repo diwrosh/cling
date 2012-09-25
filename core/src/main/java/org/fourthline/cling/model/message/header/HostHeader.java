@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.header;
+package org.teleal.cling.model.message.header;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.types.HostPort;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.types.HostPort;
 
 /**
  * @author Christian Bauer

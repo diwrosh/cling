@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
 /**
  * The agent string of the UPnP stack in network messages, either as a server or client.
@@ -36,8 +36,8 @@ public class ServerClientTokens {
 
     private String osName  =  System.getProperty("os.name").replaceAll("[^a-zA-Z0-9\\.\\-_]", "");
     private String osVersion = System.getProperty("os.version").replaceAll("[^a-zA-Z0-9\\.\\-_]", "");
-    private String productName = Constants.PRODUCT_TOKEN_NAME;
-    private String productVersion = Constants.PRODUCT_TOKEN_VERSION;
+    private String productName = UserConstants.PRODUCT_TOKEN_NAME;
+    private String productVersion = UserConstants.PRODUCT_TOKEN_VERSION;
 
     public ServerClientTokens() {
     }

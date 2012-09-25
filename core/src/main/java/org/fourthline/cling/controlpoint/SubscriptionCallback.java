@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.controlpoint;
+package org.teleal.cling.controlpoint;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.gena.CancelReason;
-import org.fourthline.cling.model.gena.GENASubscription;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.RemoteService;
-import org.fourthline.cling.model.meta.Service;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.gena.CancelReason;
+import org.teleal.cling.model.gena.GENASubscription;
+import org.teleal.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.RemoteService;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.common.util.Exceptions;
 
 import java.util.Collections;
 import java.util.logging.Level;
@@ -35,7 +35,7 @@ import java.util.logging.Logger;
 /**
  * Subscribe and receive events from a service through GENA.
  * <p>
- * Usage example, establishing a subscription with a {@link org.fourthline.cling.model.meta.Service}:
+ * Usage example, establishing a subscription with a {@link org.teleal.cling.model.meta.Service}:
  * </p>
  * <pre>
  * SubscriptionCallback callback = new SubscriptionCallback(service, 600) { // Timeout in seconds
@@ -228,12 +228,22 @@ public abstract class SubscriptionCallback implements Runnable {
                             SubscriptionCallback.this.eventsMissed(this, numberOfMissedEvents);
                         }
                     }
+
+					@Override
+					public void invalidXMLException(String xml, Exception e) {
+						synchronized (SubscriptionCallback.this) {
+							SubscriptionCallback.this.invalidXMLException(this, xml, e);
+						}
+					}
                 };
 
         getControlPoint().getProtocolFactory()
                 . createSendingSubscribe(remoteSubscription)
                 .run();
     }
+
+
+	protected abstract void invalidXMLException(RemoteGENASubscription remoteGENASubscription, String xml, Exception e);
 
     synchronized public void end() {
         if (subscription == null) return;
@@ -293,7 +303,7 @@ public abstract class SubscriptionCallback implements Runnable {
     /**
      * Called when an event for an established subscription has been received.
      * <p>
-     * Use the {@link org.fourthline.cling.model.gena.GENASubscription#getCurrentValues()} method to obtain
+     * Use the {@link org.teleal.cling.model.gena.GENASubscription#getCurrentValues()} method to obtain
      * the evented state variable values.
      * </p>
      *

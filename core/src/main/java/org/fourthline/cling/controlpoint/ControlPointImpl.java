@@ -15,32 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.controlpoint;
+package org.teleal.cling.controlpoint;
 
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.controlpoint.event.ExecuteAction;
-import org.fourthline.cling.controlpoint.event.Search;
-import org.fourthline.cling.model.message.header.MXHeader;
-import org.fourthline.cling.model.message.header.STAllHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.registry.Registry;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.controlpoint.event.ExecuteAction;
+import org.teleal.cling.controlpoint.event.Search;
+import org.teleal.cling.model.message.header.MXHeader;
+import org.teleal.cling.model.message.header.STAllHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.registry.Registry;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+// import javax.enterprise.context.ApplicationScoped;
+// import javax.enterprise.event.Observes;
+// import javax.inject.Inject;
 import java.util.logging.Logger;
 
 /**
  * Default implementation.
  * <p>
  * This implementation uses the executor returned by
- * {@link org.fourthline.cling.UpnpServiceConfiguration#getSyncProtocolExecutor()}.
+ * {@link org.teleal.cling.UpnpServiceConfiguration#getSyncProtocolExecutor()}.
  * </p>
  *
  * @author Christian Bauer
  */
-@ApplicationScoped
+// @ApplicationScoped
 public class ControlPointImpl implements ControlPoint {
 
     private static Logger log = Logger.getLogger(ControlPointImpl.class.getName());
@@ -52,7 +52,7 @@ public class ControlPointImpl implements ControlPoint {
     protected ControlPointImpl() {
     }
 
-    @Inject
+    // @Inject
     public ControlPointImpl(UpnpServiceConfiguration configuration, ProtocolFactory protocolFactory, Registry registry) {
         log.fine("Creating ControlPoint: " + getClass().getName());
         
@@ -73,7 +73,7 @@ public class ControlPointImpl implements ControlPoint {
         return registry;
     }
 
-    public void search(@Observes Search search) {
+    public void search(/*@Observes*/ Search search) {
         search(search.getSearchType(), search.getMxSeconds());
     }
 

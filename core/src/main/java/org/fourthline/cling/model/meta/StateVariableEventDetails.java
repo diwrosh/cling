@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
 /**
  * Eventing options of a state variable, including moderation settings.

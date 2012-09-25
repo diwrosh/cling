@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.async;
+package org.teleal.cling.protocol.async;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.message.discovery.OutgoingSearchRequest;
-import org.fourthline.cling.model.message.header.MXHeader;
-import org.fourthline.cling.model.message.header.STAllHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.protocol.SendingAsync;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.message.discovery.OutgoingSearchRequest;
+import org.teleal.cling.model.message.header.MXHeader;
+import org.teleal.cling.model.message.header.STAllHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.protocol.SendingAsync;
 
 import java.util.logging.Logger;
 
@@ -43,7 +43,7 @@ public class SendingSearch extends SendingAsync {
     private final int mxSeconds;
 
     /**
-     * Defaults to {@link org.fourthline.cling.model.message.header.STAllHeader} and an MX of 3 seconds.
+     * Defaults to {@link org.teleal.cling.model.message.header.STAllHeader} and an MX of 3 seconds.
      */
     public SendingSearch(UpnpService upnpService) {
         this(upnpService, new STAllHeader());
@@ -100,12 +100,23 @@ public class SendingSearch extends SendingAsync {
         }
     }
 
+    /*
     public int getBulkRepeat() {
-        return 2; // UDA 1.0 says "repeat more than once", so we do it twice
+        return 10; // UDA 1.0 says "repeat more than once", so we do it twice
     }
 
     public int getBulkIntervalMilliseconds() {
         return 100; // That should be plenty on an ethernet LAN
     }
+    */
+    
+    public int getBulkRepeat() {
+        return 3; // UDA 1.0 says "repeat more than once", so we do it seven
+    }
+
+    public int getBulkIntervalMilliseconds() {
+        return 500; // That should be plenty on an ethernet LAN
+    }
+
 
 }

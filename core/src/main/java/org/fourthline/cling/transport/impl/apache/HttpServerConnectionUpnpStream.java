@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2011 4th Line GmbH, Switzerland
+ * Copyright (C) 2010 Teleal GmbH, Switzerland
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 2 of
+ * published by the Free Software Foundation, either version 3 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -15,10 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl.apache;
+package org.teleal.cling.transport.impl.apache;
 
 import org.apache.http.ConnectionClosedException;
 import org.apache.http.ConnectionReuseStrategy;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
@@ -29,35 +30,40 @@ import org.apache.http.HttpStatus;
 import org.apache.http.MethodNotSupportedException;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.DefaultConnectionReuseStrategy;
 import org.apache.http.impl.DefaultHttpResponseFactory;
+import org.apache.http.impl.DefaultHttpServerConnection;
 import org.apache.http.message.BasicStatusLine;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.DefaultedHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.BasicHttpProcessor;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpProcessor;
 import org.apache.http.protocol.HttpService;
 import org.apache.http.protocol.ResponseConnControl;
 import org.apache.http.protocol.ResponseContent;
 import org.apache.http.protocol.ResponseDate;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpHeaders;
-import org.fourthline.cling.model.message.UpnpMessage;
-import org.fourthline.cling.model.message.UpnpOperation;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
-import org.fourthline.cling.transport.spi.UpnpStream;
-import org.seamless.util.io.IO;
-import org.seamless.util.Exceptions;
+import org.apache.http.util.EntityUtils;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpHeaders;
+import org.teleal.cling.model.message.UpnpMessage;
+import org.teleal.cling.model.message.UpnpOperation;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
+import org.teleal.cling.transport.spi.UpnpStream;
+import org.teleal.common.io.IO;
+import org.teleal.common.util.Exceptions;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.util.logging.Level;
@@ -180,35 +186,30 @@ public class HttpServerConnectionUpnpStream extends UpnpStream {
 
             // Headers
             requestMessage.setHeaders(new UpnpHeaders(HeaderUtil.get(httpRequest)));
+            
+            InetAddress localAddress = ((DefaultHttpServerConnection)connection).getLocalAddress();
+            if(localAddress == null) {
+            	log.warning("got HTTP request without Local Address"); 
+            } else {
+            	requestMessage.setLocalAddress(localAddress.getHostAddress());
+            }
 
             // Body
             if (httpRequest instanceof HttpEntityEnclosingRequest) {
                 log.fine("Request contains entity body, setting on UPnP message");
+                
                 HttpEntityEnclosingRequest entityEnclosingHttpRequest = (HttpEntityEnclosingRequest) httpRequest;
+                
+                HttpEntity entity = entityEnclosingHttpRequest.getEntity();
 
-                byte[] bodyBytes;
-                InputStream is = null;
-                try {
-                    is = entityEnclosingHttpRequest.getEntity().getContent();
-                    bodyBytes = IO.readBytes(is);
-                } finally {
-                    if (is != null)
-                        is.close();
-                }
-
-                if (bodyBytes.length > 0 && requestMessage.isContentTypeMissingOrText()) {
-
-                    log.fine("Request contains textual entity body, converting then setting string on message");
-                    requestMessage.setBodyCharacters(bodyBytes);
-
-                } else if (bodyBytes.length > 0) {
-
-                    log.fine("Request contains binary entity body, setting bytes on message");
-                    requestMessage.setBody(UpnpMessage.BodyType.BYTES, bodyBytes);
-
+                if (requestMessage.isContentTypeMissingOrText()) {
+                    log.fine("HTTP request message contains text entity");
+                    requestMessage.setBody(UpnpMessage.BodyType.STRING, EntityUtils.toString(entity));
                 } else {
-                    log.fine("Request did not contain entity body");
+                    log.fine("HTTP request message contains binary entity");
+                    requestMessage.setBody(UpnpMessage.BodyType.BYTES, EntityUtils.toByteArray(entity));
                 }
+                
 
             } else {
                 log.fine("Request did not contain entity body");
@@ -219,7 +220,6 @@ public class HttpServerConnectionUpnpStream extends UpnpStream {
             try {
                 responseMsg = process(requestMessage);
             } catch (RuntimeException ex) {
-
                 log.fine("Exception occured during UPnP stream processing: " + ex);
                 if (log.isLoggable(Level.FINE)) {
                     log.log(Level.FINE, "Cause: " + Exceptions.unwrap(ex), Exceptions.unwrap(ex));
@@ -256,6 +256,9 @@ public class HttpServerConnectionUpnpStream extends UpnpStream {
                 } else if (responseMsg.hasBody() && responseMsg.getBodyType().equals(UpnpMessage.BodyType.STRING)) {
                     StringEntity responseEntity = new StringEntity(responseMsg.getBodyString(), "UTF-8");
                     httpResponse.setEntity(responseEntity);
+                }  else if (responseMsg.hasBody() && responseMsg.getBodyType().equals(UpnpMessage.BodyType.STREAM)) {
+                	log.info("serving stream, len: " + responseMsg.getContentLength());
+                	httpResponse.setEntity(new InputStreamEntity(responseMsg.getInputStream(), responseMsg.getContentLength()));
                 }
 
             } else {

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol;
+package org.teleal.cling.protocol;
 
 /**
  * Recoverable error, thrown when no protocol is available to handle a UPnP message.

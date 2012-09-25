@@ -15,11 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.header;
+package org.teleal.cling.model.message.header;
 
 /**
+ * Do not validate input. In 90% of cases it will be invalid anyway.
+ * 
  * @author Christian Bauer
  */
-public class UserAgentHeader extends ServerHeader {
+public class UserAgentHeader extends UpnpHeader<String> {
+	
+	public UserAgentHeader() {
+    }
+	
+	public UserAgentHeader(String s) {
+        setValue(s);
+    }
+
+	@Override
+	public void setString(String s) throws InvalidHeaderException {
+		setValue(s);
+	}
+
+	@Override
+	public String getString() {
+		return getValue().toString();
+	}
 
 }

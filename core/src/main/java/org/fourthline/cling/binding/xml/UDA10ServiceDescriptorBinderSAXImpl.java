@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.xml;
+package org.teleal.cling.binding.xml;
 
-import org.fourthline.cling.binding.staging.MutableAction;
-import org.fourthline.cling.binding.staging.MutableActionArgument;
-import org.fourthline.cling.binding.staging.MutableAllowedValueRange;
-import org.fourthline.cling.binding.staging.MutableService;
-import org.fourthline.cling.binding.staging.MutableStateVariable;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.meta.ActionArgument;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.meta.StateVariableEventDetails;
-import org.fourthline.cling.model.types.CustomDatatype;
-import org.fourthline.cling.model.types.Datatype;
-import org.seamless.xml.SAXParser;
+import org.teleal.cling.binding.staging.MutableAction;
+import org.teleal.cling.binding.staging.MutableActionArgument;
+import org.teleal.cling.binding.staging.MutableAllowedValueRange;
+import org.teleal.cling.binding.staging.MutableService;
+import org.teleal.cling.binding.staging.MutableStateVariable;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.meta.ActionArgument;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.meta.StateVariableEventDetails;
+import org.teleal.cling.model.types.CustomDatatype;
+import org.teleal.cling.model.types.Datatype;
+import org.teleal.common.xml.SAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -38,8 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.fourthline.cling.binding.xml.Descriptor.Service.ATTRIBUTE;
-import static org.fourthline.cling.binding.xml.Descriptor.Service.ELEMENT;
+import static org.teleal.cling.binding.xml.Descriptor.Service.ATTRIBUTE;
+import static org.teleal.cling.binding.xml.Descriptor.Service.ELEMENT;
 
 /**
  * Implementation based on JAXP SAX.
@@ -238,7 +238,9 @@ public class UDA10ServiceDescriptorBinderSAXImpl extends UDA10ServiceDescriptorB
                     getInstance().name = getCharacters();
                     break;
                 case direction:
-                    getInstance().direction = ActionArgument.Direction.valueOf(getCharacters().toUpperCase());
+                    // V12 Pelco sends INOUT
+                    String val = getCharacters().toUpperCase(); 
+                    getInstance().direction = (val.equals("INOUT")) ? ActionArgument.Direction.IN : ActionArgument.Direction.valueOf(val);
                     break;
                 case relatedStateVariable:
                     getInstance().relatedStateVariable = getCharacters();

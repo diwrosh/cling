@@ -15,24 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport;
+package org.teleal.cling.transport;
 
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.model.NetworkAddress;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.transport.spi.InitializationException;
-import org.fourthline.cling.transport.spi.NetworkAddressFactory;
-import org.fourthline.cling.transport.spi.UpnpStream;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.model.NetworkAddress;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.transport.spi.InitializationException;
+import org.teleal.cling.transport.spi.NetworkAddressFactory;
+import org.teleal.cling.transport.spi.UpnpStream;
+import org.teleal.common.util.Exceptions;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Default;
-import javax.inject.Inject;
+// import javax.enterprise.context.ApplicationScoped;
+// import javax.enterprise.event.Observes;
+// import javax.enterprise.inject.Default;
+// import javax.inject.Inject;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Collections;
@@ -46,13 +46,13 @@ import java.util.logging.Logger;
  * Default implementation of switchable network message router.
  * <p>
  * This implementation is actually wrapping a regular
- * {@link org.fourthline.cling.transport.RouterImpl}, making it on/off
+ * {@link org.teleal.cling.transport.RouterImpl}, making it on/off
  * switchable.
  * </p>
  * <p>
  * If the router can't be enabled (e.g. an exception occurs during
  * socket binding), a warning log message will be printed. You can customize this behavior by
- * overriding {@link #handleStartFailure(org.fourthline.cling.transport.spi.InitializationException)}.
+ * overriding {@link #handleStartFailure(org.teleal.cling.transport.spi.InitializationException)}.
  * </p>
  * <p>
  * You have to expect that {@link #disable()} and @{link #enable()} will throw a
@@ -67,7 +67,7 @@ import java.util.logging.Logger;
  *
  * @author Christian Bauer
  */
-@ApplicationScoped
+// @ApplicationScoped
 public class SwitchableRouterImpl implements SwitchableRouter {
 
     final private static Logger log = Logger.getLogger(Router.class.getName());
@@ -83,7 +83,7 @@ public class SwitchableRouterImpl implements SwitchableRouter {
     protected SwitchableRouterImpl() {
     }
 
-    @Inject
+    // @Inject
     public SwitchableRouterImpl(UpnpServiceConfiguration configuration, ProtocolFactory protocolFactory) {
         this.configuration = configuration;
         this.protocolFactory = protocolFactory;
@@ -106,7 +106,7 @@ public class SwitchableRouterImpl implements SwitchableRouter {
         }
     }
 
-    public boolean enable(@Observes @Default TransportStart transportStart) throws RouterLockAcquisitionException {
+    public boolean enable(/*@Observes @Default*/ TransportStart transportStart) throws RouterLockAcquisitionException {
         return enable();
     }
 
@@ -133,7 +133,7 @@ public class SwitchableRouterImpl implements SwitchableRouter {
         log.severe("Cause: " + Exceptions.unwrap(ex));
     }
 
-    public boolean disable(@Observes @Default TransportStop transportStop) throws RouterLockAcquisitionException {
+    public boolean disable(/*@Observes @Default*/ TransportStop transportStop) throws RouterLockAcquisitionException {
         return disable();
     }
 
@@ -170,8 +170,12 @@ public class SwitchableRouterImpl implements SwitchableRouter {
         }
     }
 
-    public void shutdown() throws RouterLockAcquisitionException {
-        disable();
+    public void shutdown()  {
+    	try {
+        	disable();
+    	} catch(RouterLockAcquisitionException e) {
+    		log.warning("cannot disable router on shutdown: " + e);
+    	}
     }
 
     public void received(IncomingDatagramMessage msg) throws RouterLockAcquisitionException {
@@ -285,6 +289,11 @@ public class SwitchableRouterImpl implements SwitchableRouter {
                 throws IllegalStateException {
             return null;
         }
+
+		@Override
+		public Short getAddressNetworkPrefixLength(InetAddress inetAddress) {
+			return null;
+		}
     }
 
     public static class RouterLockAcquisitionException extends RuntimeException {

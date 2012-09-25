@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpHeaders;
-import org.fourthline.cling.model.message.UpnpOperation;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.transport.spi.DatagramProcessor;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
-import org.seamless.http.Headers;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.model.message.UpnpHeaders;
+import org.teleal.cling.model.message.UpnpOperation;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.transport.spi.DatagramProcessor;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
+import org.teleal.common.http.Headers;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;

@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.async;
+package org.teleal.cling.protocol.async;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.Location;
-import org.fourthline.cling.model.NetworkAddress;
-import org.fourthline.cling.model.message.discovery.OutgoingNotificationRequest;
-import org.fourthline.cling.model.message.discovery.OutgoingNotificationRequestDeviceType;
-import org.fourthline.cling.model.message.discovery.OutgoingNotificationRequestRootDevice;
-import org.fourthline.cling.model.message.discovery.OutgoingNotificationRequestServiceType;
-import org.fourthline.cling.model.message.discovery.OutgoingNotificationRequestUDN;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.types.NotificationSubtype;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.protocol.SendingAsync;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.Location;
+import org.teleal.cling.model.NetworkAddress;
+import org.teleal.cling.model.message.discovery.OutgoingNotificationRequest;
+import org.teleal.cling.model.message.discovery.OutgoingNotificationRequestDeviceType;
+import org.teleal.cling.model.message.discovery.OutgoingNotificationRequestRootDevice;
+import org.teleal.cling.model.message.discovery.OutgoingNotificationRequestServiceType;
+import org.teleal.cling.model.message.discovery.OutgoingNotificationRequestUDN;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.types.NotificationSubtype;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.protocol.SendingAsync;
 
 import java.util.ArrayList;
 import java.util.List;

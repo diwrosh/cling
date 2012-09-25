@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
 import java.util.logging.Logger;
 
 /**
- * Runs periodically and calls {@link org.fourthline.cling.registry.RegistryImpl#maintain()}.
+ * Runs periodically and calls {@link org.teleal.cling.registry.RegistryImpl#maintain()}.
  *
  * @author Christian Bauer
  */

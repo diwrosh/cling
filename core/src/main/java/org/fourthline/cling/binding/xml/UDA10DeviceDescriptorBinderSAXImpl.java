@@ -15,21 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.xml;
+package org.teleal.cling.binding.xml;
 
-import org.fourthline.cling.binding.staging.MutableDevice;
-import org.fourthline.cling.binding.staging.MutableIcon;
-import org.fourthline.cling.binding.staging.MutableService;
-import org.fourthline.cling.binding.staging.MutableUDAVersion;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.types.DLNACaps;
-import org.fourthline.cling.model.types.DLNADoc;
-import org.fourthline.cling.model.types.InvalidValueException;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
-import org.seamless.xml.SAXParser;
+import org.teleal.cling.binding.staging.MutableDevice;
+import org.teleal.cling.binding.staging.MutableIcon;
+import org.teleal.cling.binding.staging.MutableService;
+import org.teleal.cling.binding.staging.MutableUDAVersion;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.types.DLNACaps;
+import org.teleal.cling.model.types.DLNADoc;
+import org.teleal.cling.model.types.InvalidValueException;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.common.xml.SAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.fourthline.cling.binding.xml.Descriptor.Device.ELEMENT;
+import static org.teleal.cling.binding.xml.Descriptor.Device.ELEMENT;
 
 /**
  * A JAXP SAX parser implementation, which is actually slower than the DOM implementation (on desktop and on Android)!

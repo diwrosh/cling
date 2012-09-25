@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.annotations;
+package org.teleal.cling.binding.annotations;
 
-import org.fourthline.cling.model.types.UDAServiceId;
+import org.teleal.cling.model.types.UDAServiceId;
 
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Retention;

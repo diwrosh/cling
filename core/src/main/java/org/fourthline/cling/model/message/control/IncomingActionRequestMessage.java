@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.control;
+package org.teleal.cling.model.message.control;
 
-import org.fourthline.cling.model.action.ActionException;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.header.SoapActionHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.QueryStateVariableAction;
-import org.fourthline.cling.model.types.ErrorCode;
-import org.fourthline.cling.model.types.SoapActionType;
+import org.teleal.cling.model.action.ActionException;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.header.SoapActionHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.QueryStateVariableAction;
+import org.teleal.cling.model.types.ErrorCode;
+import org.teleal.cling.model.types.SoapActionType;
 
 /**
  * @author Christian Bauer

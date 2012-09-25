@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.async;
+package org.teleal.cling.protocol.async;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.ValidationError;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.discovery.IncomingSearchResponse;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.model.meta.RemoteDeviceIdentity;
-import org.fourthline.cling.model.types.UDN;
-import org.fourthline.cling.protocol.ReceivingAsync;
-import org.fourthline.cling.protocol.RetrieveRemoteDescriptors;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.ValidationError;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.discovery.IncomingSearchResponse;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.RemoteDeviceIdentity;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.cling.protocol.ReceivingAsync;
+import org.teleal.cling.protocol.RetrieveRemoteDescriptors;
 
 import java.util.logging.Logger;
 
@@ -35,7 +35,7 @@ import java.util.logging.Logger;
  * Handles reception of search response messages.
  * <p>
  * This protocol implementation is basically the same as
- * the {@link org.fourthline.cling.protocol.async.ReceivingNotification} protocol for
+ * the {@link org.teleal.cling.protocol.async.ReceivingNotification} protocol for
  * an <em>ALIVE</em> message.
  * </p>
  *

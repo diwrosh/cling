@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.gena;
+package org.teleal.cling.model.gena;
 
 /**
- * The reason why a {@link org.fourthline.cling.model.gena.GENASubscription} has ended unexpectedly.
+ * The reason why a {@link org.teleal.cling.model.gena.GENASubscription} has ended unexpectedly.
  *
  * @author Christian Bauer
  */

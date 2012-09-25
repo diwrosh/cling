@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.meta.RemoteDevice;
 
 /**
  * Convenience class, provides empty implementations of all methods.
  * <p>
  * Also unifies local and remote device additions and removals with
- * {@link #deviceAdded(Registry, org.fourthline.cling.model.meta.Device)} and
- * {@link #deviceRemoved(Registry, org.fourthline.cling.model.meta.Device)} methods.
+ * {@link #deviceAdded(Registry, org.teleal.cling.model.meta.Device)} and
+ * {@link #deviceRemoved(Registry, org.teleal.cling.model.meta.Device)} methods.
  * </p>
  *
  * @author Christian Bauer
@@ -42,7 +42,7 @@ public class DefaultRegistryListener implements RegistryListener {
     }
 
     /**
-     * Calls the {@link #deviceAdded(Registry, org.fourthline.cling.model.meta.Device)} method.
+     * Calls the {@link #deviceAdded(Registry, org.teleal.cling.model.meta.Device)} method.
      *
      * @param registry The Cling registry of all devices and services know to the local UPnP stack.
      * @param device   A validated and hydrated device metadata graph, with complete service metadata.
@@ -56,7 +56,7 @@ public class DefaultRegistryListener implements RegistryListener {
     }
 
     /**
-     * Calls the {@link #deviceRemoved(Registry, org.fourthline.cling.model.meta.Device)} method.
+     * Calls the {@link #deviceRemoved(Registry, org.teleal.cling.model.meta.Device)} method.
      *
      * @param registry The Cling registry of all devices and services know to the local UPnP stack.
      * @param device   A validated and hydrated device metadata graph, with complete service metadata.
@@ -66,20 +66,20 @@ public class DefaultRegistryListener implements RegistryListener {
     }
 
     /**
-     * Calls the {@link #deviceAdded(Registry, org.fourthline.cling.model.meta.Device)} method.
+     * Calls the {@link #deviceAdded(Registry, org.teleal.cling.model.meta.Device)} method.
      *
      * @param registry The Cling registry of all devices and services know to the local UPnP stack.
-     * @param device   The local device added to the {@link org.fourthline.cling.registry.Registry}.
+     * @param device   The local device added to the {@link org.teleal.cling.registry.Registry}.
      */
     public void localDeviceAdded(Registry registry, LocalDevice device) {
         deviceAdded(registry, device);
     }
 
     /**
-     * Calls the {@link #deviceRemoved(Registry, org.fourthline.cling.model.meta.Device)} method.
+     * Calls the {@link #deviceRemoved(Registry, org.teleal.cling.model.meta.Device)} method.
      *
      * @param registry The Cling registry of all devices and services know to the local UPnP stack.
-     * @param device   The local device removed from the {@link org.fourthline.cling.registry.Registry}.
+     * @param device   The local device removed from the {@link org.teleal.cling.registry.Registry}.
      */
     public void localDeviceRemoved(Registry registry, LocalDevice device) {
         deviceRemoved(registry, device);

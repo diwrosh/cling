@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.UDN;
 
 /**
- * Combines a {@link org.fourthline.cling.model.types.UDN} and a {@link org.fourthline.cling.model.types.ServiceId}.
+ * Combines a {@link org.teleal.cling.model.types.UDN} and a {@link org.teleal.cling.model.types.ServiceId}.
  * <p>
  * A service reference is useful to remember a service. For example, if a control point has accessed
- * a service one, it can remember the service with {@link org.fourthline.cling.model.meta.Service#getReference()}.
+ * a service one, it can remember the service with {@link org.teleal.cling.model.meta.Service#getReference()}.
  * Before every action invocation, it can now resolve the reference to an actually registered service with
- * {@link org.fourthline.cling.registry.Registry#getService(ServiceReference)}. If the registry doesn't return
+ * {@link org.teleal.cling.registry.Registry#getService(ServiceReference)}. If the registry doesn't return
  * a service for the given reference, the service is currently not available.
  * </p>
  * <p>

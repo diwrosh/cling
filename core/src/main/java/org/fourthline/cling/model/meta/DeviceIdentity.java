@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.types.UDN;
 
 /**
  * Unique device name, received and offered during discovery with SSDP.

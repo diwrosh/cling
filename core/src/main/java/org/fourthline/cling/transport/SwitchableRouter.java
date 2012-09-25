@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport;
+package org.teleal.cling.transport;
 
-import org.fourthline.cling.transport.spi.InitializationException;
+import org.teleal.cling.transport.spi.InitializationException;
 
 /**
  * Switchable network transport layer interface.

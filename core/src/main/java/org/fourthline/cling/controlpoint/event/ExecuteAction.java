@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.controlpoint.event;
+package org.teleal.cling.controlpoint.event;
 
-import org.fourthline.cling.controlpoint.ActionCallback;
+import org.teleal.cling.controlpoint.ActionCallback;
 
 /**
  * @author Christian Bauer

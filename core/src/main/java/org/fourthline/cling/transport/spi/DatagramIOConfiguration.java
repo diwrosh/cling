@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
 /**
  * Collection of typically needed configuration settings.

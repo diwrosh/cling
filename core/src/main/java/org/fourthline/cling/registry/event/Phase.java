@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry.event;
+package org.teleal.cling.registry.event;
 
-import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Qualifier;
+// import javax.enterprise.util.AnnotationLiteral;
+// import javax.inject.Qualifier;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -32,7 +32,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 public interface Phase {
 
-    public static AnnotationLiteral<Alive> ALIVE = new AnnotationLiteral<Alive>() {
+    /*public static AnnotationLiteral<Alive> ALIVE = new AnnotationLiteral<Alive>() {
     };
 
     public static AnnotationLiteral<Complete> COMPLETE = new AnnotationLiteral<Complete>() {
@@ -43,30 +43,30 @@ public interface Phase {
 
     public static AnnotationLiteral<Updated> UPDATED = new AnnotationLiteral<Updated>() {
     };
+*/
 
-
-    @Qualifier
+    // @Qualifier
     @Target({FIELD, PARAMETER})
     @Retention(RUNTIME)
     public @interface Alive {
 
     }
 
-    @Qualifier
+    // @Qualifier
     @Target({FIELD, PARAMETER})
     @Retention(RUNTIME)
     public @interface Complete {
 
     }
 
-    @Qualifier
+    // @Qualifier
     @Target({FIELD, PARAMETER})
     @Retention(RUNTIME)
     public @interface Byebye {
 
     }
 
-    @Qualifier
+    // @Qualifier
     @Target({FIELD, PARAMETER})
     @Retention(RUNTIME)
     public @interface Updated {

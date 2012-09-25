@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
-import org.fourthline.cling.transport.spi.MulticastReceiverConfiguration;
+import org.teleal.cling.transport.spi.MulticastReceiverConfiguration;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

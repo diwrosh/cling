@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
 import java.net.InetAddress;
 import java.util.Arrays;

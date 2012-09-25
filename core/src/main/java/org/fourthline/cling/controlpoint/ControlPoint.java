@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.controlpoint;
+package org.teleal.cling.controlpoint;
 
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.registry.Registry;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.registry.Registry;
 
 /**
  * Unified API for the asynchronous execution of network searches, actions, event subscriptions.

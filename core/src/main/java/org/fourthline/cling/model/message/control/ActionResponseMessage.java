@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.control;
+package org.teleal.cling.model.message.control;
 
 /**
  * @author Christian Bauer

@@ -15,16 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.annotations;
+package org.teleal.cling.binding.annotations;
 
-import org.fourthline.cling.binding.LocalServiceBindingException;
-import org.fourthline.cling.model.ModelUtil;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.meta.StateVariableAllowedValueRange;
-import org.fourthline.cling.model.meta.StateVariableEventDetails;
-import org.fourthline.cling.model.meta.StateVariableTypeDetails;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.types.Datatype;
+import org.teleal.cling.binding.LocalServiceBindingException;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.meta.StateVariableAllowedValueRange;
+import org.teleal.cling.model.meta.StateVariableEventDetails;
+import org.teleal.cling.model.meta.StateVariableTypeDetails;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.types.Datatype;
 
 import java.util.Set;
 import java.util.logging.Logger;

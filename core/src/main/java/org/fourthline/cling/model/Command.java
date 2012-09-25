@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
 /**
- * Executable procedure, invoked and potentially decorated by the {@link org.fourthline.cling.model.ServiceManager}.
+ * Executable procedure, invoked and potentially decorated by the {@link org.teleal.cling.model.ServiceManager}.
  *
  * @author Christian Bauer
  */

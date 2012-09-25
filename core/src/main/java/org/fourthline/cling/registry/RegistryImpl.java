@@ -15,27 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.model.ExpirationDetails;
-import org.fourthline.cling.model.ServiceReference;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.model.meta.RemoteDeviceIdentity;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.resource.Resource;
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
-import org.fourthline.cling.protocol.ProtocolFactory;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.model.ExpirationDetails;
+import org.teleal.cling.model.ServiceReference;
+import org.teleal.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.RemoteDeviceIdentity;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.resource.Resource;
+import org.teleal.cling.model.resource.ResourceProcessor;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.cling.protocol.ProtocolFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+// import javax.enterprise.context.ApplicationScoped;
+// import javax.inject.Inject;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,7 +54,7 @@ import java.util.logging.Logger;
  *
  * @author Christian Bauer
  */
-@ApplicationScoped
+// @ApplicationScoped
 public class RegistryImpl implements Registry {
 
     private static Logger log = Logger.getLogger(Registry.class.getName());
@@ -61,6 +62,7 @@ public class RegistryImpl implements Registry {
     protected UpnpService upnpService;
     protected RegistryMaintainer registryMaintainer;
     protected ReentrantLock remoteSubscriptionsLock = new ReentrantLock(true);
+    protected ResourceProcessor resourceMissingProcessor;	
 
     public RegistryImpl() {
     }
@@ -68,7 +70,7 @@ public class RegistryImpl implements Registry {
     /**
      * Starts background maintenance immediately.
      */
-    @Inject
+    // @Inject
     public RegistryImpl(UpnpService upnpService) {
         log.fine("Creating Registry: " + getClass().getName());
 
@@ -154,6 +156,10 @@ public class RegistryImpl implements Registry {
     }
 
     // #################################################################################################
+    
+    synchronized public void setLocalDeviceAdvertising(LocalDevice localDevice, boolean isAdvertising) {
+    	localItems.setDeviceAdvertising(localDevice, isAdvertising);
+    }
 
     synchronized public void addDevice(LocalDevice localDevice) {
         localItems.add(localDevice);
@@ -497,6 +503,14 @@ public class RegistryImpl implements Registry {
 	public void unlockRemoteSubscriptions() {
 		remoteSubscriptionsLock.unlock();
 	}
+	
+	@Override
+	public void setResourceMissingProcessor(ResourceProcessor resourceProcessor) {
+		resourceMissingProcessor = resourceProcessor;
+	}
 
-
+	@Override
+	public ResourceProcessor getResourceMissingProcessor() {
+		return resourceMissingProcessor;
+	}
 }

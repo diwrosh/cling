@@ -15,31 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
-
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.XMLUtil;
-import org.fourthline.cling.model.action.ActionArgumentValue;
-import org.fourthline.cling.model.action.ActionException;
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.message.UpnpMessage;
-import org.fourthline.cling.model.message.control.ActionRequestMessage;
-import org.fourthline.cling.model.message.control.ActionResponseMessage;
-import org.fourthline.cling.model.meta.ActionArgument;
-import org.fourthline.cling.model.types.ErrorCode;
-import org.fourthline.cling.model.types.InvalidValueException;
-import org.fourthline.cling.transport.spi.SOAPActionProcessor;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
+package org.teleal.cling.transport.impl;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -47,6 +23,30 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.XMLUtil;
+import org.teleal.cling.model.action.ActionArgumentValue;
+import org.teleal.cling.model.action.ActionException;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.message.UpnpMessage;
+import org.teleal.cling.model.message.control.ActionMessage;
+import org.teleal.cling.model.message.control.ActionRequestMessage;
+import org.teleal.cling.model.message.control.ActionResponseMessage;
+import org.teleal.cling.model.meta.ActionArgument;
+import org.teleal.cling.model.types.ErrorCode;
+import org.teleal.cling.model.types.InvalidValueException;
+import org.teleal.cling.transport.spi.SOAPActionProcessor;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * Default implementation based on the <em>W3C DOM</em> XML processing API.
@@ -114,30 +114,14 @@ public class SOAPActionProcessorImpl implements SOAPActionProcessor {
         }
     }
     
-	private  String fixXMLEntities(String xml) {
-		
-    	StringBuilder fixedXml = new StringBuilder(xml.length());
-    	
-    	for(int i = 0; i < xml.length() ; i++) {
-    		
-    		char c = xml.charAt(i);
-    		if(c == '&') {
-    			// will not detect all possibly valid entities but should be sufficient for the purpose
-    			String sub = xml.substring(i, Math.min(i+10, xml.length()));
-    			if(!sub.startsWith("&#") && !sub.startsWith("&lt;") && !sub.startsWith("&gt;") && !sub.startsWith("&amp;") &&
-    			   !sub.startsWith("&apos;") && !sub.startsWith("&quot;")) {
-    				log.warning("fixed badly encoded entity in XML");
-    				fixedXml.append("&amp;");	
-    			} else {
-    				fixedXml.append(c);
-    			}
-    		} else {
-    			fixedXml.append(c);
-    		}
-    	}
-    	
-    	return fixedXml.toString();
-    }
+	protected void checkActionMessageBodyValidity(ActionMessage actionMessage) throws UnsupportedDataException  {
+		if (actionMessage.getBody() == null || 
+			!actionMessage.getBodyType().equals(UpnpMessage.BodyType.STRING) ||
+			actionMessage.getBodyString().length() == 0) {
+			throw new UnsupportedDataException("Can't transform null or non-string body of: " + actionMessage);
+		}
+
+	}
 
 
     public void readBody(ActionRequestMessage requestMessage, ActionInvocation actionInvocation) throws UnsupportedDataException {
@@ -149,60 +133,22 @@ public class SOAPActionProcessorImpl implements SOAPActionProcessor {
             log.finer("-===================================== SOAP BODY END ============================================");
         }
 
-        if (requestMessage.getBody() == null
-                || !requestMessage.getBodyType().equals(UpnpMessage.BodyType.STRING)
-                || requestMessage.getBodyString().length() == 0) {
-            throw new UnsupportedDataException("Can't transform empty or non-string body of: " + requestMessage);
-        }
-
+        checkActionMessageBodyValidity(requestMessage);
+        
+		// Trim may not be needed, do it anyway
+        String body = requestMessage.getBodyString().trim();
+        
         try {
 
             DocumentBuilderFactory factory = createDocumentBuilderFactory();
             factory.setNamespaceAware(true);
-            Document d;
-            try {
-            	d = factory.newDocumentBuilder().parse(
-            			new InputSource(
-            					// Trim may not be needed, do it anyway
-            					new StringReader(requestMessage.getBodyString().trim())
-            			)
-            	);
-            } catch(SAXException e) {
-            	
-            	// There's many broken XML out there sent by various software failing to properly encode it
-            	// This simple fix will detect '&' characters in the body that are not XML entities and will encode it 
-            	// properly if necessary
-            	
-            	// This fix was done initially to workaround a TwonkyMobile bug:
-            	// TwonkyMobile sends unencoded URL as the first parameter of SetAVTransportURI, and this gives unparsable XML
-            	// if the URL has a query with parameters
-            	//
-            	// Here's the broken XML sent by TwonkyMobile:
-            	//
-            	// <s:Envelope
-            	// ...
-            	//	<u:SetAVTransportURI
-            	//	    ...
-            	//		<CurrentURI>http://192.168.1.14:56923/content/12a470d854dbc6887e4103e3140783fd.wav?profile_id=0&convert=wav</CurrentURI>
-            	//			
-            	
-            	
-            	log.warning("Got unparsable SOAP XML: trying to fix possibly badly encoded special chars (entities)");
-            	String fixedBodyString = fixXMLEntities(requestMessage.getBodyString().trim());
-            	
-               	d = factory.newDocumentBuilder().parse(
-                 			new InputSource(
-                 					new StringReader(fixedBodyString)
-                 			)
-               	);
-            }
+            Document d = factory.newDocumentBuilder().parse(new InputSource(new StringReader(body)));
 
             Element bodyElement = readBodyElement(d);
-
             readBodyRequest(d, bodyElement, requestMessage, actionInvocation);
 
         } catch (Exception ex) {
-            throw new UnsupportedDataException("Can't transform message payload: " + ex, ex);
+            throw new UnsupportedDataException("Can't transform message payload: " + ex, ex, body);
         }
     }
 
@@ -215,38 +161,29 @@ public class SOAPActionProcessorImpl implements SOAPActionProcessor {
             log.finer("-===================================== SOAP BODY END ============================================");
         }
 
-        if (responseMsg.getBody() == null
-                || !responseMsg.getBodyType().equals(UpnpMessage.BodyType.STRING)
-                || responseMsg.getBodyString().length() == 0) {
-            throw new UnsupportedDataException("Can't transform empty or non-string body of: " + responseMsg);
-        }
+        checkActionMessageBodyValidity(responseMsg);
+        
+        String body = responseMsg.getBodyString().trim();
 
-        try {
+    	try {
 
-            DocumentBuilderFactory factory = createDocumentBuilderFactory();
-            factory.setNamespaceAware(true);
+    		DocumentBuilderFactory factory = createDocumentBuilderFactory();
+    		factory.setNamespaceAware(true);
 
-            Document d = factory.newDocumentBuilder().parse(
-                    new InputSource(
-                            // Trim may not be needed, do it anyway
-                            new StringReader(responseMsg.getBodyString().trim())
-                    )
-            );
+    		// Trim may not be needed, do it anyway
+    		Document d = factory.newDocumentBuilder().parse(new InputSource(new StringReader(body)));
 
-            Element bodyElement = readBodyElement(d);
+    		Element bodyElement = readBodyElement(d);
+    		ActionException ex = readBodyFailure(d, bodyElement);
 
-            ActionException ex = readBodyFailure(d, bodyElement);
-            
-
-            if (ex == null) {
-                readBodyResponse(d, bodyElement, responseMsg, actionInvocation);
-            } else {
-                actionInvocation.setFailure(ex);
-            }
-
-        } catch (Exception ex) {
-            throw new UnsupportedDataException("Can't transform message payload: " + ex, ex);
-        }
+    		if (ex == null) {
+    			readBodyResponse(d, bodyElement, responseMsg, actionInvocation);
+    		} else {
+    			actionInvocation.setFailure(ex);
+    		}
+    	} catch (Exception ex) {
+    		throw new UnsupportedDataException("Can't transform message payload: " + ex, ex, body);
+    	}
     }
 
     /* ##################################################################################################### */
@@ -588,6 +525,13 @@ public class SOAPActionProcessorImpl implements SOAPActionProcessor {
                 : node.getNodeName();
     }
 
+    private Node findActionArgumentNode(List<Node> nodes, ActionArgument arg) {
+    	for(Node node : nodes) {
+    		if(arg.isNameOrAlias(getUnprefixedNodeName(node))) return node;	
+    	}
+    	return null;
+    }
+
     protected ActionArgumentValue[] readArgumentValues(NodeList nodeList, ActionArgument[] args)
             throws ActionException {
 
@@ -596,15 +540,15 @@ public class SOAPActionProcessorImpl implements SOAPActionProcessor {
         ActionArgumentValue[] values = new ActionArgumentValue[args.length];
 
         for (int i = 0; i < args.length; i++) {
-            Node node = nodes.get(i);
+        	
             ActionArgument arg = args[i];
-            String nodeName = getUnprefixedNodeName(node);
-            if (!arg.isNameOrAlias(nodeName)) {
+            Node node = findActionArgumentNode(nodes, arg);
+            if(node == null) {
                 throw new ActionException(
                         ErrorCode.ARGUMENT_VALUE_INVALID,
-                        "Wrong order of arguments, expected '" + arg.getName() + "' not: " + nodeName
-                );
+                        "Could not find argument '" + arg.getName() + "' node");
             }
+
             log.fine("Reading action argument: " + arg.getName());
             String value = XMLUtil.getTextContent(node);
             values[i] = createValue(arg, value);

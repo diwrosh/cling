@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol;
+package org.teleal.cling.protocol;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.message.UpnpMessage;
-import org.fourthline.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.message.UpnpMessage;
+import org.teleal.cling.model.message.header.UpnpHeader;
 
 /**
  * Supertype for all asynchronously executing protocols, handling reception of UPnP messages.

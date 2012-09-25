@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry.event;
+package org.teleal.cling.registry.event;
 
-import javax.inject.Qualifier;
+// import javax.inject.Qualifier;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -28,7 +28,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * @author Christian Bauer
  */
-@Qualifier
+// @Qualifier
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
 public @interface After {

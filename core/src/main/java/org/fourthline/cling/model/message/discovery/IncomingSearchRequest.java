@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.discovery;
+package org.teleal.cling.model.message.discovery;
 
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.header.MANHeader;
-import org.fourthline.cling.model.message.header.MXHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.types.NotificationSubtype;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.header.MANHeader;
+import org.teleal.cling.model.message.header.MXHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.types.NotificationSubtype;
 
 /**
  * @author Christian Bauer
@@ -47,7 +47,7 @@ public class IncomingSearchRequest extends IncomingDatagramMessage<UpnpRequest> 
 
     /**
      * @return <code>true</code> if this message has a MAN with
-     *         value {@link org.fourthline.cling.model.types.NotificationSubtype#DISCOVER}.
+     *         value {@link org.teleal.cling.model.types.NotificationSubtype#DISCOVER}.
      */
     public boolean isMANSSDPDiscover() {
         MANHeader header = getHeaders().getFirstHeader(UpnpHeader.Type.MAN, MANHeader.class);

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl.apache;
+package org.teleal.cling.transport.impl.apache;
 
-import org.fourthline.cling.model.ServerClientTokens;
-import org.fourthline.cling.transport.spi.StreamClientConfiguration;
+import org.teleal.cling.model.ServerClientTokens;
+import org.teleal.cling.transport.spi.StreamClientConfiguration;
 
 /**
  * Settings for the Apache HTTP Components implementation.
@@ -28,8 +28,8 @@ import org.fourthline.cling.transport.spi.StreamClientConfiguration;
 public class StreamClientConfigurationImpl implements StreamClientConfiguration {
 
     private int maxTotalConnections = 1024;
-    private int connectionTimeoutSeconds = 5;
-    private int dataReadTimeoutSeconds = 5;
+    private int connectionTimeoutSeconds = 20; // WMP can be very slow to connect
+    private int dataReadTimeoutSeconds = 60; // WMP can be very slow sending the initial data after connection
     private String contentCharset = "UTF-8"; // UDA spec says it's always UTF-8 entity content
 
     /**
@@ -44,7 +44,7 @@ public class StreamClientConfigurationImpl implements StreamClientConfiguration 
     }
 
     /**
-     * Defaults to 5 seconds;
+     * Defaults to 20 seconds;
      */
     public int getConnectionTimeoutSeconds() {
         return connectionTimeoutSeconds;
@@ -54,7 +54,7 @@ public class StreamClientConfigurationImpl implements StreamClientConfiguration 
         this.connectionTimeoutSeconds = connectionTimeoutSeconds;
     }
     /**
-     * Defaults to 5 seconds;
+     * Defaults to 60 seconds (WMP can be very slow sending the initial data after connection);
      */
     public int getDataReadTimeoutSeconds() {
         return dataReadTimeoutSeconds;
@@ -76,7 +76,7 @@ public class StreamClientConfigurationImpl implements StreamClientConfiguration 
     }
 
     /**
-     * Defaults to the values defined in {@link org.fourthline.cling.model.Constants}.
+     * Defaults to the values defined in {@link org.teleal.cling.model.Constants}.
      */
     public String getUserAgentValue(int majorVersion, int minorVersion) {
         return new ServerClientTokens(majorVersion, minorVersion).toString();
@@ -100,5 +100,6 @@ public class StreamClientConfigurationImpl implements StreamClientConfiguration 
 		// the default that is used by DefaultHttpClient if unspecified
 		return -1;
 	}
+
 
 }

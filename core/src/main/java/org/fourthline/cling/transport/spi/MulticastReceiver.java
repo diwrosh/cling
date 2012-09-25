@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
-import org.fourthline.cling.transport.Router;
+import org.teleal.cling.transport.Router;
 
 import java.net.NetworkInterface;
 
@@ -30,10 +30,10 @@ import java.net.NetworkInterface;
  * <p>
  * This listening loop is started with the <code>run()</code> method,
  * this service is <code>Runnable</code>. Any received datagram is then converted into an
- * {@link org.fourthline.cling.model.message.IncomingDatagramMessage} and
+ * {@link org.teleal.cling.model.message.IncomingDatagramMessage} and
  * handled by the
- * {@link org.fourthline.cling.transport.Router#received(org.fourthline.cling.model.message.IncomingDatagramMessage)}
- * method. This conversion is the job of the {@link org.fourthline.cling.transport.spi.DatagramProcessor}.
+ * {@link org.teleal.cling.transport.Router#received(org.teleal.cling.model.message.IncomingDatagramMessage)}
+ * method. This conversion is the job of the {@link org.teleal.cling.transport.spi.DatagramProcessor}.
  * </p>
  * <p>
  * An implementation has to be thread-safe.
@@ -49,7 +49,7 @@ public interface MulticastReceiver<C extends MulticastReceiverConfiguration> ext
      * Configures the service and starts any listening sockets.
      *
      * @param networkInterface The network interface on which to join the multicast group on.
-     * @param router The router which handles received {@link org.fourthline.cling.model.message.IncomingDatagramMessage}s.
+     * @param router The router which handles received {@link org.teleal.cling.model.message.IncomingDatagramMessage}s.
      * @param datagramProcessor Reads and writes datagrams.
      * @throws InitializationException If the service could not be initialized or started.
      */

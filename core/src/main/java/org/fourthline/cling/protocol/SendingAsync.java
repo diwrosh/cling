@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol;
+package org.teleal.cling.protocol;
 
-import org.fourthline.cling.UpnpService;
+import org.teleal.cling.UpnpService;
 
 /**
  * Supertype for all synchronously executing protocols, sending UPnP messages.

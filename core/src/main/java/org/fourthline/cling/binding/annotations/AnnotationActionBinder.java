@@ -15,21 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.annotations;
+package org.teleal.cling.binding.annotations;
 
-import org.fourthline.cling.binding.LocalServiceBindingException;
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.ModelUtil;
-import org.fourthline.cling.model.action.ActionExecutor;
-import org.fourthline.cling.model.action.MethodActionExecutor;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.ActionArgument;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.state.GetterStateVariableAccessor;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.types.Datatype;
-import org.seamless.util.Reflections;
+import org.teleal.cling.binding.LocalServiceBindingException;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.cling.model.action.ActionExecutor;
+import org.teleal.cling.model.action.MethodActionExecutor;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.ActionArgument;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.state.GetterStateVariableAccessor;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.types.Datatype;
+import org.teleal.common.util.Reflections;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
-import org.fourthline.cling.model.ModelUtil;
-import org.fourthline.cling.model.ServiceManager;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.action.ActionExecutor;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.cling.model.ServiceManager;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.action.ActionExecutor;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,7 +33,7 @@ import java.util.Set;
 /**
  * The metadata of a service created on this host, by application code.
  * <p>
- * After instantiation {@link #setManager(org.fourthline.cling.model.ServiceManager)} must
+ * After instantiation {@link #setManager(org.teleal.cling.model.ServiceManager)} must
  * be called to bind the service metadata to the service implementation.
  * </p>
  *

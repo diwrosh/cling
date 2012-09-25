@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
-import org.fourthline.cling.transport.Router;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.transport.Router;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
 
 import java.net.InetAddress;
 import java.net.DatagramPacket;
@@ -32,15 +32,15 @@ import java.net.DatagramPacket;
  * <p>
  * This listening loop is started with the <code>run()</code> method,
  * this service is <code>Runnable</code>. Any received datagram is then converted into an
- * {@link org.fourthline.cling.model.message.IncomingDatagramMessage} and
+ * {@link org.teleal.cling.model.message.IncomingDatagramMessage} and
  * handled by the
- * {@link org.fourthline.cling.transport.Router#received(org.fourthline.cling.model.message.IncomingDatagramMessage)}
- * method. This conversion is the job of the {@link org.fourthline.cling.transport.spi.DatagramProcessor}.
+ * {@link org.teleal.cling.transport.Router#received(org.teleal.cling.model.message.IncomingDatagramMessage)}
+ * method. This conversion is the job of the {@link org.teleal.cling.transport.spi.DatagramProcessor}.
  * </p>
  * <p>
  * Clients of this service use it to send UDP datagrams, either to a unicast
- * or multicast destination. Any {@link org.fourthline.cling.model.message.OutgoingDatagramMessage} can
- * be converted and written into a datagram with the {@link org.fourthline.cling.transport.spi.DatagramProcessor}.
+ * or multicast destination. Any {@link org.teleal.cling.model.message.OutgoingDatagramMessage} can
+ * be converted and written into a datagram with the {@link org.teleal.cling.transport.spi.DatagramProcessor}.
  * </p>
  * <p>
  * An implementation has to be thread-safe.
@@ -56,7 +56,7 @@ public interface DatagramIO<C extends DatagramIOConfiguration> extends Runnable 
      * Configures the service and starts any listening sockets.
      *
      * @param bindAddress The address to bind any sockets on.
-     * @param router The router which handles received {@link org.fourthline.cling.model.message.IncomingDatagramMessage}s.
+     * @param router The router which handles received {@link org.teleal.cling.model.message.IncomingDatagramMessage}s.
      * @param datagramProcessor Reads and writes datagrams.
      * @throws InitializationException If the service could not be initialized or started.
      */
@@ -73,7 +73,7 @@ public interface DatagramIO<C extends DatagramIOConfiguration> extends Runnable 
     public C getConfiguration();
 
     /**
-     * Sends a datagram after conversion with {@link org.fourthline.cling.transport.spi.DatagramProcessor#write(org.fourthline.cling.model.message.OutgoingDatagramMessage)}.
+     * Sends a datagram after conversion with {@link org.teleal.cling.transport.spi.DatagramProcessor#write(org.teleal.cling.model.message.OutgoingDatagramMessage)}.
      *
      * @param message The message to send.
      */

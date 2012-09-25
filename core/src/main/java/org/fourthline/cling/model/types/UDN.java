@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.types;
+package org.teleal.cling.model.types;
 
-import org.fourthline.cling.model.ModelUtil;
+import org.teleal.cling.model.ModelUtil;
 
 
 import java.util.UUID;
@@ -91,15 +91,20 @@ public class UDN {
         StringBuilder systemSalt = new StringBuilder();
 
         try {
-            java.net.InetAddress i = java.net.InetAddress.getLocalHost();
-            systemSalt.append(i.getHostName()).append(i.getHostAddress());
+        	if(ModelUtil.ANDROID_RUNTIME) {
+        		// bug: I've seen InetAddress.getLocalHost() block *forever* on Android, until device is rebooted
+        		throw new Exception("Android sucks");
+        	} else {
+        		java.net.InetAddress i = java.net.InetAddress.getLocalHost();
+            	systemSalt.append(i.getHostName()).append(i.getHostAddress());
+        	}
         } catch (Exception ex) {
             // Could not find local host name, try to get the MAC address of loopback interface
             try {
                 systemSalt.append(new String(ModelUtil.getFirstNetworkInterfaceHardwareAddress()));
             } catch (Throwable ex1) {
                 // Ignore, we did everything we can
-            	// catch Throwable so we catch  java.lang.NoSuchMethodError on Android because NetworkInterface.isLoopback() is'nt implemented 
+            	// NetworkInterface.isLoopback() called in getFirstNetworkInterfaceHardwareAddress() is implemented only since Android API 9 
             }
 
         }

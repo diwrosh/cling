@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
-import org.fourthline.cling.transport.spi.StreamClientConfiguration;
-import org.fourthline.cling.model.ServerClientTokens;
+import org.teleal.cling.transport.spi.StreamClientConfiguration;
+import org.teleal.cling.model.ServerClientTokens;
 
 /**
  * Settings for the default implementation.
@@ -65,7 +65,7 @@ public class StreamClientConfigurationImpl implements StreamClientConfiguration 
     }
 
     /**
-     * Defaults to the values defined in {@link org.fourthline.cling.model.Constants}.
+     * Defaults to the values defined in {@link org.teleal.cling.model.Constants}.
      */
     public String getUserAgentValue(int majorVersion, int minorVersion) {
         return new ServerClientTokens(majorVersion, minorVersion).toString();

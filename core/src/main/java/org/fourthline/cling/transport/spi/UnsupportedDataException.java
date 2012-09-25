@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
 /**
  * Thrown by processors/converters when errors occured.
@@ -29,6 +29,8 @@ package org.fourthline.cling.transport.spi;
  */
 public class UnsupportedDataException extends RuntimeException {
 
+	Object data;
+	
     public UnsupportedDataException(String s) {
         super(s);
     }
@@ -36,4 +38,14 @@ public class UnsupportedDataException extends RuntimeException {
     public UnsupportedDataException(String s, Throwable throwable) {
         super(s, throwable);
     }
+    
+    public UnsupportedDataException(String s, Throwable throwable, Object data) {
+        super(s, throwable);
+        this.data = data;
+    }
+    
+    public Object getData() {
+    	return data;
+    }
+
 }

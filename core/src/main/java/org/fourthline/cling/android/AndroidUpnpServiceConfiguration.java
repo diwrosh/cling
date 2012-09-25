@@ -15,21 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.android;
+package org.teleal.cling.android;
 
 import android.net.wifi.WifiManager;
-import org.fourthline.cling.DefaultUpnpServiceConfiguration;
-import org.fourthline.cling.binding.xml.DeviceDescriptorBinder;
-import org.fourthline.cling.binding.xml.ServiceDescriptorBinder;
-import org.fourthline.cling.binding.xml.UDA10DeviceDescriptorBinderSAXImpl;
-import org.fourthline.cling.binding.xml.UDA10ServiceDescriptorBinderSAXImpl;
-import org.fourthline.cling.transport.impl.apache.StreamClientConfigurationImpl;
-import org.fourthline.cling.transport.impl.apache.StreamClientImpl;
-import org.fourthline.cling.transport.impl.apache.StreamServerConfigurationImpl;
-import org.fourthline.cling.transport.impl.apache.StreamServerImpl;
-import org.fourthline.cling.transport.spi.NetworkAddressFactory;
-import org.fourthline.cling.transport.spi.StreamClient;
-import org.fourthline.cling.transport.spi.StreamServer;
+import org.teleal.cling.DefaultUpnpServiceConfiguration;
+import org.teleal.cling.binding.xml.DeviceDescriptorBinder;
+import org.teleal.cling.binding.xml.ServiceDescriptorBinder;
+import org.teleal.cling.binding.xml.UDA10DeviceDescriptorBinderSAXImpl;
+import org.teleal.cling.binding.xml.UDA10ServiceDescriptorBinderSAXImpl;
+import org.teleal.cling.transport.impl.apache.StreamClientConfigurationImpl;
+import org.teleal.cling.transport.impl.apache.StreamClientImpl;
+import org.teleal.cling.transport.impl.apache.StreamServerConfigurationImpl;
+import org.teleal.cling.transport.impl.apache.StreamServerImpl;
+import org.teleal.cling.transport.spi.NetworkAddressFactory;
+import org.teleal.cling.transport.spi.StreamClient;
+import org.teleal.cling.transport.spi.StreamServer;
 
 import java.util.concurrent.Executor;
 import java.util.logging.Logger;
@@ -38,13 +38,13 @@ import java.util.logging.Logger;
  * Configuration settings for deployment on Android.
  * <p>
  * This configuration utilizes the Apache HTTP Components transport implementation
- * found in {@link org.fourthline.cling.transport.impl.apache} for TCP/HTTP networking. It
+ * found in {@link org.teleal.cling.transport.impl.apache} for TCP/HTTP networking. It
  * will attempt to bind only to the WiFi network interface and addresses on an
  * Android device.
  * </p>
  * <p>
  * This configuration utilizes the SAX default descriptor binders found in
- * {@link org.fourthline.cling.binding.xml}. The system property <code>org.xml.sax.driver</code>
+ * {@link org.teleal.cling.binding.xml}. The system property <code>org.xml.sax.driver</code>
  * is set to <code>org.xmlpull.v1.sax2.Driver</code>.
  * </p>
  * <p>

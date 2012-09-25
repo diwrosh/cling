@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.XMLUtil;
-import org.fourthline.cling.model.message.UpnpMessage;
-import org.fourthline.cling.model.message.gena.IncomingEventRequestMessage;
-import org.fourthline.cling.model.message.gena.OutgoingEventRequestMessage;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.state.StateVariableValue;
-import org.fourthline.cling.transport.spi.GENAEventProcessor;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.XMLUtil;
+import org.teleal.cling.model.message.UpnpMessage;
+import org.teleal.cling.model.message.gena.IncomingEventRequestMessage;
+import org.teleal.cling.model.message.gena.OutgoingEventRequestMessage;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.state.StateVariableValue;
+import org.teleal.cling.transport.spi.GENAEventProcessor;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -77,40 +77,42 @@ public class GENAEventProcessorImpl implements GENAEventProcessor {
         }
     }
 
-    public void readBody(IncomingEventRequestMessage requestMessage) throws UnsupportedDataException {
+    protected void checkRequestBodyValidity(IncomingEventRequestMessage requestMessage) throws UnsupportedDataException  {
+		if (requestMessage.getBody() == null || 
+			!requestMessage.getBodyType().equals(UpnpMessage.BodyType.STRING) ||
+			requestMessage.getBodyString().length() == 0) {
+			throw new UnsupportedDataException("Can't transform null or non-string body of: " + requestMessage);
+		}
 
-        log.fine("Reading body of: " + requestMessage);
-        if (log.isLoggable(Level.FINER)) {
-            log.finer("===================================== GENA BODY BEGIN ============================================");
-            log.finer(requestMessage.getBody().toString());
-            log.finer("-===================================== GENA BODY END ============================================");
-        }
+	}
 
-        if (requestMessage.getBody() == null || !requestMessage.getBodyType().equals(UpnpMessage.BodyType.STRING)) {
-            throw new UnsupportedDataException("Can't transform null or non-string body of: " + requestMessage);
-        }
+	public void readBody(IncomingEventRequestMessage requestMessage) throws UnsupportedDataException {
 
-        try {
+		log.fine("Reading body of: " + requestMessage);
+		if (log.isLoggable(Level.FINER)) {
+			log.fine("===================================== GENA BODY BEGIN ============================================");
+			log.fine(requestMessage.getBody().toString());
+			log.fine("-===================================== GENA BODY END ============================================");
+		}
+		
+		checkRequestBodyValidity(requestMessage);
 
-            DocumentBuilderFactory factory = createDocumentBuilderFactory();
-            factory.setNamespaceAware(true);
 
-            // TODO: UPNP VIOLATION: Netgear 834DG DSL Router sends trailing spaces/newlines after last XML element, need to trim()
-            Document d = factory.newDocumentBuilder().parse(
-                    new InputSource(
-                            new StringReader(requestMessage.getBodyString().trim())
-                    )
-            );
+		// TODO: UPNP VIOLATION: Netgear 834DG DSL Router sends trailing spaces/newlines after last XML element, need to trim()
+		String body = requestMessage.getBodyString().trim();
 
-            Element propertysetElement = readPropertysetElement(d);
+		DocumentBuilderFactory factory = createDocumentBuilderFactory();
+		factory.setNamespaceAware(true);
 
-            readProperties(propertysetElement, requestMessage);
+		try {
 
-        } catch (Exception ex) {
-            throw new UnsupportedDataException("Can't transform message payload: " + ex.getMessage(), ex);
-        }
-
-    }
+			Document d = factory.newDocumentBuilder().parse(new InputSource(new StringReader(body)));
+			readProperties(readPropertysetElement(d), requestMessage);
+			
+		} catch (Exception ex) {
+			throw new UnsupportedDataException("Can't transform message payload: " + ex.getMessage(), ex, body);	
+		}
+	}
 
     /* ##################################################################################################### */
 

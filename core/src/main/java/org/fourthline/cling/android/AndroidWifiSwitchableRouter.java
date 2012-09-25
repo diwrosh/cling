@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.android;
+package org.teleal.cling.android;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,12 +23,12 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.model.ModelUtil;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.transport.Router;
-import org.fourthline.cling.transport.SwitchableRouterImpl;
-import org.fourthline.cling.transport.spi.InitializationException;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.transport.Router;
+import org.teleal.cling.transport.SwitchableRouterImpl;
+import org.teleal.cling.transport.spi.InitializationException;
 
 import java.util.logging.Logger;
 

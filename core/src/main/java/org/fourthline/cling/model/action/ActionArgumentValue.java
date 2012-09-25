@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.action;
+package org.teleal.cling.model.action;
 
-import org.fourthline.cling.model.VariableValue;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.meta.ActionArgument;
-import org.fourthline.cling.model.types.InvalidValueException;
+import org.teleal.cling.model.VariableValue;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.meta.ActionArgument;
+import org.teleal.cling.model.types.InvalidValueException;
 
 /**
  * Represents the value of an action input or output argument.

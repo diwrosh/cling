@@ -15,25 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport;
+package org.teleal.cling.transport;
 
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.model.NetworkAddress;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.protocol.ProtocolCreationException;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.protocol.ReceivingAsync;
-import org.fourthline.cling.transport.spi.DatagramIO;
-import org.fourthline.cling.transport.spi.InitializationException;
-import org.fourthline.cling.transport.spi.MulticastReceiver;
-import org.fourthline.cling.transport.spi.NetworkAddressFactory;
-import org.fourthline.cling.transport.spi.StreamClient;
-import org.fourthline.cling.transport.spi.StreamServer;
-import org.fourthline.cling.transport.spi.UpnpStream;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.model.NetworkAddress;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.protocol.ProtocolCreationException;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.protocol.ReceivingAsync;
+import org.teleal.cling.transport.spi.DatagramIO;
+import org.teleal.cling.transport.spi.InitializationException;
+import org.teleal.cling.transport.spi.MulticastReceiver;
+import org.teleal.cling.transport.spi.NetworkAddressFactory;
+import org.teleal.cling.transport.spi.StreamClient;
+import org.teleal.cling.transport.spi.StreamServer;
+import org.teleal.cling.transport.spi.UpnpStream;
+import org.teleal.common.util.Exceptions;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -69,13 +69,13 @@ public class RouterImpl implements Router {
     protected final Map<InetAddress, StreamServer> streamServers = new HashMap();
 
     /**
-     * Creates a {@link org.fourthline.cling.transport.spi.NetworkAddressFactory} from the given
-     * {@link org.fourthline.cling.UpnpServiceConfiguration} and initializes listening services. First an instance
-     * of {@link org.fourthline.cling.transport.spi.MulticastReceiver} is bound to eatch network interface. Then
-     * an instance of {@link org.fourthline.cling.transport.spi.DatagramIO}
-     * and {@link org.fourthline.cling.transport.spi.StreamServer} is bound to each bind address
+     * Creates a {@link org.teleal.cling.transport.spi.NetworkAddressFactory} from the given
+     * {@link org.teleal.cling.UpnpServiceConfiguration} and initializes listening services. First an instance
+     * of {@link org.teleal.cling.transport.spi.MulticastReceiver} is bound to eatch network interface. Then
+     * an instance of {@link org.teleal.cling.transport.spi.DatagramIO}
+     * and {@link org.teleal.cling.transport.spi.StreamServer} is bound to each bind address
      * returned by the network address factory, respectively. There is only one instance of
-     * {@link org.fourthline.cling.transport.spi.StreamClient} created and managed by this router.
+     * {@link org.teleal.cling.transport.spi.StreamClient} created and managed by this router.
      *
      * @param configuration   The configuration used by this router.
      * @param protocolFactory The protocol factory used by this router.
@@ -218,7 +218,7 @@ public class RouterImpl implements Router {
 
     /**
      * Obtains the asynchronous protocol {@code Executor} and runs the protocol created
-     * by the {@link org.fourthline.cling.protocol.ProtocolFactory} for the given message.
+     * by the {@link org.teleal.cling.protocol.ProtocolFactory} for the given message.
      * <p>
      * If the factory doesn't create a protocol, the message is dropped immediately without
      * creating another thread or consuming further resoures. This means we can filter the
@@ -246,9 +246,9 @@ public class RouterImpl implements Router {
 
     /**
      * Obtains the synchronous protocol {@code Executor} and runs the
-     * {@link org.fourthline.cling.transport.spi.UpnpStream} directly.
+     * {@link org.teleal.cling.transport.spi.UpnpStream} directly.
      *
-     * @param stream The received {@link org.fourthline.cling.transport.spi.UpnpStream}.
+     * @param stream The received {@link org.teleal.cling.transport.spi.UpnpStream}.
      */
     public void received(UpnpStream stream) {
         log.fine("Received synchronous stream: " + stream);
@@ -256,7 +256,7 @@ public class RouterImpl implements Router {
     }
 
     /**
-     * Sends the UDP datagram on all bound {@link org.fourthline.cling.transport.spi.DatagramIO}s.
+     * Sends the UDP datagram on all bound {@link org.teleal.cling.transport.spi.DatagramIO}s.
      *
      * @param msg The UDP datagram message to send.
      */
@@ -267,10 +267,10 @@ public class RouterImpl implements Router {
     }
 
     /**
-     * Sends the TCP stream request with the {@link org.fourthline.cling.transport.spi.StreamClient}.
+     * Sends the TCP stream request with the {@link org.teleal.cling.transport.spi.StreamClient}.
      *
      * @param msg The TCP (HTTP) stream message to send.
-     * @return The return value of the {@link org.fourthline.cling.transport.spi.StreamClient#sendRequest(StreamRequestMessage)}
+     * @return The return value of the {@link org.teleal.cling.transport.spi.StreamClient#sendRequest(StreamRequestMessage)}
      *         method or <code>null</code> if no <code>StreamClient</code> is available.
      */
     public StreamResponseMessage send(StreamRequestMessage msg) {
@@ -283,7 +283,7 @@ public class RouterImpl implements Router {
     }
 
     /**
-     * Sends the given bytes as a broadcast on all bound {@link org.fourthline.cling.transport.spi.DatagramIO}s,
+     * Sends the given bytes as a broadcast on all bound {@link org.teleal.cling.transport.spi.DatagramIO}s,
      * using source port 9.
      * <p>
      * TODO: Support source port parameter

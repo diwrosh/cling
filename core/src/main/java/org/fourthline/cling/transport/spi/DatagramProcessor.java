@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
 
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -37,8 +37,8 @@ public interface DatagramProcessor {
     /**
      * Reads the datagram and instantiates a message.
      * <p>
-     * The message is either a {@link org.fourthline.cling.model.message.UpnpRequest} or
-     * a {@link org.fourthline.cling.model.message.UpnpResponse} operation type.
+     * The message is either a {@link org.teleal.cling.model.message.UpnpRequest} or
+     * a {@link org.teleal.cling.model.message.UpnpResponse} operation type.
      * </p>
      *
      * @param receivedOnAddress The address of the socket on which this datagram was received.
@@ -51,8 +51,8 @@ public interface DatagramProcessor {
     /**
      * Creates a UDP datagram with the content of a message.
      * <p>
-     * The outgoing message might be a {@link org.fourthline.cling.model.message.UpnpRequest} or a
-     * {@link org.fourthline.cling.model.message.UpnpResponse}.
+     * The outgoing message might be a {@link org.teleal.cling.model.message.UpnpRequest} or a
+     * {@link org.teleal.cling.model.message.UpnpResponse}.
      * </p>
      *
      * @param message The outgoing datagram message.

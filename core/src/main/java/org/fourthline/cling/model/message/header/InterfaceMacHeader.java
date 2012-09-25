@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.header;
+package org.teleal.cling.model.message.header;
 
-import org.seamless.util.io.HexBin;
+import org.teleal.common.util.HexBin;
 
 /**
  * Custom header for Cling, used to transfer the MAC ethernet address for Wake-on-LAN.

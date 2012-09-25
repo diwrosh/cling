@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
-import org.seamless.util.URIUtil;
+import org.teleal.common.util.URIUtil;
 
 import java.net.URI;
 import java.net.URL;

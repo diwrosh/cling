@@ -15,16 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.controlpoint;
+package org.teleal.cling.controlpoint;
 
-import org.fourthline.cling.model.action.ActionException;
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.control.IncomingActionResponseMessage;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.RemoteService;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.protocol.sync.SendingAction;
+import org.teleal.cling.model.action.ActionException;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.control.IncomingActionResponseMessage;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.RemoteService;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.protocol.sync.SendingAction;
 
 import java.net.URL;
 
@@ -56,7 +56,7 @@ import java.net.URL;
  * </pre>
  * <p>
  * You can also execute the action synchronously in the same thread using the
- * {@link org.fourthline.cling.controlpoint.ActionCallback.Default} implementation:
+ * {@link org.teleal.cling.controlpoint.ActionCallback.Default} implementation:
  * </p>
  * <pre>
  * myActionInvocation.setInput("foo", bar);
@@ -70,7 +70,7 @@ public abstract class ActionCallback implements Runnable {
 
     /**
      * Empty implementation of callback methods, simplifies synchronous
-     * execution of an {@link org.fourthline.cling.model.action.ActionInvocation}.
+     * execution of an {@link org.teleal.cling.model.action.ActionInvocation}.
      */
     public static final class Default extends ActionCallback {
 
@@ -86,6 +86,11 @@ public abstract class ActionCallback implements Runnable {
         public void failure(ActionInvocation invocation, UpnpResponse operation, String defaultMsg) {
 
         }
+    }
+
+    public static interface ActionCallbackInterceptor {
+    	public void preExecute(ActionInvocation actionInvocation);
+    	public void postExecute(ActionInvocation actionInvocation);
     }
 
     protected final ActionInvocation actionInvocation;
@@ -116,13 +121,22 @@ public abstract class ActionCallback implements Runnable {
 
     public void run() {
         Service service = actionInvocation.getAction().getService();
+        ActionCallbackInterceptor actionCallbackInterceptor = actionInvocation.getAction().getActionCallbackInterceptor();
 
         // Local execution
         if (service instanceof LocalService) {
             LocalService localService = (LocalService)service;
 
+            if(actionCallbackInterceptor != null) {
+            	actionCallbackInterceptor.preExecute(actionInvocation);
+            }
+
             // Executor validates input inside the execute() call immediately
             localService.getExecutor(actionInvocation.getAction()).execute(actionInvocation);
+
+            if(actionCallbackInterceptor != null) {
+            	actionCallbackInterceptor.postExecute(actionInvocation);
+            }
 
             if (actionInvocation.getFailure() != null) {
                 failure(actionInvocation, null);
@@ -144,7 +158,16 @@ public abstract class ActionCallback implements Runnable {
 
             // Do it
             SendingAction prot = getControlPoint().getProtocolFactory().createSendingAction(actionInvocation, controLURL);
+            
+            if(actionCallbackInterceptor != null) {
+            	actionCallbackInterceptor.preExecute(actionInvocation);
+            }
+            
             prot.run();
+            
+            if(actionCallbackInterceptor != null) {
+            	actionCallbackInterceptor.postExecute(actionInvocation);
+            }
 
             IncomingActionResponseMessage response = prot.getOutputMessage();
 

@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling;
+package org.teleal.cling;
 
-import org.fourthline.cling.controlpoint.ControlPoint;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.registry.Registry;
-import org.fourthline.cling.transport.Router;
+import org.teleal.cling.controlpoint.ControlPoint;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.registry.Registry;
+import org.teleal.cling.transport.Router;
 
 /**
  * Primary interface of the Cling Core UPnP stack.

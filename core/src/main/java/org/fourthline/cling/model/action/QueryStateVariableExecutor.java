@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.action;
+package org.teleal.cling.model.action;
 
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.QueryStateVariableAction;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.types.ErrorCode;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.QueryStateVariableAction;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.types.ErrorCode;
 
 /**
  * Special executor for one action, the deprecated "query the value of the any state variable" action.

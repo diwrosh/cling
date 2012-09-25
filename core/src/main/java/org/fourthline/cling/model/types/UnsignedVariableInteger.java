@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.types;
+package org.teleal.cling.model.types;
 
 import java.util.logging.Logger;
 

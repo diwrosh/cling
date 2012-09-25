@@ -15,50 +15,55 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol;
+package org.teleal.cling.protocol;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.types.InvalidValueException;
-import org.fourthline.cling.model.types.NamedServiceType;
-import org.fourthline.cling.model.types.NotificationSubtype;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.protocol.async.ReceivingNotification;
-import org.fourthline.cling.protocol.async.ReceivingSearch;
-import org.fourthline.cling.protocol.async.ReceivingSearchResponse;
-import org.fourthline.cling.protocol.async.SendingNotificationAlive;
-import org.fourthline.cling.protocol.async.SendingNotificationByebye;
-import org.fourthline.cling.protocol.async.SendingSearch;
-import org.fourthline.cling.protocol.sync.ReceivingAction;
-import org.fourthline.cling.protocol.sync.ReceivingEvent;
-import org.fourthline.cling.protocol.sync.ReceivingRetrieval;
-import org.fourthline.cling.protocol.sync.ReceivingSubscribe;
-import org.fourthline.cling.protocol.sync.ReceivingUnsubscribe;
-import org.fourthline.cling.protocol.sync.SendingAction;
-import org.fourthline.cling.protocol.sync.SendingEvent;
-import org.fourthline.cling.protocol.sync.SendingRenewal;
-import org.fourthline.cling.protocol.sync.SendingSubscribe;
-import org.fourthline.cling.protocol.sync.SendingUnsubscribe;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import java.net.URI;
 import java.net.URL;
 import java.util.logging.Logger;
+
+/*
+ * import javax.enterprise.context.ApplicationScoped;
+ * import javax.inject.Inject;
+ */
+
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.Namespace;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.types.InvalidValueException;
+import org.teleal.cling.model.types.NamedServiceType;
+import org.teleal.cling.model.types.NotificationSubtype;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.protocol.async.ReceivingNotification;
+import org.teleal.cling.protocol.async.ReceivingSearch;
+import org.teleal.cling.protocol.async.ReceivingSearchResponse;
+import org.teleal.cling.protocol.async.SendingNotificationAlive;
+import org.teleal.cling.protocol.async.SendingNotificationByebye;
+import org.teleal.cling.protocol.async.SendingSearch;
+import org.teleal.cling.protocol.sync.ReceivingAction;
+import org.teleal.cling.protocol.sync.ReceivingEvent;
+import org.teleal.cling.protocol.sync.ReceivingRetrieval;
+import org.teleal.cling.protocol.sync.ReceivingSubscribe;
+import org.teleal.cling.protocol.sync.ReceivingUnsubscribe;
+import org.teleal.cling.protocol.sync.SendingAction;
+import org.teleal.cling.protocol.sync.SendingEvent;
+import org.teleal.cling.protocol.sync.SendingRenewal;
+import org.teleal.cling.protocol.sync.SendingSubscribe;
+import org.teleal.cling.protocol.sync.SendingUnsubscribe;
 
 /**
  * Default implementation, directly instantiates the appropriate protocols.
  *
  * @author Christian Bauer
  */
-@ApplicationScoped
+// @ApplicationScoped
 public class ProtocolFactoryImpl implements ProtocolFactory {
 
     final private static Logger log = Logger.getLogger(ProtocolFactory.class.getName());
@@ -69,7 +74,7 @@ public class ProtocolFactoryImpl implements ProtocolFactory {
         upnpService = null;
     }
 
-    @Inject
+    // @Inject
     public ProtocolFactoryImpl(UpnpService upnpService) {
         log.fine("Creating ProtocolFactory: " + getClass().getName());
         this.upnpService = upnpService;
@@ -155,6 +160,21 @@ public class ProtocolFactoryImpl implements ProtocolFactory {
 
         } else if (getUpnpService().getConfiguration().getNamespace().isEventCallbackPath(message.getUri())) {
 
+        	// workaround Onkyo bug with garbage trailing chars:
+        	// /dev/9bb022aa-e922-aab9-682b-aa09e9b9e059/svc/upnp-org/RenderingControl/event/cb192%2e168%2e10%2e38 is sent
+        	// instead of: /dev/9bb022aa-e922-aab9-682b-aa09e9b9e059/svc/upnp-org/RenderingControl/event/cb
+        	
+        	String uri = message.getUri().toString();
+        	if(!uri.endsWith(Namespace.CALLBACK_FILE)) {
+        		log.warning("trailing garbage characters detected at the end of sub event URL");
+        		int pos = uri.indexOf(Namespace.CALLBACK_FILE);
+        		if(pos != -1) {
+        			uri = uri.substring(0, pos + Namespace.CALLBACK_FILE.length());
+        			log.warning("fixed bad sub event URL");
+        			message.setUri(URI.create(uri));
+        		}
+        	}
+        	
             if (message.getOperation().getMethod().equals(UpnpRequest.Method.NOTIFY))
                 return new ReceivingEvent(getUpnpService(), message);
 

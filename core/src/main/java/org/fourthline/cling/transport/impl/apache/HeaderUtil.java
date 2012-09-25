@@ -15,14 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl.apache;
-
-import org.apache.http.Header;
-import org.apache.http.HttpMessage;
-import org.seamless.http.Headers;
+package org.teleal.cling.transport.impl.apache;
 
 import java.util.List;
 import java.util.Map;
+
+import org.teleal.common.http.Headers;
+
+import org.apache.http.Header;
+import org.apache.http.HttpMessage;
 
 /**
  * Converts from/to Apache HTTP Components header format.

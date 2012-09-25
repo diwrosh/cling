@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.impl;
+package org.teleal.cling.transport.impl;
 
 import com.sun.net.httpserver.HttpExchange;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpHeaders;
-import org.fourthline.cling.model.message.UpnpMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.transport.spi.UpnpStream;
-import org.seamless.util.io.IO;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpHeaders;
+import org.teleal.cling.model.message.UpnpMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.transport.spi.UpnpStream;
+import org.teleal.common.io.IO;
+import org.teleal.common.util.Exceptions;
 
 import java.io.IOException;
 import java.io.InputStream;

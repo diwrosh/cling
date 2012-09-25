@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
-import org.fourthline.cling.model.Validatable;
-import org.fourthline.cling.model.ValidationError;
+import org.teleal.cling.model.Validatable;
+import org.teleal.cling.model.ValidationError;
 
 import java.util.List;
 import java.util.ArrayList;

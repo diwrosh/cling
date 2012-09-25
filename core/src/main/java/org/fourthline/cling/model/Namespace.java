@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.Icon;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.resource.Resource;
-import org.seamless.util.URIUtil;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.Icon;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.resource.Resource;
+import org.teleal.common.util.URIUtil;
 
 /**
  * Enforces path conventions for all locally offered resources (descriptors, icons, etc.)
@@ -50,9 +50,9 @@ import org.seamless.util.URIUtil;
  *...
  * }</pre>
  * <p>
- * The namespace is also used to discover and create all {@link org.fourthline.cling.model.resource.Resource}s
- * given a {@link org.fourthline.cling.model.meta.Device}'s metadata. This procedure is typically
- * invoked once, when the device is added to the {@link org.fourthline.cling.registry.Registry}.
+ * The namespace is also used to discover and create all {@link org.teleal.cling.model.resource.Resource}s
+ * given a {@link org.teleal.cling.model.meta.Device}'s metadata. This procedure is typically
+ * invoked once, when the device is added to the {@link org.teleal.cling.registry.Registry}.
  * </p>
  *
  * @author Christian Bauer
@@ -66,7 +66,7 @@ public class Namespace {
     public static final String CONTROL = "/action";
     public static final String EVENTS = "/event";
     public static final String DESCRIPTOR_FILE = "/desc.xml";
-    public static final String CALLBACK_FILE = "/cb.xml";
+    public static final String CALLBACK_FILE = "/cb"; // (was previously cb.xml. Do not have '.' in string because Onkyo receiver percent encode it
 
     final protected URI basePath;
 
@@ -173,7 +173,9 @@ public class Namespace {
     }
 
     public boolean isEventCallbackPath(URI uri) {
-        return uri.toString().endsWith(Namespace.CALLBACK_FILE);
+    	// workaround Onkyo bug with garbage trailing chars in the path part of the uri:
+    	// /dev/9bb022aa-e922-aab9-682b-aa09e9b9e059/svc/upnp-org/RenderingControl/event/cb192%2e168%2e10%2e38
+    	return uri.getPath().contains(EVENTS + Namespace.CALLBACK_FILE);
     }
 
     public Resource[] getResources(Device device) throws ValidationException {

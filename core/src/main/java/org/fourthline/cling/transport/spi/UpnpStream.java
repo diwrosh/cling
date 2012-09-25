@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.protocol.ProtocolCreationException;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.protocol.ReceivingSync;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.protocol.ProtocolCreationException;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.protocol.ReceivingSync;
+import org.teleal.common.util.Exceptions;
 
 import java.util.logging.Logger;
 
@@ -31,10 +31,10 @@ import java.util.logging.Logger;
  * A runnable representation of a single HTTP request/response procedure.
  * <p>
  * Instantiated by the {@link StreamServer}, executed by the
- * {@link org.fourthline.cling.transport.Router}. See the pseudo-code example
+ * {@link org.teleal.cling.transport.Router}. See the pseudo-code example
  * in the documentation of {@link StreamServer}. An implementation's
- * <code>run()</code> method has to call the {@link #process(org.fourthline.cling.model.message.StreamRequestMessage)},
- * {@link #responseSent(org.fourthline.cling.model.message.StreamResponseMessage)} and
+ * <code>run()</code> method has to call the {@link #process(org.teleal.cling.model.message.StreamRequestMessage)},
+ * {@link #responseSent(org.teleal.cling.model.message.StreamResponseMessage)} and
  * {@link #responseException(Throwable)} methods.
  * </p>
  * <p>

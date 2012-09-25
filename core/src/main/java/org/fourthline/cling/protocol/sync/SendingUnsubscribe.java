@@ -15,22 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.sync;
+package org.teleal.cling.protocol.sync;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.gena.CancelReason;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.gena.OutgoingUnsubscribeRequestMessage;
-import org.fourthline.cling.protocol.SendingSync;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.gena.CancelReason;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.gena.OutgoingUnsubscribeRequestMessage;
+import org.teleal.cling.protocol.SendingSync;
 
 import java.util.logging.Logger;
 
 /**
  * Disconnecting a GENA event subscription with a remote host.
  * <p>
- * Calls the {@link org.fourthline.cling.model.gena.RemoteGENASubscription#end(org.fourthline.cling.model.gena.CancelReason, org.fourthline.cling.model.message.UpnpResponse)}
- * method if the subscription request was responded to correctly. No {@link org.fourthline.cling.model.gena.CancelReason}
+ * Calls the {@link org.teleal.cling.model.gena.RemoteGENASubscription#end(org.teleal.cling.model.gena.CancelReason, org.teleal.cling.model.message.UpnpResponse)}
+ * method if the subscription request was responded to correctly. No {@link org.teleal.cling.model.gena.CancelReason}
  * will be provided if the unsubscribe procedure completed as expected, otherwise <code>UNSUBSCRIBE_FAILED</code>
  * is used. The response might be <code>null</code> if no response was received from the remote host.
  * </p>

@@ -15,33 +15,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.sync;
-
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.action.ActionException;
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpHeaders;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.control.IncomingActionRequestMessage;
-import org.fourthline.cling.model.message.control.OutgoingActionResponseMessage;
-import org.fourthline.cling.model.message.header.ContentTypeHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.resource.ServiceControlResource;
-import org.fourthline.cling.model.types.ErrorCode;
-import org.fourthline.cling.protocol.ReceivingSync;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
-import org.seamless.util.Exceptions;
+package org.teleal.cling.protocol.sync;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.action.ActionException;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpHeaders;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.control.IncomingActionRequestMessage;
+import org.teleal.cling.model.message.control.OutgoingActionResponseMessage;
+import org.teleal.cling.model.message.header.ContentTypeHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.message.header.UserAgentHeader;
+import org.teleal.cling.model.resource.ServiceControlResource;
+import org.teleal.cling.model.types.ErrorCode;
+import org.teleal.cling.protocol.ReceivingSync;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
+import org.teleal.common.util.Exceptions;
+
+// import sun.security.action.GetLongAction;
+
 /**
  * Handles reception of control messages, invoking actions on local services.
  * <p>
- * Actions are invoked through the {@link org.fourthline.cling.model.action.ActionExecutor} returned
- * by the registered {@link org.fourthline.cling.model.meta.LocalService#getExecutor(org.fourthline.cling.model.meta.Action)}
+ * Actions are invoked through the {@link org.teleal.cling.model.action.ActionExecutor} returned
+ * by the registered {@link org.teleal.cling.model.meta.LocalService#getExecutor(org.teleal.cling.model.meta.Action)}
  * method.
  * </p>
  * <p>
@@ -110,13 +113,20 @@ public class ReceivingAction extends ReceivingSync<StreamRequestMessage, StreamR
             // Throws ActionException if the action can't be found
             IncomingActionRequestMessage requestMessage =
                     new IncomingActionRequestMessage(getInputMessage(), resource.getModel());
+            requestMessage.setLocalAddress(getInputMessage().getLocalAddress());
 
             // Preserve message in a TL
             requestThreadLocal.set(requestMessage);
             extraResponseHeadersThreadLocal.set(new UpnpHeaders());
 
+            String userAgent = null;
+            UserAgentHeader header = getInputMessage().getHeaders().getFirstHeader(UpnpHeader.Type.USER_AGENT, UserAgentHeader.class);
+            if(header != null) {
+            	userAgent = header.getValue();
+            }
+
             log.finer("Created incoming action request message: " + requestMessage);
-            invocation = new ActionInvocation(requestMessage.getAction());
+            invocation = new ActionInvocation(requestMessage.getAction(), userAgent);
 
             // Throws UnsupportedDataException if the body can't be read
             log.fine("Reading body of request message");
@@ -141,9 +151,7 @@ public class ReceivingAction extends ReceivingSync<StreamRequestMessage, StreamR
             responseMessage = new OutgoingActionResponseMessage(UpnpResponse.Status.INTERNAL_SERVER_ERROR);
 
         } catch (UnsupportedDataException ex) {
-            if (log.isLoggable(Level.FINER)) {
-                log.log(Level.FINER, "Error reading action request XML body: " + ex.toString(), Exceptions.unwrap(ex));
-            }
+        	log.log(Level.WARNING, "Error reading action request XML body: " + ex.toString(), Exceptions.unwrap(ex));
 
             invocation =
                     new ActionInvocation(

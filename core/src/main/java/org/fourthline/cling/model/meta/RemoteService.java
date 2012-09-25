@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
-import org.fourthline.cling.model.ValidationError;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
+import org.teleal.cling.model.ValidationError;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
 
 import java.net.URI;
 import java.util.ArrayList;

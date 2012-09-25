@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.xml;
+package org.teleal.cling.binding.xml;
 
-import static org.fourthline.cling.model.XMLUtil.appendNewElement;
-import static org.fourthline.cling.model.XMLUtil.appendNewElementIfNotNull;
+import static org.teleal.cling.model.XMLUtil.appendNewElement;
+import static org.teleal.cling.model.XMLUtil.appendNewElementIfNotNull;
 
 import java.io.StringReader;
 import java.net.URI;
@@ -27,29 +27,30 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.fourthline.cling.binding.staging.MutableDevice;
-import org.fourthline.cling.binding.staging.MutableIcon;
-import org.fourthline.cling.binding.staging.MutableService;
-import org.fourthline.cling.binding.xml.Descriptor.Device.ELEMENT;
-import org.fourthline.cling.model.Namespace;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.XMLUtil;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.DeviceDetails;
-import org.fourthline.cling.model.meta.Icon;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.model.meta.RemoteService;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.profile.ControlPointInfo;
-import org.fourthline.cling.model.types.DLNACaps;
-import org.fourthline.cling.model.types.DLNADoc;
-import org.fourthline.cling.model.types.InvalidValueException;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.binding.staging.MutableDevice;
+import org.teleal.cling.binding.staging.MutableIcon;
+import org.teleal.cling.binding.staging.MutableService;
+import org.teleal.cling.binding.xml.Descriptor.Device.ELEMENT;
+import org.teleal.cling.model.Namespace;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.XMLUtil;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.DeviceDetails;
+import org.teleal.cling.model.meta.Icon;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.RemoteService;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.profile.ControlPointInfo;
+import org.teleal.cling.model.types.DLNACaps;
+import org.teleal.cling.model.types.DLNADoc;
+import org.teleal.cling.model.types.InvalidValueException;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.common.util.Exceptions;
+import org.teleal.common.util.Reflections;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -396,6 +397,7 @@ public class UDA10DeviceDescriptorBinderImpl implements DeviceDescriptorBinder {
         Element deviceElement = appendNewElement(descriptor, rootElement, ELEMENT.device);
 
         appendNewElementIfNotNull(descriptor, deviceElement, ELEMENT.deviceType, deviceModel.getType());
+        appendNewElementIfNotNull(descriptor, deviceElement, ELEMENT.UDN, deviceModel.getIdentity().getUdn());
 
         DeviceDetails deviceModelDetails = deviceModel.getDetails(info);
         appendNewElementIfNotNull(
@@ -434,7 +436,6 @@ public class UDA10DeviceDescriptorBinderImpl implements DeviceDescriptorBinder {
                 descriptor, deviceElement, ELEMENT.serialNumber,
                 deviceModelDetails.getSerialNumber()
         );
-        appendNewElementIfNotNull(descriptor, deviceElement, ELEMENT.UDN, deviceModel.getIdentity().getUdn());
         appendNewElementIfNotNull(
                 descriptor, deviceElement, ELEMENT.presentationURL,
                 deviceModelDetails.getPresentationURI()
@@ -494,14 +495,14 @@ public class UDA10DeviceDescriptorBinderImpl implements DeviceDescriptorBinder {
             appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.serviceId, service.getServiceId());
             if (service instanceof RemoteService) {
                 RemoteService rs = (RemoteService) service;
-                appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.SCPDURL, rs.getDescriptorURI());
                 appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.controlURL, rs.getControlURI());
                 appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.eventSubURL, rs.getEventSubscriptionURI());
+                appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.SCPDURL, rs.getDescriptorURI());
             } else if (service instanceof LocalService) {
                 LocalService ls = (LocalService) service;
-                appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.SCPDURL, namespace.getDescriptorPath(ls));
                 appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.controlURL, namespace.getControlPath(ls));
                 appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.eventSubURL, namespace.getEventSubscriptionPath(ls));
+                appendNewElementIfNotNull(descriptor, serviceElement, ELEMENT.SCPDURL, namespace.getDescriptorPath(ls));
             }
         }
     }

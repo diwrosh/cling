@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.state.StateVariableValue;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.state.StateVariableValue;
 
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
@@ -27,30 +27,30 @@ import java.util.Collection;
  * Binds the metadata of a service to a service implementation, unified interface for accessing local services.
  * <p>
  * The UPnP core will always access a local service implementation through
- * this manager, available with {@link org.fourthline.cling.model.meta.LocalService#getManager()}:
+ * this manager, available with {@link org.teleal.cling.model.meta.LocalService#getManager()}:
  * </p>
  * <ul>
  * <li>
- * The {@link org.fourthline.cling.model.action.ActionExecutor}s use the manager to process
+ * The {@link org.teleal.cling.model.action.ActionExecutor}s use the manager to process
  * UPnP control invocations. It's the service manager's job to translate
  * such an action invocation into an actual method invocation, or any other procedure
- * that satisfies the requirements. The {@link org.fourthline.cling.model.action.ActionExecutor}
+ * that satisfies the requirements. The {@link org.teleal.cling.model.action.ActionExecutor}
  * works in conjuction with the manager, for example, the
- * {@link org.fourthline.cling.model.action.MethodActionExecutor} expects that an action
+ * {@link org.teleal.cling.model.action.MethodActionExecutor} expects that an action
  * method can be invoked through reflection on the instance returned by the manager's
  * {@link #getImplementation()} method. This is possible with the
- * the {@link org.fourthline.cling.model.DefaultServiceManager}. A different service manager
+ * the {@link org.teleal.cling.model.DefaultServiceManager}. A different service manager
  * might require a different set of action executors, and vice versa.
  * </li>
  * <li>
- * The {@link org.fourthline.cling.model.state.StateVariableAccessor}s use the manager
+ * The {@link org.teleal.cling.model.state.StateVariableAccessor}s use the manager
  * to process UPnP state variable queries and GENA eventing. It's the service manager's
  * job to return an actual value when a state variable has to be read. The
- * {@link org.fourthline.cling.model.state.StateVariableAccessor} works in conjunction with
- * the service manager, for example, the {@link org.fourthline.cling.model.state.FieldStateVariableAccessor}
+ * {@link org.teleal.cling.model.state.StateVariableAccessor} works in conjunction with
+ * the service manager, for example, the {@link org.teleal.cling.model.state.FieldStateVariableAccessor}
  * expects that a state variable value can be read through reflection on a field, of
  * the instance returned by {@link #getImplementation()}. This is possible with the
- * {@link org.fourthline.cling.model.DefaultServiceManager}. A different service manager
+ * {@link org.teleal.cling.model.DefaultServiceManager}. A different service manager
  * might require a different set of state variable accessors, and vice versa.
  * </li>
  * <li>
@@ -66,8 +66,8 @@ import java.util.Collection;
  * </p>
  *
  * @param <T> The interface expected by the
- *            bound {@link org.fourthline.cling.model.action.ActionExecutor}s
- *            and {@link org.fourthline.cling.model.state.StateVariableAccessor}s.
+ *            bound {@link org.teleal.cling.model.action.ActionExecutor}s
+ *            and {@link org.teleal.cling.model.state.StateVariableAccessor}s.
  *
  * @author Christian Bauer
  */
@@ -86,20 +86,20 @@ public interface ServiceManager<T> {
 
     /**
      * @return An instance with the interface expected by the
-     *         bound {@link org.fourthline.cling.model.action.ActionExecutor}s
-    *          and {@link org.fourthline.cling.model.state.StateVariableAccessor}s.
+     *         bound {@link org.teleal.cling.model.action.ActionExecutor}s
+    *          and {@link org.teleal.cling.model.state.StateVariableAccessor}s.
      */
     public T getImplementation();
 
     /**
      * Double-dispatch of arbitrary commands, used by action executors and state variable accessors.
      * <p>
-     * The service manager will execute the given {@link org.fourthline.cling.model.Command} and it
+     * The service manager will execute the given {@link org.teleal.cling.model.Command} and it
      * might decorate the execution, for example, by locking/unlocking access to a shared service
      * implementation before and after the execution.
      * </p>
      * @param cmd The command to execute.
-     * @throws Exception Any exception, without wrapping, as thrown by {@link org.fourthline.cling.model.Command#execute(ServiceManager)}
+     * @throws Exception Any exception, without wrapping, as thrown by {@link org.teleal.cling.model.Command#execute(ServiceManager)}
      */
     public void execute(Command<T> cmd) throws Exception;
 
@@ -113,7 +113,7 @@ public interface ServiceManager<T> {
      * <ul>
      * <li>The property name is the constant {@link #EVENTED_STATE_VARIABLES}.</li>
      * <li>The "old value" can be <code>null</code>, only the current state has to be included.</li>
-     * <li>The "new value" is a <code>Collection</code> of {@link org.fourthline.cling.model.state.StateVariableValue},
+     * <li>The "new value" is a <code>Collection</code> of {@link org.teleal.cling.model.state.StateVariableValue},
      *     representing the current state of the service after the change.</li>
      * </ul>
      * <p>
@@ -130,7 +130,7 @@ public interface ServiceManager<T> {
      * Reading the state of a service manually.
      *
      * @param isNewSubscription <code>true</code> if the values are required for the initial event of a new GENA subscription.
-     * @return A <code>Collection</code> of {@link org.fourthline.cling.model.state.StateVariableValue}, representing
+     * @return A <code>Collection</code> of {@link org.teleal.cling.model.state.StateVariableValue}, representing
      *         the current state of the service.
      * @throws Exception Any error that occured when the service's state was accessed.
      */

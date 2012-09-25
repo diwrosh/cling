@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.message.control.ActionRequestMessage;
-import org.fourthline.cling.model.message.control.ActionResponseMessage;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.message.control.ActionRequestMessage;
+import org.teleal.cling.model.message.control.ActionResponseMessage;
 
 /**
  * Converts UPnP SOAP messages from/to action invocations.
  * <p>
- * The UPnP protocol layer processes local and remote {@link org.fourthline.cling.model.action.ActionInvocation}
- * instances. The UPnP transport layer accepts and returns {@link org.fourthline.cling.model.message.StreamRequestMessage}s
- * and {@link org.fourthline.cling.model.message.StreamResponseMessage}s. This processor is an adapter between the
+ * The UPnP protocol layer processes local and remote {@link org.teleal.cling.model.action.ActionInvocation}
+ * instances. The UPnP transport layer accepts and returns {@link org.teleal.cling.model.message.StreamRequestMessage}s
+ * and {@link org.teleal.cling.model.message.StreamResponseMessage}s. This processor is an adapter between the
  * two layers, reading and writing SOAP content.
  * </p>
  *

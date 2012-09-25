@@ -15,16 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.gena;
+package org.teleal.cling.model.gena;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.ServiceManager;
-import org.fourthline.cling.model.message.header.SubscriptionIdHeader;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.state.StateVariableValue;
-import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.ServiceManager;
+import org.teleal.cling.model.message.header.SubscriptionIdHeader;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.state.StateVariableValue;
+import org.teleal.cling.model.types.UnsignedIntegerFourBytes;
+import org.teleal.common.util.Exceptions;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -43,10 +43,10 @@ import java.util.logging.Logger;
 /**
  * An incoming subscription to a local service.
  * <p>
- * Uses the {@link org.fourthline.cling.model.ServiceManager} to read the initial state of
- * the {@link org.fourthline.cling.model.meta.LocalService} on instantation. Typically, the
+ * Uses the {@link org.teleal.cling.model.ServiceManager} to read the initial state of
+ * the {@link org.teleal.cling.model.meta.LocalService} on instantation. Typically, the
  * {@link #registerOnService()} method is called next, and from this point forward all
- * {@link org.fourthline.cling.model.ServiceManager#EVENTED_STATE_VARIABLES} property change
+ * {@link org.teleal.cling.model.ServiceManager#EVENTED_STATE_VARIABLES} property change
  * events are detected by this subscription. After moderation of state variable values
  * (frequency and range of changes), the {@link #eventReceived()} method is called.
  * Delivery of the event message to the subscriber is not part of this class, but the
@@ -108,7 +108,7 @@ public abstract class LocalGENASubscription extends GENASubscription<LocalServic
     }
 
     /**
-     * Adds a property change listener on the {@link org.fourthline.cling.model.ServiceManager}.
+     * Adds a property change listener on the {@link org.teleal.cling.model.ServiceManager}.
      */
     synchronized public void registerOnService() {
         getService().getManager().getPropertyChangeSupport().addPropertyChangeListener(this);
@@ -119,7 +119,7 @@ public abstract class LocalGENASubscription extends GENASubscription<LocalServic
     }
 
     /**
-     * Removes a property change listener on the {@link org.fourthline.cling.model.ServiceManager}.
+     * Removes a property change listener on the {@link org.teleal.cling.model.ServiceManager}.
      */
     synchronized public void end(CancelReason reason) {
         try {
@@ -131,7 +131,7 @@ public abstract class LocalGENASubscription extends GENASubscription<LocalServic
     }
 
     /**
-     * Moderates {@link org.fourthline.cling.model.ServiceManager#EVENTED_STATE_VARIABLES} events and state variable
+     * Moderates {@link org.teleal.cling.model.ServiceManager#EVENTED_STATE_VARIABLES} events and state variable
      * values, calls {@link #eventReceived()}.
      */
     synchronized public void propertyChange(PropertyChangeEvent e) {

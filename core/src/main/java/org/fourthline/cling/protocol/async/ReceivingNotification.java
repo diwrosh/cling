@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.async;
+package org.teleal.cling.protocol.async;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.ValidationError;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.discovery.IncomingNotificationRequest;
-import org.fourthline.cling.model.meta.RemoteDevice;
-import org.fourthline.cling.model.meta.RemoteDeviceIdentity;
-import org.fourthline.cling.model.types.UDN;
-import org.fourthline.cling.protocol.ReceivingAsync;
-import org.fourthline.cling.protocol.RetrieveRemoteDescriptors;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.ValidationError;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.discovery.IncomingNotificationRequest;
+import org.teleal.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.RemoteDeviceIdentity;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.cling.protocol.ReceivingAsync;
+import org.teleal.cling.protocol.RetrieveRemoteDescriptors;
 
 import java.util.logging.Logger;
 
@@ -38,7 +38,7 @@ import java.util.logging.Logger;
  * </p>
  * <p>
  * If an <em>ALIVE</em> message has been received, a new background process will be started
- * running {@link org.fourthline.cling.protocol.RetrieveRemoteDescriptors}.
+ * running {@link org.teleal.cling.protocol.RetrieveRemoteDescriptors}.
  * </p>
  * <p>
  * If a <em>BYEBYE</em> message has been received, the device will be removed from the registry
@@ -72,7 +72,7 @@ import java.util.logging.Logger;
  */
 public class ReceivingNotification extends ReceivingAsync<IncomingNotificationRequest> {
 
-    final private static Logger log = Logger.getLogger(ReceivingNotification.class.getName());
+    final private static Logger log = Logger.getLogger(ReceivingNotification.class.getSimpleName());
 
     public ReceivingNotification(UpnpService upnpService, IncomingDatagramMessage<UpnpRequest> inputMessage) {
         super(upnpService, new IncomingNotificationRequest(inputMessage));

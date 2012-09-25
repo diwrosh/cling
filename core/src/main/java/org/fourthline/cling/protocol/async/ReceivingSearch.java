@@ -15,33 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.async;
+package org.teleal.cling.protocol.async;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.Location;
-import org.fourthline.cling.model.NetworkAddress;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.discovery.IncomingSearchRequest;
-import org.fourthline.cling.model.message.discovery.OutgoingSearchResponse;
-import org.fourthline.cling.model.message.discovery.OutgoingSearchResponseDeviceType;
-import org.fourthline.cling.model.message.discovery.OutgoingSearchResponseRootDevice;
-import org.fourthline.cling.model.message.discovery.OutgoingSearchResponseRootDeviceUDN;
-import org.fourthline.cling.model.message.discovery.OutgoingSearchResponseServiceType;
-import org.fourthline.cling.model.message.discovery.OutgoingSearchResponseUDN;
-import org.fourthline.cling.model.message.header.DeviceTypeHeader;
-import org.fourthline.cling.model.message.header.MXHeader;
-import org.fourthline.cling.model.message.header.RootDeviceHeader;
-import org.fourthline.cling.model.message.header.STAllHeader;
-import org.fourthline.cling.model.message.header.ServiceTypeHeader;
-import org.fourthline.cling.model.message.header.UDNHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.types.DeviceType;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDN;
-import org.fourthline.cling.protocol.ReceivingAsync;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.Location;
+import org.teleal.cling.model.NetworkAddress;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.discovery.IncomingSearchRequest;
+import org.teleal.cling.model.message.discovery.OutgoingSearchResponse;
+import org.teleal.cling.model.message.discovery.OutgoingSearchResponseDeviceType;
+import org.teleal.cling.model.message.discovery.OutgoingSearchResponseRootDevice;
+import org.teleal.cling.model.message.discovery.OutgoingSearchResponseRootDeviceUDN;
+import org.teleal.cling.model.message.discovery.OutgoingSearchResponseServiceType;
+import org.teleal.cling.model.message.discovery.OutgoingSearchResponseUDN;
+import org.teleal.cling.model.message.header.DeviceTypeHeader;
+import org.teleal.cling.model.message.header.MXHeader;
+import org.teleal.cling.model.message.header.RootDeviceHeader;
+import org.teleal.cling.model.message.header.STAllHeader;
+import org.teleal.cling.model.message.header.ServiceTypeHeader;
+import org.teleal.cling.model.message.header.UDNHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.types.DeviceType;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDN;
+import org.teleal.cling.protocol.ReceivingAsync;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,7 +58,7 @@ import java.util.logging.Logger;
  * <p>
  * Extracts the <em>search target</em>, builds and sends the dozens of messages
  * required by the UPnP specification, depending on the search target and what
- * local devices and services are found in the {@link org.fourthline.cling.registry.Registry}.
+ * local devices and services are found in the {@link org.teleal.cling.registry.Registry}.
  * </p>
  *
  * @author Christian Bauer
@@ -160,6 +160,9 @@ public class ReceivingSearch extends ReceivingAsync<IncomingSearchRequest> {
         for (LocalDevice localDevice : getUpnpService().getRegistry().getLocalDevices()) {
 
             // We are re-using the regular notification messages here but override the NT with the ST header
+        	if(!localDevice.isAdvertising()) {
+        		continue;
+        	}
 
             log.finer("Sending root device messages: " + localDevice);
             List<OutgoingSearchResponse> rootDeviceMsgs =
@@ -245,7 +248,9 @@ public class ReceivingSearch extends ReceivingAsync<IncomingSearchRequest> {
     protected void sendSearchResponseRootDevices(NetworkAddress activeStreamServer) {
         log.fine("Responding to root device search with advertisement messages for all local root devices");
         for (LocalDevice device : getUpnpService().getRegistry().getLocalDevices()) {
-
+        	if(!device.isAdvertising()) {
+        		continue;
+        	}
             getUpnpService().getRouter().send(
                     new OutgoingSearchResponseRootDeviceUDN(
                             getInputMessage(),
@@ -259,6 +264,9 @@ public class ReceivingSearch extends ReceivingAsync<IncomingSearchRequest> {
     protected void sendSearchResponseUDN(UDN udn, NetworkAddress activeStreamServer) {
         Device device = getUpnpService().getRegistry().getDevice(udn, false);
         if (device != null && device instanceof LocalDevice) {
+        	if(!((LocalDevice)device).isAdvertising()) {
+        		return ;
+        	}
             log.fine("Responding to UDN device search: " + udn);
             getUpnpService().getRouter().send(
                     new OutgoingSearchResponseUDN(
@@ -275,6 +283,9 @@ public class ReceivingSearch extends ReceivingAsync<IncomingSearchRequest> {
         Collection<Device> devices = getUpnpService().getRegistry().getDevices(deviceType);
         for (Device device : devices) {
             if (device instanceof LocalDevice) {
+            	if(!((LocalDevice)device).isAdvertising()) {
+            		continue;
+            	}
                 log.finer("Sending matching device type search result for: " + device);
                 getUpnpService().getRouter().send(
                         new OutgoingSearchResponseDeviceType(
@@ -292,6 +303,10 @@ public class ReceivingSearch extends ReceivingAsync<IncomingSearchRequest> {
         Collection<Device> devices = getUpnpService().getRegistry().getDevices(serviceType);
         for (Device device : devices) {
             if (device instanceof LocalDevice) {
+            	if(!((LocalDevice)device).isAdvertising()) {
+            		continue;
+            	}
+
                 log.finer("Sending matching service type search result: " + device);
                 getUpnpService().getRouter().send(
                         new OutgoingSearchResponseServiceType(

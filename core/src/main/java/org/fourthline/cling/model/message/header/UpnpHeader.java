@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.header;
-
-import org.seamless.util.Exceptions;
+package org.teleal.cling.model.message.header;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.teleal.common.util.Exceptions;
+
 /**
  * Transforms known and standardized UPnP/HTTP headers from/to string representation.
  * <p>
- * The {@link #newInstance(org.fourthline.cling.model.message.header.UpnpHeader.Type, String)} method
+ * The {@link #newInstance(org.teleal.cling.model.message.header.UpnpHeader.Type, String)} method
  * attempts to instantiate the best header subtype for a given header (name) and string value.
  * </p>
  *
@@ -153,7 +153,7 @@ public abstract class UpnpHeader<T> {
      * <p>
      * This method iterates through all potential header subtype classes as declared in {@link Type}.
      * It creates a new instance of the subtype class and calls its {@link #setString(String)} method.
-     * If no {@link org.fourthline.cling.model.message.header.InvalidHeaderException} is thrown, the subtype
+     * If no {@link org.teleal.cling.model.message.header.InvalidHeaderException} is thrown, the subtype
      * instance is returned.
      * </p>
      *

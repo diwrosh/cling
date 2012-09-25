@@ -15,131 +15,143 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.types;
+package org.teleal.cling.model.types;
 
-import org.fourthline.cling.model.Constants;
+import org.teleal.cling.model.Constants;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 /**
  * Represents a service type, for example <code>urn:my-domain-namespace:service:MyService:1</code>.
- * <p>
- * Although decimal versions are accepted and parsed, the version used for
- * comparison is only the integer withou the fraction.
- * </p>
+ * Although decimal versions are accepted and parsed, the version used for comparison is only the integer withou the fraction.
  *
+ * (v12) : changed to include the broken pattern
  * @author Christian Bauer
  */
-public class ServiceType {
+public class ServiceType
+{
 
-    public static final Pattern PATTERN =
-            Pattern.compile("urn:(" + Constants.REGEX_NAMESPACE + "):service:(" + Constants.REGEX_TYPE + "):([0-9]+).*");
+  public static final Pattern PATTERN = Pattern.compile("urn:(" + Constants.REGEX_NAMESPACE + "):service:(" + Constants.REGEX_TYPE + "):([0-9]+).*");
+  public static final Pattern BROKEN_PATTERN = Pattern.compile("urn:(" + Constants.REGEX_NAMESPACE + "):serviceId:(" + Constants.REGEX_TYPE + "):([0-9]+).*");
 
-    private String namespace;
-    private String type;
-    private int version = 1;
+  private String namespace;
+  private String type;
+  private int version = 1;
 
-    public ServiceType(String namespace, String type) {
-        this(namespace, type, 1);
+  public ServiceType(String namespace, String type) {
+    this(namespace, type, 1);
+  }
+
+  public ServiceType(String namespace, String type, int version) {
+
+    if (namespace != null && !namespace.matches(Constants.REGEX_NAMESPACE)) {
+      throw new IllegalArgumentException("Service type namespace contains illegal characters");
+    }
+    this.namespace = namespace;
+
+    if (type != null && !type.matches(Constants.REGEX_TYPE)) {
+      throw new IllegalArgumentException("Service type suffix too long (64) or contains illegal characters");
+    }
+    this.type = type;
+
+    this.version = version;
+  }
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public int getVersion() {
+    return version;
+  }
+
+  /**
+   * @return Either a {@link UDAServiceType} or a more generic {@link ServiceType}.
+   */
+  public static ServiceType valueOf(String s) throws InvalidValueException {
+
+    ServiceType serviceType = null;
+
+    // Sometimes crazy UPnP devices deliver spaces in a URN, don't ask...
+    s = s.replaceAll("\\s", "");
+
+    // First try UDAServiceType parse
+    try {
+      serviceType = UDAServiceType.valueOf(s);
+    } catch (Exception ex) {
+      // Ignore
     }
 
-    public ServiceType(String namespace, String type, int version) {
-
-        if (namespace != null && !namespace.matches(Constants.REGEX_NAMESPACE)) {
-            throw new IllegalArgumentException("Service type namespace contains illegal characters");
+    // Now try a generic ServiceType parse
+    if (serviceType == null) {
+      Matcher matcher = ServiceType.PATTERN.matcher(s);
+      if (matcher.matches()) {
+        return new ServiceType(matcher.group(1), matcher.group(2), Integer.valueOf(matcher.group(3)));
+      } else {
+        matcher = ServiceType.BROKEN_PATTERN.matcher(s);
+        if (matcher.matches()) {
+          return new ServiceType(matcher.group(1), matcher.group(2), Integer.valueOf(matcher.group(3)));
+        } else {
+          throw new InvalidValueException("Can't parse service type string (namespace/type/version): " + s);
         }
-        this.namespace = namespace;
-
-        if (type != null && !type.matches(Constants.REGEX_TYPE)) {
-            throw new IllegalArgumentException("Service type suffix too long (64) or contains illegal characters");
-        }
-        this.type = type;
-
-        this.version = version;
+      }
     }
+    return serviceType;
+  }
 
-    public String getNamespace() {
-        return namespace;
-    }
+  /**
+   * @return <code>true</code> if this type's namespace/name matches the other type's namespace/name and this type's version is equal or higher than the given types version.
+   */
+  public boolean implementsVersion(ServiceType that) {
+    if (that == null)
+      return false;
+    if (!namespace.equals(that.namespace))
+      return false;
+    if (!type.equals(that.type))
+      return false;
+    if (version < that.version)
+      return false;
+    return true;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public String toFriendlyString() {
+    return getNamespace() + ":" + getType() + ":" + getVersion();
+  }
 
-    public int getVersion() {
-        return version;
-    }
+  @Override
+  public String toString() {
+    return "urn:" + getNamespace() + ":service:" + getType() + ":" + getVersion();
+  }
 
-    /**
-     * @return Either a {@link UDAServiceType} or a more generic {@link ServiceType}.
-     */
-    public static ServiceType valueOf(String s) throws InvalidValueException {
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || !(o instanceof ServiceType))
+      return false;
 
-        ServiceType serviceType = null;
+    ServiceType that = (ServiceType) o;
 
-        // Sometimes crazy UPnP devices deliver spaces in a URN, don't ask...
-        s = s.replaceAll("\\s", "");
+    if (version != that.version)
+      return false;
+    if (!namespace.equals(that.namespace))
+      return false;
+    if (!type.equals(that.type))
+      return false;
 
-        // First try UDAServiceType parse
-        try {
-            serviceType = UDAServiceType.valueOf(s);
-        } catch (Exception ex) {
-            // Ignore
-        }
+    return true;
+  }
 
-        // Now try a generic ServiceType parse
-        if (serviceType == null) {
-            Matcher matcher = ServiceType.PATTERN.matcher(s);
-            if (matcher.matches()) {
-                return new ServiceType(matcher.group(1), matcher.group(2), Integer.valueOf(matcher.group(3)));
-            } else {
-                throw new InvalidValueException("Can't parse service type string (namespace/type/version): " + s);
-            }
-        }
-        return serviceType;
-    }
-
-    /**
-     * @return <code>true</code> if this type's namespace/name matches the other type's namespace/name and
-     *         this type's version is equal or higher than the given types version.
-     */
-    public boolean implementsVersion(ServiceType that) {
-        if (that == null) return false;
-        if (!namespace.equals(that.namespace)) return false;
-        if (!type.equals(that.type)) return false;
-        if (version < that.version) return false;
-        return true;
-    }
-
-    public String toFriendlyString() {
-        return getNamespace() + ":" + getType() + ":" + getVersion();
-    }
-
-    @Override
-    public String toString() {
-        return "urn:" + getNamespace() + ":service:" + getType() + ":" + getVersion();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || !(o instanceof ServiceType)) return false;
-
-        ServiceType that = (ServiceType) o;
-
-        if (version != that.version) return false;
-        if (!namespace.equals(that.namespace)) return false;
-        if (!type.equals(that.type)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = namespace.hashCode();
-        result = 31 * result + type.hashCode();
-        result = 31 * result + version;
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = namespace.hashCode();
+    result = 31 * result + type.hashCode();
+    result = 31 * result + version;
+    return result;
+  }
 }

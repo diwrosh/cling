@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.header;
+package org.teleal.cling.model.message.header;
 
-import org.fourthline.cling.model.types.BytesRange;
-import org.fourthline.cling.model.types.InvalidValueException;
+import org.teleal.cling.model.types.BytesRange;
+import org.teleal.cling.model.types.InvalidValueException;
 
 /**
  *

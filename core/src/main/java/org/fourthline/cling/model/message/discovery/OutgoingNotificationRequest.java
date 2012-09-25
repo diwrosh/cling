@@ -15,21 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.discovery;
+package org.teleal.cling.model.message.discovery;
 
-import org.fourthline.cling.model.Constants;
-import org.fourthline.cling.model.Location;
-import org.fourthline.cling.model.message.header.LocationHeader;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.ModelUtil;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.header.HostHeader;
-import org.fourthline.cling.model.message.header.NTSHeader;
-import org.fourthline.cling.model.message.header.ServerHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.message.header.MaxAgeHeader;
-import org.fourthline.cling.model.types.NotificationSubtype;
+import org.teleal.cling.model.Constants;
+import org.teleal.cling.model.Location;
+import org.teleal.cling.model.message.header.LocationHeader;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.header.HostHeader;
+import org.teleal.cling.model.message.header.NTSHeader;
+import org.teleal.cling.model.message.header.ServerHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.message.header.MaxAgeHeader;
+import org.teleal.cling.model.types.NotificationSubtype;
 
 /**
  * @author Christian Bauer

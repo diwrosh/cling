@@ -15,35 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.sync;
+package org.teleal.cling.protocol.sync;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.action.ActionException;
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.control.IncomingActionResponseMessage;
-import org.fourthline.cling.model.message.control.OutgoingActionRequestMessage;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.types.ErrorCode;
-import org.fourthline.cling.protocol.SendingSync;
-import org.fourthline.cling.transport.spi.UnsupportedDataException;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.action.ActionException;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.control.IncomingActionResponseMessage;
+import org.teleal.cling.model.message.control.OutgoingActionRequestMessage;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.types.ErrorCode;
+import org.teleal.cling.protocol.SendingSync;
+import org.teleal.cling.transport.spi.UnsupportedDataException;
+import org.teleal.common.util.Exceptions;
 
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Sending control message, transforming a local {@link org.fourthline.cling.model.action.ActionInvocation}.
+ * Sending control message, transforming a local {@link org.teleal.cling.model.action.ActionInvocation}.
  * <p>
- * Writes the outgoing message's body with the {@link org.fourthline.cling.transport.spi.SOAPActionProcessor}.
+ * Writes the outgoing message's body with the {@link org.teleal.cling.transport.spi.SOAPActionProcessor}.
  * This protocol will return <code>null</code> if no response was received from the control target host.
  * In all other cases, even if only the processing of message content failed, this protocol will
- * return an {@link org.fourthline.cling.model.message.control.IncomingActionResponseMessage}. Any error
- * details of a failed response ({@link org.fourthline.cling.model.message.UpnpResponse#isFailed()}) are
+ * return an {@link org.teleal.cling.model.message.control.IncomingActionResponseMessage}. Any error
+ * details of a failed response ({@link org.teleal.cling.model.message.UpnpResponse#isFailed()}) are
  * available with
- * {@link org.fourthline.cling.model.action.ActionInvocation#setFailure(org.fourthline.cling.model.action.ActionException)}.
+ * {@link org.teleal.cling.model.action.ActionInvocation#setFailure(org.teleal.cling.model.action.ActionException)}.
  * </p>
  *
  * @author Christian Bauer

@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling;
+package org.teleal.cling;
 
-import org.fourthline.cling.controlpoint.ControlPoint;
-import org.fourthline.cling.controlpoint.ControlPointImpl;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.protocol.ProtocolFactoryImpl;
-import org.fourthline.cling.registry.Registry;
-import org.fourthline.cling.registry.RegistryImpl;
-import org.fourthline.cling.registry.RegistryListener;
-import org.fourthline.cling.transport.Router;
-import org.fourthline.cling.transport.RouterImpl;
+import org.teleal.cling.controlpoint.ControlPoint;
+import org.teleal.cling.controlpoint.ControlPointImpl;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.protocol.ProtocolFactoryImpl;
+import org.teleal.cling.registry.Registry;
+import org.teleal.cling.registry.RegistryImpl;
+import org.teleal.cling.registry.RegistryListener;
+import org.teleal.cling.transport.Router;
+import org.teleal.cling.transport.RouterImpl;
 
-import javax.enterprise.inject.Alternative;
+// import javax.enterprise.inject.Alternative;
 import java.util.logging.Logger;
 
 /**
@@ -35,7 +35,7 @@ import java.util.logging.Logger;
  * <p>
  * If no {@link UpnpServiceConfiguration} is provided it will automatically
  * instantiate {@link DefaultUpnpServiceConfiguration}. This configuration <strong>does not
- * work</strong> on Android! Use the {@link org.fourthline.cling.android.AndroidUpnpService}
+ * work</strong> on Android! Use the {@link org.teleal.cling.android.AndroidUpnpService}
  * application component instead
  * </p>
  * <p>
@@ -45,7 +45,7 @@ import java.util.logging.Logger;
  *
  * @author Christian Bauer
  */
-@Alternative
+// @Alternative
 public class UpnpServiceImpl implements UpnpService {
 
     private static Logger log = Logger.getLogger(UpnpServiceImpl.class.getName());

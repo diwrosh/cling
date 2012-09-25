@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
 /**
  * Shared and immutable settings.
@@ -34,8 +34,6 @@ public interface Constants {
     public static final String IPV6_UPNP_SITE_LOCAL_ADDRESS = "FF05::C";
     public static final String IPV6_UPNP_GLOBAL_ADDRESS = "FF0E::C";
 
-    public static final String PRODUCT_TOKEN_NAME = "4thLine-Cling";
-    public static final String PRODUCT_TOKEN_VERSION = "1.1";
 
     public static final int MIN_ADVERTISEMENT_AGE_SECONDS = 1800;
     public static final int DEFAULT_SUBSCRIPTION_DURATION_SECONDS = 1800;
@@ -48,7 +46,16 @@ public interface Constants {
     // TODO: UPNP VIOLATION: Intel UPnP Tools send dots in the service identifier suffix, match that...
 
     public static final String REGEX_NAMESPACE = "[a-zA-Z0-9\\-\\.]+";
-    public static final String REGEX_TYPE = "[a-zA-Z_0-9\\-]{1,64}";
+    
+    // Hack required so EyeTV Netstream does not fail device validation
+    // This device use non compliant device and service names:
+    //
+    // urn:schemas-microsoft-com:device:tv:pbda:1
+    // urn:schemas-microsoft-com:service:pbda:tuner:1
+    //
+    // authorizing symbol ':' in the regexp make it pass without side effects 
+    //public static final String REGEX_TYPE = "[a-zA-Z_0-9\\-]{1,64}";
+    public static final String REGEX_TYPE = "[a-zA-Z_0-9:\\-]{1,64}";
     public static final String REGEX_ID = "[a-zA-Z_0-9\\-:\\.]{1,64}";
 
     /*

@@ -15,24 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol;
+package org.teleal.cling.protocol;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
-import org.fourthline.cling.model.gena.RemoteGENASubscription;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.protocol.async.SendingNotificationAlive;
-import org.fourthline.cling.protocol.async.SendingNotificationByebye;
-import org.fourthline.cling.protocol.async.SendingSearch;
-import org.fourthline.cling.protocol.sync.SendingAction;
-import org.fourthline.cling.protocol.sync.SendingEvent;
-import org.fourthline.cling.protocol.sync.SendingRenewal;
-import org.fourthline.cling.protocol.sync.SendingSubscribe;
-import org.fourthline.cling.protocol.sync.SendingUnsubscribe;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.gena.RemoteGENASubscription;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.protocol.async.SendingNotificationAlive;
+import org.teleal.cling.protocol.async.SendingNotificationByebye;
+import org.teleal.cling.protocol.async.SendingSearch;
+import org.teleal.cling.protocol.sync.SendingAction;
+import org.teleal.cling.protocol.sync.SendingEvent;
+import org.teleal.cling.protocol.sync.SendingRenewal;
+import org.teleal.cling.protocol.sync.SendingSubscribe;
+import org.teleal.cling.protocol.sync.SendingUnsubscribe;
 
 import java.net.URL;
 
@@ -54,25 +54,25 @@ public interface ProtocolFactory {
     public UpnpService getUpnpService();
 
     /**
-     * Creates a {@link org.fourthline.cling.protocol.async.ReceivingNotification},
-     * {@link org.fourthline.cling.protocol.async.ReceivingSearch},
-     * or {@link org.fourthline.cling.protocol.async.ReceivingSearchResponse} protocol.
+     * Creates a {@link org.teleal.cling.protocol.async.ReceivingNotification},
+     * {@link org.teleal.cling.protocol.async.ReceivingSearch},
+     * or {@link org.teleal.cling.protocol.async.ReceivingSearchResponse} protocol.
      *
-     * @param message The incoming message, either {@link org.fourthline.cling.model.message.UpnpRequest} or
-     *                {@link org.fourthline.cling.model.message.UpnpResponse}.
+     * @param message The incoming message, either {@link org.teleal.cling.model.message.UpnpRequest} or
+     *                {@link org.teleal.cling.model.message.UpnpResponse}.
      * @return        The appropriate protocol that handles the messages or <code>null</code> if the message should be dropped.
      * @throws ProtocolCreationException If no protocol could be found for the message.
      */
     public ReceivingAsync createReceivingAsync(IncomingDatagramMessage message) throws ProtocolCreationException;
 
     /**
-     * Creates a {@link org.fourthline.cling.protocol.sync.ReceivingRetrieval},
-     * {@link org.fourthline.cling.protocol.sync.ReceivingAction},
-     * {@link org.fourthline.cling.protocol.sync.ReceivingSubscribe},
-     * {@link org.fourthline.cling.protocol.sync.ReceivingUnsubscribe}, or
-     * {@link org.fourthline.cling.protocol.sync.ReceivingEvent} protocol.
+     * Creates a {@link org.teleal.cling.protocol.sync.ReceivingRetrieval},
+     * {@link org.teleal.cling.protocol.sync.ReceivingAction},
+     * {@link org.teleal.cling.protocol.sync.ReceivingSubscribe},
+     * {@link org.teleal.cling.protocol.sync.ReceivingUnsubscribe}, or
+     * {@link org.teleal.cling.protocol.sync.ReceivingEvent} protocol.
      *
-     * @param requestMessage The incoming message, examime {@link org.fourthline.cling.model.message.UpnpRequest.Method}
+     * @param requestMessage The incoming message, examime {@link org.teleal.cling.model.message.UpnpRequest.Method}
      *                       to determine the protocol.
      * @return        The appropriate protocol that handles the messages.
      * @throws ProtocolCreationException If no protocol could be found for the message.
@@ -80,42 +80,42 @@ public interface ProtocolFactory {
     public ReceivingSync createReceivingSync(StreamRequestMessage requestMessage) throws ProtocolCreationException;
 
     /**
-     * Called by the {@link org.fourthline.cling.registry.Registry}, creates a protocol for announcing local devices.
+     * Called by the {@link org.teleal.cling.registry.Registry}, creates a protocol for announcing local devices.
      */
     public SendingNotificationAlive createSendingNotificationAlive(LocalDevice localDevice);
 
     /**
-     * Called by the {@link org.fourthline.cling.registry.Registry}, creates a protocol for announcing local devices.
+     * Called by the {@link org.teleal.cling.registry.Registry}, creates a protocol for announcing local devices.
      */
     public SendingNotificationByebye createSendingNotificationByebye(LocalDevice localDevice);
 
     /**
-     * Called by the {@link org.fourthline.cling.controlpoint.ControlPoint}, creates a protocol for a multicast search.
+     * Called by the {@link org.teleal.cling.controlpoint.ControlPoint}, creates a protocol for a multicast search.
      */
     public SendingSearch createSendingSearch(UpnpHeader searchTarget, int mxSeconds);
 
     /**
-     * Called by the {@link org.fourthline.cling.controlpoint.ControlPoint}, creates a protocol for executing an action.
+     * Called by the {@link org.teleal.cling.controlpoint.ControlPoint}, creates a protocol for executing an action.
      */
     public SendingAction createSendingAction(ActionInvocation actionInvocation, URL controlURL);
 
     /**
-     * Called by the {@link org.fourthline.cling.controlpoint.ControlPoint}, creates a protocol for GENA subscription.
+     * Called by the {@link org.teleal.cling.controlpoint.ControlPoint}, creates a protocol for GENA subscription.
      */
     public SendingSubscribe createSendingSubscribe(RemoteGENASubscription subscription);
 
     /**
-     * Called by the {@link org.fourthline.cling.controlpoint.ControlPoint}, creates a protocol for GENA renewal.
+     * Called by the {@link org.teleal.cling.controlpoint.ControlPoint}, creates a protocol for GENA renewal.
      */
     public SendingRenewal createSendingRenewal(RemoteGENASubscription subscription);
 
     /**
-     * Called by the {@link org.fourthline.cling.controlpoint.ControlPoint}, creates a protocol for GENA unsubscription.
+     * Called by the {@link org.teleal.cling.controlpoint.ControlPoint}, creates a protocol for GENA unsubscription.
      */
     public SendingUnsubscribe createSendingUnsubscribe(RemoteGENASubscription subscription);
 
     /**
-     * Called by the {@link org.fourthline.cling.model.gena.GENASubscription}, creates a protocol for sending GENA events.
+     * Called by the {@link org.teleal.cling.model.gena.GENASubscription}, creates a protocol for sending GENA events.
      */
     public SendingEvent createSendingEvent(LocalGENASubscription subscription);
 }

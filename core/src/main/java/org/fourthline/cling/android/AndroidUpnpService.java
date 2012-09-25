@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.android;
+package org.teleal.cling.android;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.controlpoint.ControlPoint;
-import org.fourthline.cling.registry.Registry;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.controlpoint.ControlPoint;
+import org.teleal.cling.registry.Registry;
 
 /**
  * Interface of the Android UPnP application service component.
@@ -62,7 +62,7 @@ import org.fourthline.cling.registry.Registry;
  * <pre>{@code
  *<application ...>
  *  ...
- *  <service android:name="org.fourthline.cling.android.AndroidUpnpServiceImpl"/>
+ *  <service android:name="org.teleal.cling.android.AndroidUpnpServiceImpl"/>
  *</application>
  * }</pre>
  *

@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
-import org.fourthline.cling.model.ValidationError;
+import org.teleal.cling.model.ValidationError;
 
 import java.util.List;
 

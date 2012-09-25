@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.types.csv;
+package org.teleal.cling.model.types.csv;
 
-import org.fourthline.cling.model.types.Datatype;
-import org.fourthline.cling.model.types.InvalidValueException;
-import org.fourthline.cling.model.ModelUtil;
-import org.seamless.util.Reflections;
+import org.teleal.cling.model.types.Datatype;
+import org.teleal.cling.model.types.InvalidValueException;
+import org.teleal.cling.model.ModelUtil;
+import org.teleal.common.util.Reflections;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.types.csv;
+package org.teleal.cling.model.types.csv;
 
-import org.fourthline.cling.model.types.InvalidValueException;
+import org.teleal.cling.model.types.InvalidValueException;
 
 import java.net.URI;
 

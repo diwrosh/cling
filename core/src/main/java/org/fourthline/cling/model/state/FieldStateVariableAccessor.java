@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.state;
+package org.teleal.cling.model.state;
 
-import org.seamless.util.Reflections;
+import org.teleal.common.util.Reflections;
 
 import java.lang.reflect.Field;
 

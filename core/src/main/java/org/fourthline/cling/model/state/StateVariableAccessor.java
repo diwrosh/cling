@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.state;
+package org.teleal.cling.model.state;
 
-import org.fourthline.cling.model.Command;
-import org.fourthline.cling.model.ServiceManager;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.StateVariable;
+import org.teleal.cling.model.Command;
+import org.teleal.cling.model.ServiceManager;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.StateVariable;
 
 
 /**

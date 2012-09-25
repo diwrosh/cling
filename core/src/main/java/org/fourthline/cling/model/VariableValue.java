@@ -15,10 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model;
+package org.teleal.cling.model;
 
-import org.fourthline.cling.model.types.Datatype;
-import org.fourthline.cling.model.types.InvalidValueException;
+import java.util.logging.Logger;
+
+import org.teleal.cling.model.types.Datatype;
+import org.teleal.cling.model.types.InvalidValueException;
 
 /**
  * Encapsulates a variable or argument value, validates and transforms it from/to a string representaion.
@@ -34,7 +36,7 @@ public class VariableValue {
      * Creates and validates a variable value.
      * <p>
      * If the given value is a <code>String</code>, it will be converted
-     * with {@link org.fourthline.cling.model.types.Datatype#valueOf(String)}. Any
+     * with {@link org.teleal.cling.model.types.Datatype#valueOf(String)}. Any
      * other value will be checked, whether it matches the datatype and if its
      * string representation is valid in XML documents (unicode character test).
      * </p>
@@ -72,10 +74,9 @@ public class VariableValue {
 
         if (!getDatatype().isValid(getValue()))
             throw new InvalidValueException("Invalid value for " + getDatatype() +": " + getValue());
-        if (!isValidXMLString(toString()))
-            throw new InvalidValueException(
-                    "Invalid characters in string value (XML 1.0, section 2.2) produced by " + getDatatype() +""
-            );
+        
+        // just display warnings. PS3 Media server sends null char in DIDL-Lite
+        isValidXMLString(toString());
     }
 
     public Datatype getDatatype() {
@@ -86,6 +87,8 @@ public class VariableValue {
         return value;
     }
 
+    final private static Logger log = Logger.getLogger(VariableValue.class.getName());
+    
     protected boolean isValidXMLString(String s) {
         // http://www.w3.org/TR/2000/REC-xml-20001006#NT-Char
         int cp;
@@ -96,7 +99,8 @@ public class VariableValue {
                     (cp >= 0x20 && cp <= 0xD7FF) ||
                     (cp >= 0xE000 && cp <= 0xFFFD) ||
                     (cp >= 0x10000 && cp <= 0x10FFFF))) {
-                return false;
+           		log.warning("found invalid XML char code: " + cp);
+           		return false;
             }
             i += Character.charCount(cp);
         }

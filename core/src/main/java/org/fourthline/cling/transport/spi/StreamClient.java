@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
 
 /**
  * Service for sending TCP (HTTP) stream request messages.
  * 
  * <p>
  * An implementation has to be thread-safe.
- * Its constructor may throw {@link org.fourthline.cling.transport.spi.InitializationException}.
+ * Its constructor may throw {@link org.teleal.cling.transport.spi.InitializationException}.
  * </p>
  *
  * @param <C> The type of the service's configuration.
@@ -43,7 +43,7 @@ public interface StreamClient<C extends StreamClientConfiguration> {
      * <p>
      * This method <strong>is required</strong> to add a <code>Host</code> HTTP header to the
      * outgoing HTTP request, even if the given
-     * {@link org.fourthline.cling.model.message.StreamRequestMessage} does not contain such a header.
+     * {@link org.teleal.cling.model.message.StreamRequestMessage} does not contain such a header.
      * </p>
      * <p>
      * This method might add a <code>User-Agent</code> HTTP header to the outgoing HTTP request.

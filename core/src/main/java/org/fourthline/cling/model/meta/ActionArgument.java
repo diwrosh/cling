@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.meta;
+package org.teleal.cling.model.meta;
 
-import org.fourthline.cling.model.Validatable;
-import org.fourthline.cling.model.ValidationError;
-import org.fourthline.cling.model.types.Datatype;
-import org.fourthline.cling.model.ModelUtil;
+import org.teleal.cling.model.Validatable;
+import org.teleal.cling.model.ValidationError;
+import org.teleal.cling.model.types.Datatype;
+import org.teleal.cling.model.ModelUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,9 +80,9 @@ public class ActionArgument<S extends Service> implements Validatable {
     }
 
     public boolean isNameOrAlias(String name) {
-        if (getName().equals(name)) return true;
+        if (getName().equalsIgnoreCase(name)) return true;
         for (String alias : aliases) {
-            if (alias.equals(name)) return true;
+            if (alias.equalsIgnoreCase(name)) return true;
         }
         return false;
     }

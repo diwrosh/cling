@@ -15,27 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.annotations;
+package org.teleal.cling.binding.annotations;
 
-import org.fourthline.cling.binding.LocalServiceBinder;
-import org.fourthline.cling.binding.LocalServiceBindingException;
-import org.fourthline.cling.model.ValidationError;
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.action.ActionExecutor;
-import org.fourthline.cling.model.action.QueryStateVariableExecutor;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.meta.QueryStateVariableAction;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.state.FieldStateVariableAccessor;
-import org.fourthline.cling.model.state.GetterStateVariableAccessor;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
-import org.fourthline.cling.model.types.UDAServiceId;
-import org.fourthline.cling.model.types.UDAServiceType;
-import org.fourthline.cling.model.types.csv.CSV;
-import org.seamless.util.Reflections;
+import org.teleal.cling.binding.LocalServiceBinder;
+import org.teleal.cling.binding.LocalServiceBindingException;
+import org.teleal.cling.model.ValidationError;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.action.ActionExecutor;
+import org.teleal.cling.model.action.QueryStateVariableExecutor;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.meta.QueryStateVariableAction;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.state.FieldStateVariableAccessor;
+import org.teleal.cling.model.state.GetterStateVariableAccessor;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
+import org.teleal.cling.model.types.UDAServiceId;
+import org.teleal.cling.model.types.UDAServiceType;
+import org.teleal.cling.model.types.csv.CSV;
+import org.teleal.common.util.Reflections;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -50,7 +50,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Reads {@link org.fourthline.cling.model.meta.LocalService} metadata from annotations.
+ * Reads {@link org.teleal.cling.model.meta.LocalService} metadata from annotations.
  *
  * @author Christian Bauer
  */

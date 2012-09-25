@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.action;
+package org.teleal.cling.model.action;
 
-import org.fourthline.cling.model.types.ErrorCode;
+import org.teleal.cling.model.types.ErrorCode;
 
 /**
- * Thrown (or encapsulated in {@link org.fourthline.cling.model.action.ActionInvocation} when an action execution failed.
+ * Thrown (or encapsulated in {@link org.teleal.cling.model.action.ActionInvocation} when an action execution failed.
  *
  * @author Christian Bauer
  */

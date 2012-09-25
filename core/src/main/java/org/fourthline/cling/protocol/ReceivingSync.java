@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol;
+package org.teleal.cling.protocol;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
 
 /**
  * Supertype for all synchronously executing protocols, handling reception of UPnP messages and return a response.
@@ -30,7 +30,7 @@ import org.fourthline.cling.model.message.StreamResponseMessage;
  * </p>
  * <p>
  * The returned response will be available to the client of this protocol. The
- * client will then call either {@link #responseSent(org.fourthline.cling.model.message.StreamResponseMessage)}
+ * client will then call either {@link #responseSent(org.teleal.cling.model.message.StreamResponseMessage)}
  * or {@link #responseException(Throwable)}, depending on whether the response was successfully
  * delivered. The protocol can override these methods to decide if the whole procedure it is
  * implementing was successful or not, including not only creation but also delivery of the response.

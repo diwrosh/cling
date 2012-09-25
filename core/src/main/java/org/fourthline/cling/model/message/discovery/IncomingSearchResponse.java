@@ -15,21 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.discovery;
+package org.teleal.cling.model.message.discovery;
 
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.header.DeviceUSNHeader;
-import org.fourthline.cling.model.message.header.InterfaceMacHeader;
-import org.fourthline.cling.model.message.header.LocationHeader;
-import org.fourthline.cling.model.message.header.MaxAgeHeader;
-import org.fourthline.cling.model.message.header.ServiceUSNHeader;
-import org.fourthline.cling.model.message.header.UDNHeader;
-import org.fourthline.cling.model.message.header.USNRootDeviceHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.types.NamedDeviceType;
-import org.fourthline.cling.model.types.NamedServiceType;
-import org.fourthline.cling.model.types.UDN;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.header.DeviceUSNHeader;
+import org.teleal.cling.model.message.header.InterfaceMacHeader;
+import org.teleal.cling.model.message.header.LocationHeader;
+import org.teleal.cling.model.message.header.MaxAgeHeader;
+import org.teleal.cling.model.message.header.ServiceUSNHeader;
+import org.teleal.cling.model.message.header.UDNHeader;
+import org.teleal.cling.model.message.header.USNRootDeviceHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.types.NamedDeviceType;
+import org.teleal.cling.model.types.NamedServiceType;
+import org.teleal.cling.model.types.UDN;
 
 import java.net.URL;
 
@@ -59,7 +59,8 @@ public class IncomingSearchResponse extends IncomingDatagramMessage<UpnpResponse
         if (udnHeader != null) return udnHeader.getValue();
 
         UpnpHeader<NamedDeviceType> deviceTypeHeader = getHeaders().getFirstHeader(UpnpHeader.Type.USN, DeviceUSNHeader.class);
-        if (deviceTypeHeader != null) return deviceTypeHeader.getValue().getUdn();
+        // (v9) java.lang.ClassCastException model.types.NamedServiceType cannot be cast to model.types.NamedDeviceType
+        try { if (deviceTypeHeader != null) return deviceTypeHeader.getValue().getUdn(); } catch (ClassCastException e) { }
 
         UpnpHeader<NamedServiceType> serviceTypeHeader = getHeaders().getFirstHeader(UpnpHeader.Type.USN, ServiceUSNHeader.class);
         if (serviceTypeHeader != null) return serviceTypeHeader.getValue().getUdn();

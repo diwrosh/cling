@@ -15,20 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.control;
-
-import java.util.logging.Logger;
-import org.fourthline.cling.model.action.ActionInvocation;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.QueryStateVariableAction;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.UpnpRequest;
-import org.fourthline.cling.model.message.header.ContentTypeHeader;
-import org.fourthline.cling.model.message.header.SoapActionHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.types.SoapActionType;
+package org.teleal.cling.model.message.control;
 
 import java.net.URL;
+import java.util.logging.Logger;
+
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.UpnpRequest;
+import org.teleal.cling.model.message.header.ContentTypeHeader;
+import org.teleal.cling.model.message.header.SoapActionHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.message.header.UserAgentHeader;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.QueryStateVariableAction;
+import org.teleal.cling.model.types.SoapActionType;
 
 /**
  * @author Christian Bauer
@@ -41,6 +42,12 @@ public class OutgoingActionRequestMessage extends StreamRequestMessage implement
 
     public OutgoingActionRequestMessage(ActionInvocation actionInvocation, URL controlURL) {
         this(actionInvocation.getAction(), new UpnpRequest(UpnpRequest.Method.POST, controlURL));
+        // required for UPnP proxy so the destination see the original Control Point User-Agent
+        if(actionInvocation.getUserAgent() != null) {
+        	getHeaders().add(
+        			UpnpHeader.Type.USER_AGENT,
+        			new UserAgentHeader(actionInvocation.getUserAgent()));
+        }
     }
 
     public OutgoingActionRequestMessage(Action action, UpnpRequest operation) {

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.registry;
+package org.teleal.cling.registry;
 
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.model.meta.RemoteDevice;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.model.meta.RemoteDevice;
 
 /**
  * Notification of discovered device additions, removals, updates.
@@ -45,8 +45,8 @@ public interface RegistryListener {
      * <p>
      * This method will be called after SSDP notification datagrams of a new alive
      * UPnP device have been received and processed. The announced device XML descriptor
-     * will be retrieved and parsed. The given {@link org.fourthline.cling.model.meta.RemoteDevice} metadata
-     * is validated and partial {@link org.fourthline.cling.model.meta.Service} metadata is available. The
+     * will be retrieved and parsed. The given {@link org.teleal.cling.model.meta.RemoteDevice} metadata
+     * is validated and partial {@link org.teleal.cling.model.meta.Service} metadata is available. The
      * services are unhydrated, they have no actions or state variable metadata because the
      * service descriptors of the device model have not been retrieved at this point.
      * </p>
@@ -63,7 +63,7 @@ public interface RegistryListener {
     /**
      * Called when service metadata couldn't be initialized.
      * <p>
-     * If you override the {@link #remoteDeviceDiscoveryStarted(Registry, org.fourthline.cling.model.meta.RemoteDevice)}
+     * If you override the {@link #remoteDeviceDiscoveryStarted(Registry, org.teleal.cling.model.meta.RemoteDevice)}
      * method, you might want to override this method as well.
      * </p>
      *
@@ -108,20 +108,20 @@ public interface RegistryListener {
     public void remoteDeviceRemoved(Registry registry, RemoteDevice device);
 
     /**
-     * Called after you add your own device to the {@link org.fourthline.cling.registry.Registry}.
+     * Called after you add your own device to the {@link org.teleal.cling.registry.Registry}.
      *
      * @param registry The Cling registry of all devices and services know to the local UPnP stack.
-     * @param device   The local device added to the {@link org.fourthline.cling.registry.Registry}.
+     * @param device   The local device added to the {@link org.teleal.cling.registry.Registry}.
      */
     public void localDeviceAdded(Registry registry, LocalDevice device);
 
     /**
-     * Called after you remove your own device from the {@link org.fourthline.cling.registry.Registry}.
+     * Called after you remove your own device from the {@link org.teleal.cling.registry.Registry}.
      * <p>
      * This method will not be called when the UPnP stack is shutting down.
      * </p>
      * @param registry The Cling registry of all devices and services know to the local UPnP stack.
-     * @param device   The local device removed from the {@link org.fourthline.cling.registry.Registry}.
+     * @param device   The local device removed from the {@link org.teleal.cling.registry.Registry}.
      */
     public void localDeviceRemoved(Registry registry, LocalDevice device);
 

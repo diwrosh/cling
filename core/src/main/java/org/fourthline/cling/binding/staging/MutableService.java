@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.staging;
+package org.teleal.cling.binding.staging;
 
-import org.fourthline.cling.model.ValidationException;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.Service;
-import org.fourthline.cling.model.meta.StateVariable;
-import org.fourthline.cling.model.types.ServiceId;
-import org.fourthline.cling.model.types.ServiceType;
+import org.teleal.cling.model.ValidationException;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.Device;
+import org.teleal.cling.model.meta.Service;
+import org.teleal.cling.model.meta.StateVariable;
+import org.teleal.cling.model.types.ServiceId;
+import org.teleal.cling.model.types.ServiceType;
 
 import java.net.URI;
 import java.util.ArrayList;

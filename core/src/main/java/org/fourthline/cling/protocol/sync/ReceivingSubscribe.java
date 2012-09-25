@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.protocol.sync;
+package org.teleal.cling.protocol.sync;
 
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.model.gena.CancelReason;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.gena.IncomingSubscribeRequestMessage;
-import org.fourthline.cling.model.message.gena.OutgoingSubscribeResponseMessage;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.resource.ServiceEventSubscriptionResource;
-import org.fourthline.cling.protocol.ReceivingSync;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.model.gena.CancelReason;
+import org.teleal.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.gena.IncomingSubscribeRequestMessage;
+import org.teleal.cling.model.message.gena.OutgoingSubscribeResponseMessage;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.resource.ServiceEventSubscriptionResource;
+import org.teleal.cling.protocol.ReceivingSync;
+import org.teleal.common.util.Exceptions;
 
 import java.util.logging.Logger;
 
@@ -36,7 +36,7 @@ import java.util.logging.Logger;
  * Handles reception of GENA event subscription (initial and renewal) messages.
  * <p>
  * This protocol tries to find a local event subscription URI matching the requested URI,
- * then creates a new {@link org.fourthline.cling.model.gena.LocalGENASubscription} if no
+ * then creates a new {@link org.teleal.cling.model.gena.LocalGENASubscription} if no
  * subscription identifer was supplied.
  * </p>
  * <p>

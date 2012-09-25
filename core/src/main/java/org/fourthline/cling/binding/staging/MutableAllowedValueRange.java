@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.binding.staging;
+package org.teleal.cling.binding.staging;
 
 /**
  * @author Christian Bauer

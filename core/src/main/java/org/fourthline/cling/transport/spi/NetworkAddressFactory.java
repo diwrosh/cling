@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.transport.spi;
+package org.teleal.cling.transport.spi;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -31,8 +31,8 @@ import java.net.NetworkInterface;
 public interface NetworkAddressFactory {
 
     // An implementation can honor these if it wants (the default does)
-    public static final String SYSTEM_PROPERTY_NET_IFACES = "org.fourthline.cling.network.useInterfaces";
-    public static final String SYSTEM_PROPERTY_NET_ADDRESSES = "org.fourthline.cling.network.useAddresses";
+    public static final String SYSTEM_PROPERTY_NET_IFACES = "org.teleal.cling.network.useInterfaces";
+    public static final String SYSTEM_PROPERTY_NET_ADDRESSES = "org.teleal.cling.network.useAddresses";
 
     /**
      * @return The UDP multicast group to join.
@@ -59,6 +59,11 @@ public interface NetworkAddressFactory {
      *         sockets listening for unicast datagrams and TCP requests.
      */
     public InetAddress[] getBindAddresses();
+    
+    /**
+     * @return The network prefix length of this address.
+     */
+    public Short getAddressNetworkPrefixLength(InetAddress inetAddress);
 
     /**
      * @param inetAddress An address of a local network interface.

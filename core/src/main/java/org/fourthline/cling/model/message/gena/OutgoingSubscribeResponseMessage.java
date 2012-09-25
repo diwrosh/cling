@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message.gena;
+package org.teleal.cling.model.message.gena;
 
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.UpnpResponse;
-import org.fourthline.cling.model.message.header.ServerHeader;
-import org.fourthline.cling.model.message.header.SubscriptionIdHeader;
-import org.fourthline.cling.model.message.header.TimeoutHeader;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.gena.LocalGENASubscription;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.UpnpResponse;
+import org.teleal.cling.model.message.header.ServerHeader;
+import org.teleal.cling.model.message.header.SubscriptionIdHeader;
+import org.teleal.cling.model.message.header.TimeoutHeader;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.gena.LocalGENASubscription;
 
 /**
  * @author Christian Bauer

@@ -15,34 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.mock;
+package org.teleal.cling.mock;
 
-import org.fourthline.cling.DefaultUpnpServiceConfiguration;
-import org.fourthline.cling.UpnpService;
-import org.fourthline.cling.UpnpServiceConfiguration;
-import org.fourthline.cling.controlpoint.ControlPoint;
-import org.fourthline.cling.controlpoint.ControlPointImpl;
-import org.fourthline.cling.model.NetworkAddress;
-import org.fourthline.cling.model.message.IncomingDatagramMessage;
-import org.fourthline.cling.model.message.OutgoingDatagramMessage;
-import org.fourthline.cling.model.message.StreamRequestMessage;
-import org.fourthline.cling.model.message.StreamResponseMessage;
-import org.fourthline.cling.model.message.header.UpnpHeader;
-import org.fourthline.cling.model.meta.LocalDevice;
-import org.fourthline.cling.protocol.ProtocolFactory;
-import org.fourthline.cling.protocol.ProtocolFactoryImpl;
-import org.fourthline.cling.protocol.async.SendingNotificationAlive;
-import org.fourthline.cling.protocol.async.SendingSearch;
-import org.fourthline.cling.registry.Registry;
-import org.fourthline.cling.registry.RegistryImpl;
-import org.fourthline.cling.registry.RegistryMaintainer;
-import org.fourthline.cling.transport.Router;
-import org.fourthline.cling.transport.impl.NetworkAddressFactoryImpl;
-import org.fourthline.cling.transport.spi.NetworkAddressFactory;
-import org.fourthline.cling.transport.spi.StreamClient;
-import org.fourthline.cling.transport.spi.UpnpStream;
-
-import javax.enterprise.inject.Alternative;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -52,22 +26,54 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
 
+// import javax.enterprise.inject.Alternative;
+
+import org.teleal.cling.DefaultUpnpServiceConfiguration;
+import org.teleal.cling.UpnpService;
+import org.teleal.cling.UpnpServiceConfiguration;
+import org.teleal.cling.controlpoint.ControlPoint;
+import org.teleal.cling.controlpoint.ControlPointImpl;
+import org.teleal.cling.model.NetworkAddress;
+import org.teleal.cling.model.action.ActionInvocation;
+import org.teleal.cling.model.message.IncomingDatagramMessage;
+import org.teleal.cling.model.message.OutgoingDatagramMessage;
+import org.teleal.cling.model.message.StreamRequestMessage;
+import org.teleal.cling.model.message.StreamResponseMessage;
+import org.teleal.cling.model.message.header.UpnpHeader;
+import org.teleal.cling.model.meta.LocalDevice;
+import org.teleal.cling.protocol.ProtocolFactory;
+import org.teleal.cling.protocol.ProtocolFactoryImpl;
+import org.teleal.cling.protocol.async.SendingNotificationAlive;
+import org.teleal.cling.protocol.async.SendingSearch;
+import org.teleal.cling.registry.Registry;
+import org.teleal.cling.registry.RegistryImpl;
+import org.teleal.cling.registry.RegistryMaintainer;
+import org.teleal.cling.transport.Router;
+import org.teleal.cling.transport.impl.NetworkAddressFactoryImpl;
+import org.teleal.cling.transport.impl.RecoverGENAEventProcessor;
+import org.teleal.cling.transport.impl.RecoverSOAPActionProcessor;
+import org.teleal.cling.transport.spi.GENAEventProcessor;
+import org.teleal.cling.transport.spi.NetworkAddressFactory;
+import org.teleal.cling.transport.spi.SOAPActionProcessor;
+import org.teleal.cling.transport.spi.StreamClient;
+import org.teleal.cling.transport.spi.UpnpStream;
+
 /**
  * Simplifies testing of core and non-core modules.
  * <p>
  * This service has no real network transport layer, it collects all messages instead and makes
  * them available for testing with {@link #getOutgoingDatagramMessages()},
  * {@link #getSentStreamRequestMessages()}, etc. Mock responses for TCP (HTTP) stream requests
- * can be returned by overriding {@link #getStreamResponseMessage(org.fourthline.cling.model.message.StreamRequestMessage)}
+ * can be returned by overriding {@link #getStreamResponseMessage(org.teleal.cling.model.message.StreamRequestMessage)}
  * or {@link #getStreamResponseMessages()} if you know the order of requests.
  * </p>
  * <p>
- * It uses the {@link org.fourthline.cling.mock.MockUpnpService.MockProtocolFactory}.
+ * It uses the {@link org.teleal.cling.mock.MockUpnpService.MockProtocolFactory}.
  * </p>
  *
  * @author Christian Bauer
  */
-@Alternative
+// @Alternative
 public class MockUpnpService implements UpnpService {
 
     protected final UpnpServiceConfiguration configuration;
@@ -142,6 +148,21 @@ public class MockUpnpService implements UpnpService {
                             }
                         };
             }
+            
+            @Override
+        	protected SOAPActionProcessor createSOAPActionProcessor() {
+        		return new RecoverSOAPActionProcessor() {
+        			@Override
+        			protected void onInvalidSOAP(ActionInvocation actionInvocation, String xml, Exception e) {
+        		    }
+        		};
+        	}
+            
+            @Override
+        	protected GENAEventProcessor createGENAEventProcessor() {
+        		return new RecoverGENAEventProcessor();
+        	}
+
         };
 
         this.protocolFactory = createProtocolFactory(this, sendsAlive);
@@ -171,11 +192,11 @@ public class MockUpnpService implements UpnpService {
     /**
      * This factory customizes several protocols.
      * <p>
-     * The {@link org.fourthline.cling.protocol.async.SendingNotificationAlive} protocol
+     * The {@link org.teleal.cling.protocol.async.SendingNotificationAlive} protocol
      * only sends messages if this feature is enabled when instantiating the factory.
      * </p>
      * <p>
-     * The {@link org.fourthline.cling.protocol.async.SendingSearch} protocol doesn't wait between
+     * The {@link org.teleal.cling.protocol.async.SendingSearch} protocol doesn't wait between
      * sending search message bulks, this speeds up testing.
      * </p>
      */

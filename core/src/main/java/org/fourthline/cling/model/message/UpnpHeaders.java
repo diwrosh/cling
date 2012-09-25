@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.message;
+package org.teleal.cling.model.message;
 
-import org.seamless.http.Headers;
-import org.fourthline.cling.model.message.header.UpnpHeader;
+import org.teleal.common.http.Headers;
+import org.teleal.cling.model.message.header.UpnpHeader;
 
 import java.io.ByteArrayInputStream;
 import java.util.LinkedHashMap;

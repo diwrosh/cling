@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.fourthline.cling.model.action;
+package org.teleal.cling.model.action;
 
-import org.fourthline.cling.model.Command;
-import org.fourthline.cling.model.ServiceManager;
-import org.fourthline.cling.model.meta.Action;
-import org.fourthline.cling.model.meta.ActionArgument;
-import org.fourthline.cling.model.meta.LocalService;
-import org.fourthline.cling.model.state.StateVariableAccessor;
-import org.fourthline.cling.model.types.ErrorCode;
-import org.fourthline.cling.model.types.InvalidValueException;
-import org.seamless.util.Exceptions;
+import org.teleal.cling.model.Command;
+import org.teleal.cling.model.ServiceManager;
+import org.teleal.cling.model.meta.Action;
+import org.teleal.cling.model.meta.ActionArgument;
+import org.teleal.cling.model.meta.LocalService;
+import org.teleal.cling.model.state.StateVariableAccessor;
+import org.teleal.cling.model.types.ErrorCode;
+import org.teleal.cling.model.types.InvalidValueException;
+import org.teleal.common.util.Exceptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +55,7 @@ public abstract class AbstractActionExecutor implements ActionExecutor {
     }
 
     /**
-     * Obtains the service implementation instance from the {@link org.fourthline.cling.model.ServiceManager}, handles exceptions.
+     * Obtains the service implementation instance from the {@link org.teleal.cling.model.ServiceManager}, handles exceptions.
      */
     public void execute(final ActionInvocation<LocalService> actionInvocation) {
 
@@ -135,7 +135,7 @@ public abstract class AbstractActionExecutor implements ActionExecutor {
     }
 
     /**
-     * Sets the output argument value on the {@link org.fourthline.cling.model.action.ActionInvocation}, considers string conversion.
+     * Sets the output argument value on the {@link org.teleal.cling.model.action.ActionInvocation}, considers string conversion.
      */
     protected void setOutputArgumentValue(ActionInvocation<LocalService> actionInvocation, ActionArgument<LocalService> argument, Object result)
             throws ActionException {
